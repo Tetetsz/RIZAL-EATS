@@ -1,1 +1,66 @@
-try
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIZAL EATS - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">RIZAL EATS</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="municipalities.html">Municipalities</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Discover Rizal's Best Eats</h2>
+                <p>Explore top-rated restaurants across Rizal's municipalities</p>
+                <a href="municipalities.html" class="btn">Browse Now</a>
+            </div>
+        </section>
+
+        <section class="featured-cities">
+            <div class="container">
+                <h3>Featured Municipalities</h3>
+                <div class="city-grid">
+                    <!-- Static City Cards -->
+                    <div class="city-card">
+                        <img src="images/angono.jpg" alt="Angono">
+                        <div class="city-info">
+                            <h4>Angono</h4>
+                            <p>Art Capital of the Philippines</p>
+                            <a href="municipalities.html?city=angono" class="btn small">View Restaurants</a>
+                        </div>
+                    </div>
+
+                    <div class="city-card">
+                        <img src="images/antipolo.jpg" alt="Antipolo">
+                        <div class="city-info">
+                            <h4>Antipolo</h4>
+                            <p>Pilgrimage City with Mountain Views</p>
+                            <a href="municipalities.html?city=antipolo" class="btn small">View Restaurants</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

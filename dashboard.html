@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIZAL EATS - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF5A5F;
+            --secondary: #00A699;
+            --dark: #2B2D42;
+            --light: #F7F7F7;
+            --gray: #767676;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .welcome-message h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .welcome-message p {
+            margin: 0.5rem 0 0;
+            color: var(--gray);
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: 0.75rem;
+        }
+        
+        .verified-badge {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        
+        .unverified-badge {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .dashboard-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #e04a50;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #008489;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray);
+            color: var(--dark);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--dark);
+            transform: translateY(-2px);
+        }
+        
+        .dashboard-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            height: 100%;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .card-header .view-all {
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: rgba(0,0,0,0.1);
+        }
+        
+        .empty-state p {
+            margin: 0.5rem 0;
+        }
+        
+        .restaurant-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .restaurant-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .restaurant-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .restaurant-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        .restaurant-info {
+            flex: 1;
+        }
+        
+        .restaurant-info h4 {
+            margin: 0 0 0.25rem;
+            font-size: 1rem;
+        }
+        
+        .restaurant-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .restaurant-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            color: var(--primary);
+        }
+        
+        .review-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-restaurant {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .review-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .review-rating {
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .dashboard-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">RIZAL EATS</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="municipalities.html">Municipalities</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="login-item"><a href="#" id="profile-btn" class="login-btn"><i class="fas fa-user"></i> Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <div class="welcome-message">
+                    <h2>Welcome back, <span id="user-email"></span> 
+                        <span id="verification-status" class="badge unverified-badge">
+                            <i class="fas fa-times-circle"></i> Unverified
+                        </span>
+                    </h2>
+                    <p>Your Rizal culinary journey continues</p>
+                </div>
+                
+                <div class="dashboard-actions">
+                    <button id="logout-btn" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dashboard-sections">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bookmark"></i> To Visit List</h3>
+                        <a href="municipalities.html" class="view-all">Browse Restaurants</a>
+                    </div>
+                    
+                    <div id="to-visit-list">
+                        <!-- Sample items - these would be dynamically populated -->
+                        <div class="restaurant-item">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Restaurant" class="restaurant-image">
+                            <div class="restaurant-info">
+                                <h4>Cafe Rizal</h4>
+                                <p>Binangonan • Filipino Cuisine</p>
+                            </div>
+                            <div class="restaurant-actions">
+                                <button class="action-btn" title="Remove"><i class="fas fa-trash"></i></button>
+                                <button class="action-btn" title="Visited"><i class="fas fa-check"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="restaurant-item">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Restaurant" class="restaurant-image">
+                            <div class="restaurant-info">
+                                <h4>Lakeside Grill</h4>
+                                <p>Angono • Barbecue</p>
+                            </div>
+                            <div class="restaurant-actions">
+                                <button class="action-btn" title="Remove"><i class="fas fa-trash"></i></button>
+                                <button class="action-btn" title="Visited"><i class="fas fa-check"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="empty-state" id="empty-to-visit" style="display: none;">
+                            <i class="far fa-bookmark"></i>
+                            <p>Your to-visit list is empty</p>
+                            <a href="municipalities.html" class="btn btn-primary">Explore Restaurants</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-star"></i> My Reviews</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    
+                    <div id="reviews-list">
+                        <!-- Sample review - these would be dynamically populated -->
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-restaurant">The Old Taal</span>
+                                <span class="review-date">June 15, 2023</span>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="review-content">
+                                Amazing traditional Filipino dishes with a modern twist. The kare-kare was exceptional!
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-restaurant">Sampaloc Cafe</span>
+                                <span class="review-date">May 28, 2023</span>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-content">
+                                Perfect spot for coffee lovers. Their kapeng barako is the best I've had in Rizal!
+                            </div>
+                        </div>
+                        
+                        <div class="empty-state" id="empty-reviews" style="display: none;">
+                            <i class="far fa-star"></i>
+                            <p>You haven't written any reviews yet</p>
+                            <button class="btn btn-primary">Share Your Experience</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+        </div>
+    </footer>
+
+     <!-- Firebase SDKs -->
+     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+     
+     <!-- Your Firebase Config -->
+     <script src="js/firebase-config.js"></script>
+     
+     <!-- Updated Dashboard Script -->
+     <script>
+         // Initialize Firestore
+         const db = firebase.firestore();
+         let currentUser = null;
+ 
+         firebase.auth().onAuthStateChanged(function(user) {
+             if (!user) {
+                 window.location.href = 'login.html';
+             } else {
+                 currentUser = user;
+                 document.getElementById('user-email').textContent = user.email;
+                 
+                 if (user.emailVerified) {
+                     document.getElementById('verification-status').className = 'badge verified-badge';
+                     document.getElementById('verification-status').innerHTML = '<i class="fas fa-check-circle"></i> Verified';
+                 }
+                 
+                 // Load the user's saved restaurants
+                 loadSavedRestaurants(user.uid);
+             }
+         });
+ 
+         document.getElementById('logout-btn').addEventListener('click', function() {
+             firebase.auth().signOut()
+                 .then(() => {
+                     window.location.href = 'index.html';
+                 });
+         });
+         
+         async function loadSavedRestaurants(userId) {
+             try {
+                 // Get user document
+                 const userDoc = await db.collection('users').doc(userId).get();
+                 
+                 if (!userDoc.exists || !userDoc.data().savedRestaurants || userDoc.data().savedRestaurants.length === 0) {
+                     // Show empty state if no saved restaurants
+                     document.getElementById('empty-to-visit').style.display = 'block';
+                     document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
+                     return;
+                 }
+                 
+                 // Hide empty state
+                 document.getElementById('empty-to-visit').style.display = 'none';
+                 
+                 // Get all saved restaurant IDs
+                 const savedRestaurantIds = userDoc.data().savedRestaurants;
+                 
+                 // Fetch details for each saved restaurant
+                 const restaurantPromises = savedRestaurantIds.map(restaurantId => 
+                     db.collection('restaurants').doc(restaurantId).get()
+                 );
+                 
+                 const restaurantSnapshots = await Promise.all(restaurantPromises);
+                 
+                 // Clear existing items (except the empty state)
+                 document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
+                 
+                 // Add each restaurant to the list
+                 restaurantSnapshots.forEach(snapshot => {
+                     if (snapshot.exists) {
+                         const restaurant = snapshot.data();
+                         addRestaurantToVisitList(snapshot.id, restaurant);
+                     }
+                 });
+                 
+             } catch (error) {
+                 console.error("Error loading saved restaurants:", error);
+                 document.getElementById('empty-to-visit').style.display = 'block';
+             }
+         }
+         
+         function addRestaurantToVisitList(restaurantId, restaurant) {
+             const restaurantItem = document.createElement('div');
+             restaurantItem.className = 'restaurant-item';
+             restaurantItem.dataset.id = restaurantId;
+             
+             restaurantItem.innerHTML = `
+                 <img src="${restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}" 
+                      alt="${restaurant.name}" 
+                      class="restaurant-image">
+                 <div class="restaurant-info">
+                     <h4>${restaurant.name}</h4>
+                     <p>${restaurant.city} • ${restaurant.cuisine?.join(', ') || 'Various Cuisine'}</p>
+                 </div>
+                 <div class="restaurant-actions">
+                     <button class="action-btn remove-btn" title="Remove"><i class="fas fa-trash"></i></button>
+                     <button class="action-btn visited-btn" title="Visited"><i class="fas fa-check"></i></button>
+                 </div>
+             `;
+             
+             document.getElementById('to-visit-list').prepend(restaurantItem);
+             
+             // Add event listeners to the new buttons
+             restaurantItem.querySelector('.remove-btn').addEventListener('click', () => {
+                 removeFromSavedList(restaurantId, restaurantItem);
+             });
+             
+             restaurantItem.querySelector('.visited-btn').addEventListener('click', () => {
+                 markAsVisited(restaurantId, restaurantItem);
+             });
+         }
+         
+         async function removeFromSavedList(restaurantId, element) {
+             try {
+                 await db.collection('users').doc(currentUser.uid).update({
+                     savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
+                 });
+                 element.remove();
+                 
+                 // Show empty state if no restaurants left
+                 if (document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').length === 0) {
+                     document.getElementById('empty-to-visit').style.display = 'block';
+                 }
+                 
+                 showToast('Restaurant removed from your list');
+             } catch (error) {
+                 console.error("Error removing restaurant:", error);
+                 showToast('Error removing restaurant', true);
+             }
+         }
+         
+         async function markAsVisited(restaurantId, element) {
+             try {
+                 // Remove from saved list
+                 await db.collection('users').doc(currentUser.uid).update({
+                     savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
+                 });
+                 
+                 // Here you would typically add to a "visited" collection
+                 // For now, we'll just remove it
+                 element.remove();
+                 
+                 // Show empty state if no restaurants left
+                 if (document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').length === 0) {
+                     document.getElementById('empty-to-visit').style.display = 'block';
+                 }
+                 
+                 showToast('Restaurant marked as visited');
+             } catch (error) {
+                 console.error("Error marking as visited:", error);
+                 showToast('Error marking as visited', true);
+             }
+         }
+         
+         function showToast(message, isError = false) {
+             const toast = document.createElement('div');
+             toast.className = `toast ${isError ? 'error' : ''}`;
+             toast.textContent = message;
+             document.body.appendChild(toast);
+             
+             setTimeout(() => {
+                 toast.classList.add('show');
+             }, 10);
+             
+             setTimeout(() => {
+                 toast.classList.remove('show');
+                 setTimeout(() => {
+                     document.body.removeChild(toast);
+                 }, 300);
+             }, 3000);
+         }
+     </script>
+ 
+     <!-- Add this CSS for toast notifications -->
+     <style>
+         .toast {
+             position: fixed;
+             bottom: 20px;
+             left: 50%;
+             transform: translateX(-50%);
+             background-color: var(--primary);
+             color: white;
+             padding: 12px 24px;
+             border-radius: 4px;
+             z-index: 1000;
+             opacity: 0;
+             transition: opacity 0.3s ease;
+         }
+         
+         .toast.show {
+             opacity: 1;
+         }
+         
+         .toast.error {
+             background-color: #dc3545;
+         }
+     </style>
+ </body>
+ </html>

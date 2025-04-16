@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardona Restaurants | RIZAL EATS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF5A5F;
+            --secondary: #00A699;
+            --dark: #2B2D42;
+            --light: #F7F7F7;
+            --gray: #767676;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .restaurants-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            color: var(--gray);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        #cuisine-filter {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            min-width: 200px;
+        }
+        
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        }
+        
+        .restaurant-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .restaurant-info {
+            padding: 1.5rem;
+        }
+        
+        .restaurant-name {
+            margin: 0 0 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .restaurant-location {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .restaurant-cuisine {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cuisine-tag {
+            background: #f0f0f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        
+        .restaurant-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .restaurant-rating {
+            color: var(--warning);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .restaurant-price {
+            background: #F7F7F7;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .save-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #e04a50;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 0;
+            grid-column: 1 / -1;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(0,0,0,0.1);
+        }
+        
+        .empty-state p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .loading-state {
+            text-align: center;
+            padding: 3rem 0;
+            grid-column: 1 / -1;
+        }
+        
+        .loading-state i {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .breadcrumb {
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .search-box, #cuisine-filter {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">RIZAL EATS</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../municipalities.html">Municipalities</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li class="login-item">
+                        <a href="#" id="auth-btn" class="login-btn">
+                            <i class="fas fa-user"></i> 
+                            <span id="auth-text">Login</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="restaurants-container">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> &gt; 
+                <a href="../municipalities.html">Municipalities</a> &gt; 
+                <span>Cardona</span>
+            </div>
+            
+            <h2>Cardona Restaurants</h2>
+            <p>Discover the best dining experiences in Cardona</p>
+            
+            <div class="filter-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search restaurants...">
+                </div>
+                <select id="cuisine-filter">
+                    <option value="">All Cuisines</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Cafe">Cafe</option>
+                    <option value="Swiss">Swiss</option>
+                    <option value="Healthy">Healthy</option>
+                    <option value="Filipino">Filipino</option>
+                </select>
+            </div>
+            
+            <div class="restaurants-grid" id="restaurants-list">
+                <div class="loading-state">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading restaurants...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Firebase Config -->
+    <script src="../js/firebase-config.js"></script>
+    
+    <!-- Cardona Restaurants Script -->
+    <script>
+        // Initialize Firebase
+        const db = firebase.firestore();
+        let currentUser = null;
+        let userSavedRestaurants = [];
+        
+        // TEMPORARY UPLOAD FUNCTION - REMOVE AFTER USE
+        function uploadCardonaRestaurants() {
+            const cardonaRestaurants = [
+                {
+                    name: "Seoul Stay Viewing Deck",
+                    location: "43 Manila East Road, Cardona, Rizal",
+                    city: "Cardona",
+                    cuisine: ["Korean", "Scenic View"],
+                    rating: 4.5,
+                    priceRange: "$$",
+                    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+                },
+                {
+                    name: "Coffee Splurge",
+                    location: "Along the main road, Cardona, Rizal",
+                    city: "Cardona",
+                    cuisine: ["Cafe"],
+                    rating: 4.3,
+                    priceRange: "$",
+                    image: "https://images.unsplash.com/photo-1445116572660-236099ec97a0"
+                },
+                {
+                    name: "Vieux Chalet Swiss Restaurant",
+                    location: "Along Marcos Highway, Cardona, Rizal",
+                    city: "Cardona",
+                    cuisine: ["Swiss", "European"],
+                    rating: 4.6,
+                    priceRange: "$$$",
+                    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
+                },
+                {
+                    name: "The Good Seed Café",
+                    location: "Near the Cardona Public Market, Cardona, Rizal",
+                    city: "Cardona",
+                    cuisine: ["Healthy", "Cafe"],
+                    rating: 4.4,
+                    priceRange: "$$",
+                    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
+                },
+                {
+                    name: "Rizal Restaurant",
+                    location: "Near the town center, Cardona, Rizal",
+                    city: "Cardona",
+                    cuisine: ["Filipino"],
+                    rating: 4.2,
+                    priceRange: "$$",
+                    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641"
+                }
+            ];
+
+            const batch = db.batch();
+            const collectionRef = db.collection("restaurants");
+            
+            cardonaRestaurants.forEach(restaurant => {
+                const docRef = collectionRef.doc();
+                batch.set(docRef, restaurant);
+            });
+
+            batch.commit()
+                .then(() => {
+                    console.log("All Cardona restaurants uploaded successfully!");
+                    alert("✓ 5 Cardona restaurants added to database!");
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error("Upload error:", error);
+                    alert("Error: " + error.message);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const restaurantsList = document.getElementById('restaurants-list');
+            const searchInput = document.getElementById('search-input');
+            const cuisineFilter = document.getElementById('cuisine-filter');
+            
+            let allRestaurants = [];
+            
+            // Listen for auth state changes
+            firebase.auth().onAuthStateChanged(function(user) {
+                currentUser = user;
+                
+                if (user) {
+                    // Load user's saved restaurants
+                    db.collection('users').doc(user.uid).get()
+                        .then(doc => {
+                            if (doc.exists) {
+                                userSavedRestaurants = doc.data().savedRestaurants || [];
+                            }
+                            loadCardonaRestaurants();
+                        })
+                        .catch(error => {
+                            console.error("Error loading saved restaurants:", error);
+                            loadCardonaRestaurants();
+                        });
+                } else {
+                    userSavedRestaurants = [];
+                    loadCardonaRestaurants();
+                }
+            });
+            
+            function loadCardonaRestaurants() {
+                // Get all restaurants from Cardona
+                db.collection("restaurants")
+                    .where("city", "==", "Cardona")
+                    .get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            restaurantsList.innerHTML = `
+                                <div class="empty-state">
+                                    <i class="fas fa-utensils"></i>
+                                    <p>No restaurants found in Cardona.</p>
+                                    <button onclick="uploadCardonaRestaurants()" class="btn btn-primary">Load Cardona Restaurants</button>
+                                </div>
+                            `;
+                            return;
+                        }
+                        
+                        allRestaurants = querySnapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }));
+                        
+                        displayRestaurants(allRestaurants);
+                    })
+                    .catch((error) => {
+                        console.error("Error getting restaurants:", error);
+                        showErrorState();
+                    });
+            }
+                
+            // Filter functionality
+            searchInput.addEventListener('input', filterRestaurants);
+            cuisineFilter.addEventListener('change', filterRestaurants);
+            
+            function filterRestaurants() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const cuisine = cuisineFilter.value;
+                
+                const filtered = allRestaurants.filter(restaurant => {
+                    const matchesSearch = restaurant.name.toLowerCase().includes(searchTerm) || 
+                                        (restaurant.cuisine && restaurant.cuisine.some(c => c.toLowerCase().includes(searchTerm)));
+                    const matchesCuisine = !cuisine || 
+                                         (restaurant.cuisine && restaurant.cuisine.includes(cuisine));
+                    return matchesSearch && matchesCuisine;
+                });
+                
+                displayRestaurants(filtered);
+            }
+            
+            function displayRestaurants(restaurants) {
+                restaurantsList.innerHTML = '';
+                
+                if (restaurants.length === 0) {
+                    restaurantsList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>No restaurants match your criteria.</p>
+                            <button onclick="resetFilters()" class="btn btn-primary">Reset Filters</button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                restaurants.forEach(restaurant => {
+                    createRestaurantCard(restaurant);
+                });
+            }
+            
+            function resetFilters() {
+                searchInput.value = '';
+                cuisineFilter.value = '';
+                filterRestaurants();
+            }
+            
+            function createRestaurantCard(restaurant) {
+                const card = document.createElement('div');
+                card.className = 'restaurant-card';
+                
+                const isSaved = currentUser && userSavedRestaurants.includes(restaurant.id);
+                
+                card.innerHTML = `
+                    <img src="${restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}" 
+                         alt="${restaurant.name}" 
+                         class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3 class="restaurant-name">${restaurant.name}</h3>
+                        <p class="restaurant-location">${restaurant.location}</p>
+                        
+                        ${restaurant.cuisine ? `
+                        <div class="restaurant-cuisine">
+                            ${restaurant.cuisine.map(c => `<span class="cuisine-tag">${c}</span>`).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        <div class="restaurant-meta">
+                            <span class="restaurant-rating">
+                                ${generateStarRating(restaurant.rating || 0)}
+                                ${restaurant.rating ? restaurant.rating.toFixed(1) : 'N/A'}
+                            </span>
+                            <span class="restaurant-price">${restaurant.priceRange || 'N/A'}</span>
+                        </div>
+                        <button class="save-btn" data-id="${restaurant.id}" ${!currentUser ? 'disabled' : ''}>
+                            <i class="${isSaved ? 'fas' : 'far'} fa-bookmark"></i> 
+                            ${isSaved ? 'Saved' : 'Save to Visit'}
+                        </button>
+                        ${!currentUser ? '<p class="login-prompt">Login to save restaurants</p>' : ''}
+                    </div>
+                `;
+                
+                restaurantsList.appendChild(card);
+                
+                // Add event listener to the save button
+                const saveBtn = card.querySelector('.save-btn');
+                if (saveBtn) {
+                    saveBtn.addEventListener('click', () => {
+                        toggleSaveRestaurant(restaurant.id, saveBtn);
+                    });
+                }
+            }
+
+            async function toggleSaveRestaurant(restaurantId, button) {
+                if (!currentUser) {
+                    window.location.href = "../login.html";
+                    return;
+                }
+                
+                const userRef = db.collection('users').doc(currentUser.uid);
+                
+                try {
+                    // First check if document exists
+                    const doc = await userRef.get();
+                    
+                    if (!doc.exists) {
+                        // Create document if it doesn't exist
+                        await userRef.set({
+                            savedRestaurants: [restaurantId],
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        userSavedRestaurants = [restaurantId];
+                        button.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                        showToast('Restaurant saved to your list');
+                    } else {
+                        // Document exists - proceed with update
+                        const isCurrentlySaved = userSavedRestaurants.includes(restaurantId);
+                        
+                        if (isCurrentlySaved) {
+                            await userRef.update({
+                                savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
+                            });
+                            userSavedRestaurants = userSavedRestaurants.filter(id => id !== restaurantId);
+                            button.innerHTML = '<i class="far fa-bookmark"></i> Save to Visit';
+                            showToast('Restaurant removed from your list');
+                        } else {
+                            await userRef.update({
+                                savedRestaurants: firebase.firestore.FieldValue.arrayUnion(restaurantId)
+                            });
+                            userSavedRestaurants.push(restaurantId);
+                            button.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                            showToast('Restaurant saved to your list');
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error saving restaurant:", error);
+                    showToast('Error saving restaurant. Please try again.', true);
+                }
+            }
+
+            function showToast(message, isError = false) {
+                const toast = document.createElement('div');
+                toast.className = `toast ${isError ? 'error' : ''}`;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 10);
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 3000);
+            }
+            
+            function generateStarRating(rating) {
+                let stars = '';
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        stars += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars && hasHalfStar) {
+                        stars += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        stars += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                return stars;
+            }
+            
+            function showErrorState() {
+                restaurantsList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Error loading restaurants. Please try again later.</p>
+                        <button onclick="window.location.reload()" class="btn btn-primary">Reload Page</button>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
+    <!-- Auth State Handler -->
+    <script>
+        firebase.auth().onAuthStateChanged(function(user) {
+            const authBtn = document.getElementById('auth-btn');
+            const authText = document.getElementById('auth-text');
+            
+            if (user) {
+                // User is logged in
+                authText.textContent = 'Profile';
+                authBtn.href = "../dashboard.html";
+            } else {
+                // User is logged out
+                authText.textContent = 'Login';
+                authBtn.href = "../login.html";
+            }
+        });
+    </script>
+</body>
+</html>
