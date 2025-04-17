@@ -164,8 +164,29 @@
             transition: background 0.3s;
         }
         
+        .review-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
         .save-btn:hover {
             background: #e04a50;
+        }
+        
+        .review-btn:hover {
+            background: #008a7d;
         }
         
         .empty-state {
@@ -218,6 +239,121 @@
             text-decoration: underline;
         }
         
+        /* Review Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .star-rating {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        .star {
+            cursor: pointer;
+            color: #ccc;
+        }
+        
+        .star.active, .star:hover {
+            color: gold;
+        }
+        
+        #review-text {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        #submit-review {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #reviews-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .review-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Review Options Styles */
+        .review-options {
+            margin: 10px 0;
+        }
+        
+        .review-option-label {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        
+        .review-option-label input {
+            margin-right: 8px;
+        }
+        
+        .average-rating {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .average-rating-stars {
+            color: gold;
+            margin-right: 10px;
+        }
+        
+        .average-rating-value {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .review-count {
+            color: var(--gray);
+            font-size: 0.9em;
+        }
+        
         @media (max-width: 768px) {
             .restaurants-grid {
                 grid-template-columns: 1fr;
@@ -230,6 +366,11 @@
             
             .search-box, #cuisine-filter {
                 width: 100%;
+            }
+            
+            .modal-content {
+                width: 90%;
+                margin: 10% auto;
             }
         }
     </style>
@@ -290,6 +431,54 @@
         </div>
     </main>
 
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Reviews for <span id="reviewRestaurantName"></span></h2>
+            
+            <!-- Average Rating Display -->
+            <div class="average-rating">
+                <div class="average-rating-stars" id="averageRatingStars"></div>
+                <span class="average-rating-value" id="averageRatingValue"></span>
+                <span class="review-count" id="reviewCount"></span>
+            </div>
+            
+            <!-- Review Form -->
+            <div id="reviewForm" >
+                <h3>Add Your Review</h3>
+                <div class="star-rating">
+                    <span class="star" data-value="1">☆</span>
+                    <span class="star" data-value="2">☆</span>
+                    <span class="star" data-value="3">☆</span>
+                    <span class="star" data-value="4">☆</span>
+                    <span class="star" data-value="5">☆</span>
+                </div>
+                
+                <!-- Review Options -->
+                <div class="review-options">
+                    <label class="review-option-label">
+                        <input type="radio" name="reviewVisibility" value="anonymous" checked> Post as Anonymous
+                    </label>
+                    <label class="review-option-label">
+                        <input type="radio" name="reviewVisibility" value="public"> Show my name
+                    </label>
+                </div>
+                
+                <textarea id="review-text" placeholder="Share your experience..."></textarea>
+                <button id="submit-review">Submit Review</button>
+            </div>
+            
+            <!-- Login Prompt -->
+            <div id="loginPrompt" class="hidden">
+                <p>Please <a href="../login.html" style="color: var(--primary);">login</a> to leave a review.</p>
+            </div>
+            
+            <!-- Reviews List -->
+            <div id="reviews-list"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
@@ -304,84 +493,15 @@
     <!-- Firebase Config -->
     <script src="../js/firebase-config.js"></script>
     
-    <!-- Teresa Restaurants Script -->
-    <!-- Teresa Restaurants Script (replace the existing script section) -->
+    <!-- Main Script -->
     <script>
         // Initialize Firebase
         const db = firebase.firestore();
         let currentUser = null;
         let userSavedRestaurants = [];
+        let currentRestaurantId = null;
+        let selectedRating = 0;
         
-        // TEMPORARY UPLOAD FUNCTION - REMOVE AFTER USE
-        function uploadTeresaRestaurants() {
-            const teresaRestaurants = [
-                {
-                    name: "Teresa's Best Lomi House",
-                    location: "San Gabriel, Teresa, Rizal",
-                    city: "Teresa",
-                    cuisine: ["Filipino", "Noodles"],
-                    rating: 4.3,
-                    priceRange: "$",
-                    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
-                },
-                {
-                    name: "Kainan sa Teresa",
-                    location: "Pantay, Teresa, Rizal",
-                    city: "Teresa",
-                    cuisine: ["Filipino", "Local"],
-                    rating: 4.1,
-                    priceRange: "$",
-                    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
-                },
-                {
-                    name: "Bulalohan sa Teresa",
-                    location: "May-ibon, Teresa, Rizal",
-                    city: "Teresa",
-                    cuisine: ["Filipino", "Soups"],
-                    rating: 4.4,
-                    priceRange: "$$",
-                    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
-                },
-                {
-                    name: "Teresa Garden Cafe",
-                    location: "San Roque, Teresa, Rizal",
-                    city: "Teresa",
-                    cuisine: ["Cafe", "Garden"],
-                    rating: 4.2,
-                    priceRange: "$$",
-                    image: "https://images.unsplash.com/photo-1559847844-5315695dadae"
-                },
-                {
-                    name: "Inihaw sa Teresa",
-                    location: "Dalig, Teresa, Rizal",
-                    city: "Teresa",
-                    cuisine: ["Filipino", "Grill"],
-                    rating: 4.0,
-                    priceRange: "$$",
-                    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641"
-                }
-            ];
-
-            const batch = db.batch();
-            const collectionRef = db.collection("restaurants");
-            
-            teresaRestaurants.forEach(restaurant => {
-                const docRef = collectionRef.doc();
-                batch.set(docRef, restaurant);
-            });
-
-            batch.commit()
-                .then(() => {
-                    console.log("All Teresa restaurants uploaded successfully!");
-                    alert("✓ 5 Teresa restaurants added to database!");
-                    window.location.reload();
-                })
-                .catch(error => {
-                    console.error("Upload error:", error);
-                    alert("Error: " + error.message);
-                });
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             const restaurantsList = document.getElementById('restaurants-list');
             const searchInput = document.getElementById('search-input');
@@ -423,7 +543,7 @@
                                 <div class="empty-state">
                                     <i class="fas fa-utensils"></i>
                                     <p>No restaurants found in Teresa.</p>
-                                    <button onclick="uploadTeresaRestaurants()" class="btn btn-primary">Load Teresa Restaurants</button>
+                                    <button onclick="uploadTeresaRestaurants()" class="btn btn-primary">Load Sample Restaurants</button>
                                 </div>
                             `;
                             return;
@@ -517,6 +637,9 @@
                             <i class="${isSaved ? 'fas' : 'far'} fa-bookmark"></i> 
                             ${isSaved ? 'Saved' : 'Save to Visit'}
                         </button>
+                        <button class="review-btn" data-id="${restaurant.id}">
+                            <i class="fas fa-comment"></i> Reviews
+                        </button>
                         ${!currentUser ? '<p class="login-prompt">Login to save restaurants</p>' : ''}
                     </div>
                 `;
@@ -528,6 +651,14 @@
                 if (saveBtn) {
                     saveBtn.addEventListener('click', () => {
                         toggleSaveRestaurant(restaurant.id, saveBtn);
+                    });
+                }
+                
+                // Add event listener to the review button
+                const reviewBtn = card.querySelector('.review-btn');
+                if (reviewBtn) {
+                    reviewBtn.addEventListener('click', () => {
+                        showReviewModal(restaurant.id, restaurant.name);
                     });
                 }
             }
@@ -624,11 +755,221 @@
                     </div>
                 `;
             }
-        });
-    </script>
+            
+            // Review System Functions
+            function showReviewModal(restaurantId, restaurantName) {
+                currentRestaurantId = restaurantId;
+                document.getElementById('reviewRestaurantName').textContent = restaurantName;
+                document.getElementById('reviewModal').style.display = 'block';
+                
+                // Check auth state
+                const user = firebase.auth().currentUser;
+                document.getElementById('reviewForm').style.display = user ? 'block' : 'none';
+                document.getElementById('loginPrompt').style.display = user ? 'none' : 'block';
+                
+                loadReviews(restaurantId);
+                calculateAverageRating(restaurantId);
+            }
 
-    <!-- Auth State Handler -->
-    <script>
+            // Close modal
+            document.querySelector('.close-modal').addEventListener('click', () => {
+                document.getElementById('reviewModal').style.display = 'none';
+            });
+
+            // Star rating selection
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('star')) {
+                    selectedRating = parseInt(e.target.dataset.value);
+                    document.querySelectorAll('.star-rating .star').forEach(star => {
+                        star.textContent = star.dataset.value <= selectedRating ? '★' : '☆';
+                    });
+                }
+            });
+
+            // Calculate and display average rating
+            function calculateAverageRating(restaurantId) {
+                db.collection('restaurants').doc(restaurantId).collection('reviews')
+                    .get()
+                    .then(snapshot => {
+                        if (snapshot.empty) {
+                            document.getElementById('averageRatingStars').innerHTML = 'No ratings yet';
+                            document.getElementById('averageRatingValue').textContent = '';
+                            document.getElementById('reviewCount').textContent = '';
+                            return;
+                        }
+                        
+                        let totalRating = 0;
+                        snapshot.forEach(doc => {
+                            totalRating += doc.data().rating;
+                        });
+                        
+                        const averageRating = totalRating / snapshot.size;
+                        const roundedRating = Math.round(averageRating * 10) / 10;
+                        
+                        // Update average rating display
+                        document.getElementById('averageRatingStars').innerHTML = 
+                            '★'.repeat(Math.round(averageRating)) + '☆'.repeat(5 - Math.round(averageRating));
+                        document.getElementById('averageRatingValue').textContent = roundedRating.toFixed(1);
+                        document.getElementById('reviewCount').textContent = `(${snapshot.size} reviews)`;
+                        
+                        // Update main restaurant rating in Firestore
+                        db.collection('restaurants').doc(restaurantId).update({
+                            averageRating: roundedRating,
+                            reviewCount: snapshot.size
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error calculating average rating:", error);
+                    });
+            }
+
+            // Load reviews with visibility options
+            function loadReviews(restaurantId) {
+                const reviewsList = document.getElementById('reviews-list');
+                reviewsList.innerHTML = '<p>Loading reviews...</p>';
+
+                db.collection('restaurants').doc(restaurantId).collection('reviews')
+                    .orderBy('createdAt', 'desc')
+                    .get()
+                    .then(snapshot => {
+                        if (snapshot.empty) {
+                            reviewsList.innerHTML = '<p>No reviews yet. Be the first!</p>';
+                            return;
+                        }
+                        
+                        reviewsList.innerHTML = '';
+                        snapshot.forEach(doc => {
+                            const review = doc.data();
+                            const date = review.createdAt?.toDate().toLocaleDateString() || 'Recently';
+                            
+                            reviewsList.innerHTML += `
+                                <div class="review-item">
+                                    <strong>${review.userName}</strong>
+                                    ${review.isPublic ? `<span style="color: var(--gray); font-size: 0.8em;">(${review.userId === currentUser?.uid ? 'You' : 'Public'})</span>` : ''}
+                                    <span style="color: var(--gray); font-size: 0.9em;"> - ${date}</span>
+                                    <div style="color: gold;">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                                    <p>${review.comment}</p>
+                                </div>
+                            `;
+                        });
+                    })
+                    .catch(error => {
+                        reviewsList.innerHTML = '<p>Error loading reviews.</p>';
+                        console.error("Error loading reviews:", error);
+                    });
+            }
+
+            // Submit review with visibility option
+            document.getElementById('submit-review').addEventListener('click', function() {
+                const user = firebase.auth().currentUser;
+                if (!user) return;
+
+                const comment = document.getElementById('review-text').value.trim();
+                if (!selectedRating || !comment) {
+                    alert('Please select a rating and write your review');
+                    return;
+                }
+
+                // Get review visibility option
+                const visibility = document.querySelector('input[name="reviewVisibility"]:checked').value;
+                const isPublic = visibility === 'public';
+                const userName = isPublic ? (user.displayName || user.email.split('@')[0]) : 'Anonymous';
+
+                db.collection('restaurants').doc(currentRestaurantId).collection('reviews')
+                    .add({
+                        userId: user.uid,
+                        userName: userName,
+                        rating: selectedRating,
+                        comment: comment,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        isPublic: isPublic
+                    })
+                    .then(() => {
+                        alert('Thank you for your review!');
+                        document.getElementById('review-text').value = '';
+                        selectedRating = 0;
+                        document.querySelectorAll('.star-rating .star').forEach(s => s.textContent = '☆');
+                        loadReviews(currentRestaurantId);
+                        calculateAverageRating(currentRestaurantId);
+                    })
+                    .catch(error => {
+                        console.error("Error submitting review:", error);
+                        alert('Error submitting review. Please try again.');
+                    });
+            });
+
+            // Temporary upload function for sample Teresa restaurants
+            function uploadTeresaRestaurants() {
+                const teresaRestaurants = [
+                    {
+                        name: "Teresa's Best Lomi House",
+                        location: "San Gabriel, Teresa, Rizal",
+                        city: "Teresa",
+                        cuisine: ["Filipino", "Noodles"],
+                        rating: 4.3,
+                        priceRange: "$",
+                        image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+                    },
+                    {
+                        name: "Kainan sa Teresa",
+                        location: "Pantay, Teresa, Rizal",
+                        city: "Teresa",
+                        cuisine: ["Filipino", "Local"],
+                        rating: 4.1,
+                        priceRange: "$",
+                        image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
+                    },
+                    {
+                        name: "Bulalohan sa Teresa",
+                        location: "May-ibon, Teresa, Rizal",
+                        city: "Teresa",
+                        cuisine: ["Filipino", "Soups"],
+                        rating: 4.4,
+                        priceRange: "$$",
+                        image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
+                    },
+                    {
+                        name: "Teresa Garden Cafe",
+                        location: "San Roque, Teresa, Rizal",
+                        city: "Teresa",
+                        cuisine: ["Cafe", "Garden"],
+                        rating: 4.2,
+                        priceRange: "$$",
+                        image: "https://images.unsplash.com/photo-1559847844-5315695dadae"
+                    },
+                    {
+                        name: "Inihaw sa Teresa",
+                        location: "Dalig, Teresa, Rizal",
+                        city: "Teresa",
+                        cuisine: ["Filipino", "Grill"],
+                        rating: 4.0,
+                        priceRange: "$$",
+                        image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641"
+                    }
+                ];
+
+                const batch = db.batch();
+                const collectionRef = db.collection("restaurants");
+                
+                teresaRestaurants.forEach(restaurant => {
+                    const docRef = collectionRef.doc();
+                    batch.set(docRef, restaurant);
+                });
+
+                batch.commit()
+                    .then(() => {
+                        console.log("All Teresa restaurants uploaded successfully!");
+                        alert("✓ 5 Teresa restaurants added to database!");
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error("Upload error:", error);
+                        alert("Error: " + error.message);
+                    });
+            }
+        });
+        
+        // Auth State Handler
         firebase.auth().onAuthStateChanged(function(user) {
             const authBtn = document.getElementById('auth-btn');
             const authText = document.getElementById('auth-text');
