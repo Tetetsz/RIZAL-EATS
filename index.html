@@ -1,37 +1,92 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rizal Eats</title>
-    <link rel="stylesheet" href="styles.css">
-    
+    <title>RIZAL EATS - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <h1 class="logo">RIZAL EATS</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="municipalities.html">Municipalities</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<div class="ring">
-    <i style="--clr:#e32929;"></i>
-    <i style="--clr:#ff611d;"></i>
-    <i style="--clr:#ffb80e;"></i>
-    <div class="login">
-      <h2>Welcome to Rizal Eats!</h2>
-      <h1>Login</h1>
-      <div class="inputBx">
-        <input type="text" placeholder="Username">
-      </div>
-      <div class="inputBx">
-        <input type="password" placeholder="Password">
-      </div>
-      <div class="inputBx">
-        <input type="submit" value="Sign In">
-      </div>
-      <div class="links">
-        <a href="#">Forget Password</a>
-        <a href="#">Sign Up</a>
-      </div>
-    </div>
-  </div>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Discover Rizal's Best Eats</h2>
+                <p>Explore top-rated restaurants across Rizal's municipalities</p>
+                <a href="municipalities.html" class="btn">Browse Now</a>
+            </div>
+        </section>
 
-  
+        <section class="featured-cities">
+            <h3>Featured Municipalities</h3>
+            <div class="container">
+                <div class="city-grid">
+                    <!-- Static City Cards -->
+                    <div class="city-card">
+                        <img src="images/angono.jpg" alt="Angono">
+                        <div class="city-info">
+                            <h4>Angono</h4>
+                            <p>Art Capital of the Philippines</p>
+                            <a href="municipalities.html?city=angono" class="btn small">View Restaurants</a>
+                        </div>
+                    </div>
 
+                    <div class="city-card">
+                        <img src="images/antipolo.jpg" alt="Antipolo">
+                        <div class="city-info">
+                            <h4>Antipolo</h4>
+                            <p>Pilgrimage City with Mountain Views</p>
+                            <a href="municipalities.html?city=antipolo" class="btn small">View Restaurants</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add login section from main branch -->
+        <section class="login-section">
+            <div class="ring">
+                <i style="--clr:#e32929;"></i>
+                <i style="--clr:#ff611d;"></i>
+                <i style="--clr:#ffb80e;"></i>
+                <div class="login">
+                    <h2>Welcome to Rizal Eats!</h2>
+                    <h1>Login</h1>
+                    <div class="inputBx">
+                        <input type="text" placeholder="Username">
+                    </div>
+                    <div class="inputBx">
+                        <input type="password" placeholder="Password">
+                    </div>
+                    <div class="inputBx">
+                        <input type="submit" value="Sign In">
+                    </div>
+                    <div class="links">
+                        <a href="#">Forget Password</a>
+                        <a href="#">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
