@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             --primary: #FF5A5F;
@@ -87,6 +89,12 @@
         .restaurant-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+        }
+        
+        .restaurant-map {
+            width: 100%;
+            height: 200px;
+            z-index: 1;
         }
         
         .restaurant-image {
@@ -181,12 +189,33 @@
             transition: background 0.3s;
         }
         
+        .view-map-btn {
+            background: #4a6baf;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
         .save-btn:hover {
             background: #e04a50;
         }
         
         .review-btn:hover {
             background: #008a7d;
+        }
+        
+        .view-map-btn:hover {
+            background: #3a5a9f;
         }
         
         .empty-state {
@@ -217,6 +246,51 @@
             font-size: 2rem;
             color: var(--primary);
             animation: spin 1s linear infinite;
+        }
+        
+        .map-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1001;
+        }
+        
+        .map-modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            height: 80vh;
+        }
+        
+        .map-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002;
+            background: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        #fullscreen-map {
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
         }
         
         @keyframes spin {
@@ -353,6 +427,163 @@
             color: var(--gray);
             font-size: 0.9em;
         }
+
+        /* Weather Widget Styles */
+        .weather-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .weather-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .weather-header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .last-updated {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .weather-content {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .weather-icon img {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .weather-details {
+            flex: 1;
+        }
+        
+        .weather-temp {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .weather-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .weather-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .forecast-toggle-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .forecast-toggle-btn:hover {
+            background: #008a7d;
+        }
+        
+        .weather-forecast {
+            margin-top: 1rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+        
+        .forecast-day {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .forecast-date {
+            min-width: 100px;
+            font-weight: 500;
+        }
+        
+        .forecast-icon {
+            margin: 0 1rem;
+        }
+        
+        .forecast-icon img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .forecast-details {
+            flex: 1;
+        }
+        
+        .forecast-temp {
+            font-weight: 500;
+        }
+        
+        .forecast-high {
+            color: var(--primary);
+        }
+        
+        .forecast-low {
+            color: var(--secondary);
+        }
+        
+        .forecast-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .forecast-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .rain-probability {
+            color: #4a6baf;
+        }
+        
+        .humidity {
+            color: var(--secondary);
+        }
+        
+        .weather-loading, .forecast-loading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+        }
+        
+        .weather-error {
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
         
         @media (max-width: 768px) {
             .restaurants-grid {
@@ -371,6 +602,25 @@
             .modal-content {
                 width: 90%;
                 margin: 10% auto;
+            }
+            
+            .map-modal-content {
+                height: 70vh;
+                margin: 5% auto;
+            }
+            
+            .weather-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .forecast-day {
+                flex-wrap: wrap;
+            }
+            
+            .forecast-date {
+                width: 100%;
+                margin-bottom: 0.5rem;
             }
         }
     </style>
@@ -405,6 +655,29 @@
             
             <h2>Cardona Restaurants</h2>
             <p>Discover the best dining experiences in Cardona</p>
+            
+            <div class="weather-card">
+                <div class="weather-header">
+                  <h3><i class="fas fa-cloud-sun"></i> Cardona Weather</h3>
+                  <div class="last-updated" id="last-updated"></div>
+                </div>
+                
+                <div id="current-weather">
+                  <div class="weather-loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading weather...
+                  </div>
+                </div>
+                
+                <button id="forecast-toggle" class="forecast-toggle-btn">
+                  <i class="fas fa-calendar-alt"></i> Show 5-Day Forecast
+                </button>
+                
+                <div id="weather-forecast" class="weather-forecast hidden">
+                  <div class="forecast-loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading forecast...
+                  </div>
+                </div>
+            </div>
             
             <div class="filter-controls">
                 <div class="search-box">
@@ -479,6 +752,16 @@
         </div>
     </div>
 
+    <!-- Map Modal -->
+    <div id="mapModal" class="map-modal">
+        <div class="map-modal-content">
+            <span class="map-modal-close">&times;</span>
+            <h3 id="mapRestaurantName"></h3>
+            <p id="mapRestaurantLocation"></p>
+            <div id="fullscreen-map"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
@@ -493,6 +776,9 @@
     <!-- Firebase Config -->
     <script src="../js/firebase-config.js"></script>
     
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <!-- Main Script -->
     <script>
         // Initialize Firebase
@@ -501,11 +787,14 @@
         let userSavedRestaurants = [];
         let currentRestaurantId = null;
         let selectedRating = 0;
-        
+        let mapInstance = null;
+        let geocodeCache = {};
+
         document.addEventListener('DOMContentLoaded', function() {
             const restaurantsList = document.getElementById('restaurants-list');
             const searchInput = document.getElementById('search-input');
             const cuisineFilter = document.getElementById('cuisine-filter');
+            const mapModal = document.getElementById('mapModal');
             
             let allRestaurants = [];
             
@@ -611,11 +900,10 @@
                 card.className = 'restaurant-card';
                 
                 const isSaved = currentUser && userSavedRestaurants.includes(restaurant.id);
+                const imageUrl = restaurant.image || "/api/placeholder/400/200";
                 
                 card.innerHTML = `
-                    <img src="${restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}" 
-                        alt="${restaurant.name}" 
-                        class="restaurant-image">
+                    <img src="${imageUrl}" alt="${restaurant.name}" class="restaurant-image">
                     <div class="restaurant-info">
                         <h3 class="restaurant-name">${restaurant.name}</h3>
                         <p class="restaurant-location">${restaurant.location}</p>
@@ -633,6 +921,9 @@
                             </span>
                             <span class="restaurant-price">${restaurant.priceRange || 'N/A'}</span>
                         </div>
+                        <button class="view-map-btn" data-id="${restaurant.id}" data-name="${restaurant.name}" data-location="${restaurant.location}">
+                            <i class="fas fa-map-marker-alt"></i> View Map
+                        </button>
                         <button class="save-btn" data-id="${restaurant.id}" ${!currentUser ? 'disabled' : ''}>
                             <i class="${isSaved ? 'fas' : 'far'} fa-bookmark"></i> 
                             ${isSaved ? 'Saved' : 'Save to Visit'}
@@ -646,7 +937,7 @@
                 
                 restaurantsList.appendChild(card);
                 
-                // Add event listener to the save button
+                // Add event listeners
                 const saveBtn = card.querySelector('.save-btn');
                 if (saveBtn) {
                     saveBtn.addEventListener('click', () => {
@@ -654,14 +945,89 @@
                     });
                 }
                 
-                // Add event listener to the review button
                 const reviewBtn = card.querySelector('.review-btn');
                 if (reviewBtn) {
                     reviewBtn.addEventListener('click', () => {
                         showReviewModal(restaurant.id, restaurant.name);
                     });
                 }
+                
+                const mapBtn = card.querySelector('.view-map-btn');
+                if (mapBtn) {
+                    mapBtn.addEventListener('click', () => {
+                        showFullscreenMap(restaurant.name, restaurant.location, restaurant.id);
+                    });
+                }
             }
+
+            // Simplified map display function that always uses hardcoded coordinates
+            async function showFullscreenMap(name, location, restaurantId) {
+                document.getElementById('mapRestaurantName').textContent = name;
+                document.getElementById('mapRestaurantLocation').textContent = location;
+                mapModal.style.display = 'block';
+                
+                // Clean up previous map
+                if (mapInstance) {
+                    mapInstance.remove();
+                    mapInstance = null;
+                }
+                
+                // Define known locations for Cardona restaurants
+                const knownLocations = {
+                    "Seoul Stay Viewing Deck": [14.477386, 121.210770],
+                    "Sargo Grill Unlimited Samgyupsal": [14.492596, 121.220759],
+                    "Ysabel's Cafe": [14.482768, 121.225897],
+                    "The K Yard": [14.472783, 121.230788],
+                    "Coffee Splurge": [14.490773, 121.233515]
+                };
+                
+                // Use hardcoded coordinates or default to Cardona town center
+                let coordinates = knownLocations[name] || [14.4870, 121.2270];
+                
+                // Initialize map
+                mapInstance = L.map('fullscreen-map').setView(coordinates, 16);
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(mapInstance);
+                
+                // Add marker with custom icon
+                const restaurantIcon = L.icon({
+                    iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32]
+                });
+                
+                L.marker(coordinates, {icon: restaurantIcon}).addTo(mapInstance)
+                    .bindPopup(`<b>${name}</b><br>${location}`)
+                    .openPopup();
+                
+                // Force map to recalculate its size
+                setTimeout(() => mapInstance.invalidateSize(), 100);
+            }
+
+            // Set up map modal close button events
+            const closeButton = document.querySelector('.map-modal-close');
+            const newCloseButton = closeButton.cloneNode(true);
+            closeButton.parentNode.replaceChild(newCloseButton, closeButton);
+            
+            newCloseButton.addEventListener('click', () => {
+                mapModal.style.display = 'none';
+                if (mapInstance) {
+                    mapInstance.remove();
+                    mapInstance = null;
+                }
+            });
+            
+            mapModal.addEventListener('click', (event) => {
+                if (event.target === mapModal) {
+                    mapModal.style.display = 'none';
+                    if (mapInstance) {
+                        mapInstance.remove();
+                        mapInstance = null;
+                    }
+                }
+            });
 
             async function toggleSaveRestaurant(restaurantId, button) {
                 if (!currentUser) {
@@ -672,11 +1038,9 @@
                 const userRef = db.collection('users').doc(currentUser.uid);
                 
                 try {
-                    // First check if document exists
                     const doc = await userRef.get();
                     
                     if (!doc.exists) {
-                        // Create document if it doesn't exist
                         await userRef.set({
                             savedRestaurants: [restaurantId],
                             createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -685,7 +1049,6 @@
                         button.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
                         showToast('Restaurant saved to your list');
                     } else {
-                        // Document exists - proceed with update
                         const isCurrentlySaved = userSavedRestaurants.includes(restaurantId);
                         
                         if (isCurrentlySaved) {
@@ -762,7 +1125,6 @@
                 document.getElementById('reviewRestaurantName').textContent = restaurantName;
                 document.getElementById('reviewModal').style.display = 'block';
                 
-                // Check auth state
                 const user = firebase.auth().currentUser;
                 document.getElementById('reviewForm').style.display = user ? 'block' : 'none';
                 document.getElementById('loginPrompt').style.display = user ? 'none' : 'block';
@@ -771,12 +1133,10 @@
                 calculateAverageRating(restaurantId);
             }
 
-            // Close modal
             document.querySelector('.close-modal').addEventListener('click', () => {
                 document.getElementById('reviewModal').style.display = 'none';
             });
 
-            // Star rating selection
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('star')) {
                     selectedRating = parseInt(e.target.dataset.value);
@@ -786,7 +1146,6 @@
                 }
             });
 
-            // Calculate and display average rating
             function calculateAverageRating(restaurantId) {
                 db.collection('restaurants').doc(restaurantId).collection('reviews')
                     .get()
@@ -806,13 +1165,11 @@
                         const averageRating = totalRating / snapshot.size;
                         const roundedRating = Math.round(averageRating * 10) / 10;
                         
-                        // Update average rating display
                         document.getElementById('averageRatingStars').innerHTML = 
                             '★'.repeat(Math.round(averageRating)) + '☆'.repeat(5 - Math.round(averageRating));
                         document.getElementById('averageRatingValue').textContent = roundedRating.toFixed(1);
                         document.getElementById('reviewCount').textContent = `(${snapshot.size} reviews)`;
                         
-                        // Update main restaurant rating in Firestore
                         db.collection('restaurants').doc(restaurantId).update({
                             averageRating: roundedRating,
                             reviewCount: snapshot.size
@@ -823,7 +1180,6 @@
                     });
             }
 
-            // Load reviews with visibility options
             function loadReviews(restaurantId) {
                 const reviewsList = document.getElementById('reviews-list');
                 reviewsList.innerHTML = '<p>Loading reviews...</p>';
@@ -859,7 +1215,6 @@
                     });
             }
 
-            // Submit review with visibility option
             document.getElementById('submit-review').addEventListener('click', function() {
                 const user = firebase.auth().currentUser;
                 if (!user) return;
@@ -870,7 +1225,6 @@
                     return;
                 }
 
-                // Get review visibility option
                 const visibility = document.querySelector('input[name="reviewVisibility"]:checked').value;
                 const isPublic = visibility === 'public';
                 const userName = isPublic ? (user.displayName || user.email.split('@')[0]) : 'Anonymous';
@@ -898,18 +1252,250 @@
                     });
             });
         });
-        
+
+        // Weather Configuration for Cardona
+        const WEATHER_API_KEY = 'afd16e0763e24787cbe9bc1c32142efb';
+        const CARDONA_COORDS = { lat: 14.4870, lon: 121.2270 };
+        const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+
+        // DOM Elements
+        const currentWeatherEl = document.getElementById('current-weather');
+        const forecastEl = document.getElementById('weather-forecast');
+        const lastUpdatedEl = document.getElementById('last-updated');
+        const forecastToggle = document.getElementById('forecast-toggle');
+
+        // Initialize Weather
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCurrentWeather();
+            
+            // Toggle forecast visibility
+            forecastToggle.addEventListener('click', () => {
+                forecastEl.classList.toggle('hidden');
+                if (!forecastEl.classList.contains('hidden') && !forecastEl.querySelector('.forecast-day')) {
+                    fetchWeatherForecast();
+                }
+                updateToggleText();
+            });
+        });
+
+        function updateToggleText() {
+            const isShowing = !forecastEl.classList.contains('hidden');
+            forecastToggle.innerHTML = `
+                <i class="fas fa-calendar-alt"></i> 
+                ${isShowing ? 'Hide' : 'Show'} 5-Day Forecast
+            `;
+        }
+
+        function updateLastUpdated() {
+            const now = new Date();
+            lastUpdatedEl.textContent = `Updated: ${now.toLocaleTimeString()}`;
+        }
+
+        // Current Weather
+        async function fetchCurrentWeather() {
+            const cacheKey = 'currentWeatherCache';
+            const cached = getCachedData(cacheKey);
+            
+            if (cached) {
+                displayCurrentWeather(cached);
+                return;
+            }
+
+            showLoading(currentWeatherEl, 'Loading current weather...');
+            
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?lat=${CARDONA_COORDS.lat}&lon=${CARDONA_COORDS.lon}&appid=${WEATHER_API_KEY}&units=metric`
+                );
+                
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                
+                const data = await response.json();
+                cacheData(cacheKey, data);
+                displayCurrentWeather(data);
+                updateLastUpdated();
+            } catch (error) {
+                console.error("Weather fetch error:", error);
+                showError(currentWeatherEl, error, cached);
+            }
+        }
+
+        // 5-Day Forecast
+        async function fetchWeatherForecast() {
+            const cacheKey = 'forecastCache';
+            const cached = getCachedData(cacheKey);
+            
+            if (cached) {
+                displayForecast(cached);
+                return;
+            }
+
+            showLoading(forecastEl, 'Loading forecast...');
+            
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/data/2.5/forecast?lat=${CARDONA_COORDS.lat}&lon=${CARDONA_COORDS.lon}&appid=${WEATHER_API_KEY}&units=metric`
+                );
+                
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                
+                const data = await response.json();
+                cacheData(cacheKey, data);
+                displayForecast(data);
+                updateLastUpdated();
+            } catch (error) {
+                console.error("Forecast fetch error:", error);
+                showError(forecastEl, error, cached);
+            }
+        }
+
+        // Helper Functions
+        function getCachedData(key) {
+            const cached = localStorage.getItem(key);
+            if (!cached) return null;
+            
+            const { data, timestamp } = JSON.parse(cached);
+            return (Date.now() - timestamp < CACHE_DURATION) ? data : null;
+        }
+
+        function cacheData(key, data) {
+            localStorage.setItem(key, JSON.stringify({
+                data: data,
+                timestamp: Date.now()
+            }));
+        }
+
+        function showLoading(element, message) {
+            element.innerHTML = `
+                <div class="weather-loading">
+                    <i class="fas fa-spinner fa-spin"></i> ${message}
+                </div>
+            `;
+        }
+
+        function showError(element, error, cachedData) {
+            element.innerHTML = `
+                <div class="weather-error">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    Weather data unavailable
+                    ${cachedData ? '<br><small>(Showing cached data)</small>' : ''}
+                </div>
+            `;
+            
+            if (cachedData) {
+                if (element === currentWeatherEl) {
+                    displayCurrentWeather(cachedData);
+                } else {
+                    displayForecast(cachedData);
+                }
+            }
+        }
+
+        // Display Functions
+        function displayCurrentWeather(data) {
+            const weather = {
+                temp: Math.round(data.main.temp),
+                feels_like: Math.round(data.main.feels_like),
+                condition: data.weather[0].main,
+                description: data.weather[0].description,
+                icon: data.weather[0].icon,
+                humidity: data.main.humidity,
+                wind: (data.wind.speed * 3.6).toFixed(1), // Convert m/s to km/h
+                rain: data.rain?.['1h'] || 0 // Rain volume for last hour (mm)
+            };
+
+            currentWeatherEl.innerHTML = `
+                <div class="weather-content">
+                    <div class="weather-icon">
+                        <img src="https://openweathermap.org/img/wn/${weather.icon}@2x.png" 
+                            alt="${weather.description}">
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-temp">${weather.temp}°C</div>
+                        <div>${weather.condition} • Feels like ${weather.feels_like}°C</div>
+                        <div class="weather-meta">
+                            <span class="humidity"><i class="fas fa-tint"></i> ${weather.humidity}%</span>
+                            <span><i class="fas fa-wind"></i> ${weather.wind} km/h</span>
+                            ${weather.rain > 0 ? `
+                                <span class="rain-probability"><i class="fas fa-umbrella"></i> ${weather.rain}mm</span>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function displayForecast(data) {
+            // Group forecast by day
+            const dailyForecast = {};
+            
+            data.list.forEach(item => {
+                const date = new Date(item.dt * 1000).toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                
+                if (!dailyForecast[date]) {
+                    dailyForecast[date] = {
+                        high: Math.round(item.main.temp_max),
+                        low: Math.round(item.main.temp_min),
+                        icon: item.weather[0].icon,
+                        description: item.weather[0].main,
+                        humidity: item.main.humidity,
+                        rain: item.rain?.['3h'] || 0 // Rain volume for 3 hours (mm)
+                    };
+                } else {
+                    // Update highs and lows
+                    dailyForecast[date].high = Math.max(dailyForecast[date].high, Math.round(item.main.temp_max));
+                    dailyForecast[date].low = Math.min(dailyForecast[date].low, Math.round(item.main.temp_min));
+                    // Sum rain accumulation
+                    dailyForecast[date].rain += item.rain?.['3h'] || 0;
+                }
+            });
+
+            // Display forecast (skip today)
+            const forecastDays = Object.entries(dailyForecast).slice(1, 6);
+            
+            forecastEl.innerHTML = `
+                <h4>5-Day Forecast</h4>
+                ${forecastDays.map(([date, forecast]) => `
+                    <div class="forecast-day">
+                        <span class="forecast-date">${date}</span>
+                        <div class="forecast-icon">
+                            <img src="https://openweathermap.org/img/wn/${forecast.icon}.png" 
+                                alt="${forecast.description}">
+                        </div>
+                        <div class="forecast-details">
+                            <div class="forecast-temp">
+                                <span class="forecast-high">${forecast.high}°</span> / 
+                                <span class="forecast-low">${forecast.low}°</span>
+                            </div>
+                            <div class="forecast-meta">
+                                ${forecast.rain > 0 ? `
+                                    <span class="rain-probability">
+                                        <i class="fas fa-umbrella"></i> ${forecast.rain.toFixed(1)}mm
+                                    </span>
+                                ` : ''}
+                                <span class="humidity">
+                                    <i class="fas fa-tint"></i> ${forecast.humidity}%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
         // Auth State Handler
         firebase.auth().onAuthStateChanged(function(user) {
             const authBtn = document.getElementById('auth-btn');
             const authText = document.getElementById('auth-text');
             
             if (user) {
-                // User is logged in
                 authText.textContent = 'Profile';
                 authBtn.href = "../dashboard.html";
             } else {
-                // User is logged out
                 authText.textContent = 'Login';
                 authBtn.href = "../login.html";
             }

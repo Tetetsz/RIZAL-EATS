@@ -272,6 +272,70 @@
             font-size: 0.9rem;
             line-height: 1.5;
         }
+
+        .review-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .review-action-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .review-action-btn:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .edit-btn {
+            color: var(--secondary);
+        }
+
+        .delete-btn {
+            color: var(--primary);
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .pagination-btn {
+            background: var(--light);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .pagination-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--light);
+            color: var(--gray);
+        }
+        
+        .page-info {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
         
         @media (max-width: 768px) {
             .dashboard-sections {
@@ -333,86 +397,42 @@
                     </div>
                     
                     <div id="to-visit-list">
-                        <!-- Sample items - these would be dynamically populated -->
-                        <div class="restaurant-item">
-                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Restaurant" class="restaurant-image">
-                            <div class="restaurant-info">
-                                <h4>Cafe Rizal</h4>
-                                <p>Binangonan • Filipino Cuisine</p>
-                            </div>
-                            <div class="restaurant-actions">
-                                <button class="action-btn" title="Remove"><i class="fas fa-trash"></i></button>
-                                <button class="action-btn" title="Visited"><i class="fas fa-check"></i></button>
-                            </div>
-                        </div>
-                        
-                        <div class="restaurant-item">
-                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Restaurant" class="restaurant-image">
-                            <div class="restaurant-info">
-                                <h4>Lakeside Grill</h4>
-                                <p>Angono • Barbecue</p>
-                            </div>
-                            <div class="restaurant-actions">
-                                <button class="action-btn" title="Remove"><i class="fas fa-trash"></i></button>
-                                <button class="action-btn" title="Visited"><i class="fas fa-check"></i></button>
-                            </div>
-                        </div>
-                        
-                        <div class="empty-state" id="empty-to-visit" style="display: none;">
+                        <div class="empty-state" id="empty-to-visit">
                             <i class="far fa-bookmark"></i>
                             <p>Your to-visit list is empty</p>
                             <a href="municipalities.html" class="btn btn-primary">Explore Restaurants</a>
                         </div>
+                    </div>
+                    <div class="pagination-controls" id="restaurant-pagination" style="display: none;">
+                        <button class="pagination-btn" id="restaurant-prev-btn" onclick="changeRestaurantPage(-1)">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <span class="page-info" id="restaurant-page-info"></span>
+                        <button class="pagination-btn" id="restaurant-next-btn" onclick="changeRestaurantPage(1)">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
                 
                 <div class="dashboard-card">
                     <div class="card-header">
                         <h3><i class="fas fa-star"></i> My Reviews</h3>
-                        <a href="#" class="view-all">View All</a>
                     </div>
                     
                     <div id="reviews-list">
-                        <!-- Sample review - these would be dynamically populated -->
-                        <div class="review-item">
-                            <div class="review-header">
-                                <span class="review-restaurant">The Old Taal</span>
-                                <span class="review-date">June 15, 2023</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <div class="review-content">
-                                Amazing traditional Filipino dishes with a modern twist. The kare-kare was exceptional!
-                            </div>
-                        </div>
-                        
-                        <div class="review-item">
-                            <div class="review-header">
-                                <span class="review-restaurant">Sampaloc Cafe</span>
-                                <span class="review-date">May 28, 2023</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="review-content">
-                                Perfect spot for coffee lovers. Their kapeng barako is the best I've had in Rizal!
-                            </div>
-                        </div>
-                        
-                        <div class="empty-state" id="empty-reviews" style="display: none;">
+                        <div class="empty-state" id="empty-reviews">
                             <i class="far fa-star"></i>
                             <p>You haven't written any reviews yet</p>
-                            <button class="btn btn-primary">Share Your Experience</button>
                         </div>
+                    </div>
+                    <div class="pagination-controls" id="review-pagination" style="display: none;">
+                        <button class="pagination-btn" id="review-prev-btn" onclick="changeReviewPage(-1)">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <span class="page-info" id="review-page-info"></span>
+                        <button class="pagination-btn" id="review-next-btn" onclick="changeReviewPage(1)">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -433,11 +453,18 @@
      <!-- Your Firebase Config -->
      <script src="js/firebase-config.js"></script>
      
-     <!-- Updated Dashboard Script -->
+     <!-- Dashboard Script -->
      <script>
          // Initialize Firestore
          const db = firebase.firestore();
          let currentUser = null;
+         
+         // Pagination variables
+         let currentRestaurantPage = 1;
+         let currentReviewPage = 1;
+         const itemsPerPage = 10;
+         let allRestaurants = [];
+         let allReviews = [];
  
          firebase.auth().onAuthStateChanged(function(user) {
              if (!user) {
@@ -453,6 +480,8 @@
                  
                  // Load the user's saved restaurants
                  loadSavedRestaurants(user.uid);
+                 // Load the user's reviews
+                 loadUserReviews(user.uid);
              }
          });
  
@@ -471,7 +500,7 @@
                  if (!userDoc.exists || !userDoc.data().savedRestaurants || userDoc.data().savedRestaurants.length === 0) {
                      // Show empty state if no saved restaurants
                      document.getElementById('empty-to-visit').style.display = 'block';
-                     document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
+                     document.getElementById('restaurant-pagination').style.display = 'none';
                      return;
                  }
                  
@@ -488,21 +517,56 @@
                  
                  const restaurantSnapshots = await Promise.all(restaurantPromises);
                  
-                 // Clear existing items (except the empty state)
-                 document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
+                 // Store all restaurants
+                 allRestaurants = restaurantSnapshots
+                     .filter(snapshot => snapshot.exists)
+                     .map(snapshot => ({
+                         id: snapshot.id,
+                         ...snapshot.data()
+                     }));
                  
-                 // Add each restaurant to the list
-                 restaurantSnapshots.forEach(snapshot => {
-                     if (snapshot.exists) {
-                         const restaurant = snapshot.data();
-                         addRestaurantToVisitList(snapshot.id, restaurant);
-                     }
-                 });
+                 // Display first page
+                 displayRestaurantsPage(currentRestaurantPage);
                  
              } catch (error) {
                  console.error("Error loading saved restaurants:", error);
                  document.getElementById('empty-to-visit').style.display = 'block';
+                 document.getElementById('restaurant-pagination').style.display = 'none';
              }
+         }
+         
+         function displayRestaurantsPage(page) {
+             const startIndex = (page - 1) * itemsPerPage;
+             const endIndex = startIndex + itemsPerPage;
+             const pageRestaurants = allRestaurants.slice(startIndex, endIndex);
+             
+             // Clear existing items
+             document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
+             
+             // Add restaurants for current page
+             pageRestaurants.forEach(restaurant => {
+                 addRestaurantToVisitList(restaurant.id, restaurant);
+             });
+             
+             // Update pagination controls
+             updateRestaurantPagination();
+         }
+         
+         function updateRestaurantPagination() {
+             const totalPages = Math.ceil(allRestaurants.length / itemsPerPage);
+             const paginationDiv = document.getElementById('restaurant-pagination');
+             
+             if (allRestaurants.length <= itemsPerPage) {
+                 paginationDiv.style.display = 'none';
+                 return;
+             }
+             
+             paginationDiv.style.display = 'flex';
+             document.getElementById('restaurant-page-info').textContent = 
+                 `Page ${currentRestaurantPage} of ${totalPages}`;
+                 
+             document.getElementById('restaurant-prev-btn').disabled = currentRestaurantPage === 1;
+             document.getElementById('restaurant-next-btn').disabled = currentRestaurantPage === totalPages;
          }
          
          function addRestaurantToVisitList(restaurantId, restaurant) {
@@ -541,12 +605,12 @@
                  await db.collection('users').doc(currentUser.uid).update({
                      savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
                  });
-                 element.remove();
                  
-                 // Show empty state if no restaurants left
-                 if (document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').length === 0) {
-                     document.getElementById('empty-to-visit').style.display = 'block';
-                 }
+                 // Remove from local array
+                 allRestaurants = allRestaurants.filter(r => r.id !== restaurantId);
+                 
+                 // Re-render the current page
+                 displayRestaurantsPage(currentRestaurantPage);
                  
                  showToast('Restaurant removed from your list');
              } catch (error) {
@@ -562,14 +626,11 @@
                      savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
                  });
                  
-                 // Here you would typically add to a "visited" collection
-                 // For now, we'll just remove it
-                 element.remove();
+                 // Remove from local array
+                 allRestaurants = allRestaurants.filter(r => r.id !== restaurantId);
                  
-                 // Show empty state if no restaurants left
-                 if (document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').length === 0) {
-                     document.getElementById('empty-to-visit').style.display = 'block';
-                 }
+                 // Re-render the current page
+                 displayRestaurantsPage(currentRestaurantPage);
                  
                  showToast('Restaurant marked as visited');
              } catch (error) {
@@ -577,6 +638,217 @@
                  showToast('Error marking as visited', true);
              }
          }
+
+         async function loadUserReviews(userId) {
+            try {
+                // First get all restaurants that have reviews from this user
+                const restaurantsRef = db.collection('restaurants');
+                const restaurantsSnapshot = await restaurantsRef.get();
+
+                allReviews = [];
+
+                // For each restaurant, check if it has reviews from this user
+                for (const restaurantDoc of restaurantsSnapshot.docs) {
+                    const reviewsQuery = await restaurantsRef.doc(restaurantDoc.id)
+                        .collection('reviews')
+                        .where('userId', '==', userId)
+                        .get();
+
+                    reviewsQuery.forEach(reviewDoc => {
+                        allReviews.push({
+                            id: reviewDoc.id,
+                            restaurantId: restaurantDoc.id,
+                            restaurantName: restaurantDoc.data().name,
+                            ...reviewDoc.data(),
+                            createdAt: reviewDoc.data().createdAt.toDate()
+                        });
+                    });
+                }
+
+                // Sort reviews by date (newest first)
+                allReviews.sort((a, b) => b.createdAt - a.createdAt);
+
+                if (allReviews.length === 0) {
+                    document.getElementById('empty-reviews').style.display = 'block';
+                    document.getElementById('review-pagination').style.display = 'none';
+                    return;
+                }
+
+                // Display first page
+                displayReviewsPage(currentReviewPage);
+
+            } catch (error) {
+                console.error("Error loading user reviews:", error);
+                document.getElementById('empty-reviews').style.display = 'block';
+                document.getElementById('review-pagination').style.display = 'none';
+            }
+        }
+        
+        function displayReviewsPage(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageReviews = allReviews.slice(startIndex, endIndex);
+            
+            // Clear existing reviews
+            document.getElementById('reviews-list').querySelectorAll('.review-item').forEach(el => el.remove());
+            document.getElementById('empty-reviews').style.display = 'none';
+            
+            // Add reviews for current page
+            pageReviews.forEach(review => {
+                addUserReview(review);
+            });
+            
+            // Update pagination controls
+            updateReviewPagination();
+        }
+        
+        function updateReviewPagination() {
+            const totalPages = Math.ceil(allReviews.length / itemsPerPage);
+            const paginationDiv = document.getElementById('review-pagination');
+            
+            if (allReviews.length <= itemsPerPage) {
+                paginationDiv.style.display = 'none';
+                return;
+            }
+            
+            paginationDiv.style.display = 'flex';
+            document.getElementById('review-page-info').textContent = 
+                `Page ${currentReviewPage} of ${totalPages}`;
+                
+            document.getElementById('review-prev-btn').disabled = currentReviewPage === 1;
+            document.getElementById('review-next-btn').disabled = currentReviewPage === totalPages;
+        }
+        
+        function addUserReview(review) {
+            const reviewItem = document.createElement('div');
+            reviewItem.className = 'review-item';
+            reviewItem.dataset.id = review.id;
+            reviewItem.dataset.restaurantId = review.restaurantId;
+
+            // Format date as "Month Day, Year"
+            const formattedDate = review.createdAt.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Create star rating HTML
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(review.rating)) {
+                    starsHtml += '<i class="fas fa-star"></i>';
+                } else if (i - 0.5 <= review.rating) {
+                    starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    starsHtml += '<i class="far fa-star"></i>';
+                }
+            }
+
+            reviewItem.innerHTML = `
+                <div class="review-header">
+                    <span class="review-restaurant">${review.restaurantName}</span>
+                    <span class="review-date">${formattedDate}</span>
+                </div>
+                <div class="review-rating">
+                    ${starsHtml} (${review.rating.toFixed(1)})
+                </div>
+                <div class="review-content">
+                    ${review.comment}
+                </div>
+                <div class="review-actions">
+                    <button class="review-action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="review-action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            `;
+
+            document.getElementById('reviews-list').prepend(reviewItem);
+
+            // Add event listeners to the action buttons
+            reviewItem.querySelector('.edit-btn').addEventListener('click', () => {
+                editReview(review.restaurantId, review.id, review.restaurantName);
+            });
+
+            reviewItem.querySelector('.delete-btn').addEventListener('click', () => {
+                deleteReview(review.restaurantId, review.id, reviewItem);
+            });
+        }
+
+        async function deleteReview(restaurantId, reviewId, element) {
+            if (!confirm('Are you sure you want to delete this review?')) {
+                return;
+            }
+
+            try {
+                await db.collection('restaurants').doc(restaurantId)
+                    .collection('reviews').doc(reviewId).delete();
+
+                // Remove from local array
+                allReviews = allReviews.filter(r => r.id !== reviewId);
+                
+                // Re-render the current page
+                displayReviewsPage(currentReviewPage);
+
+                showToast('Review deleted successfully');
+
+                // Update the restaurant's average rating
+                await updateRestaurantRating(restaurantId);
+
+            } catch (error) {
+                console.error("Error deleting review:", error);
+                showToast('Error deleting review', true);
+            }
+        }
+
+        async function updateRestaurantRating(restaurantId) {
+            try {
+                const reviewsQuery = await db.collection('restaurants').doc(restaurantId)
+                    .collection('reviews').get();
+
+                if (reviewsQuery.empty) {
+                    await db.collection('restaurants').doc(restaurantId).update({
+                        averageRating: null,
+                        reviewCount: 0
+                    });
+                    return;
+                }
+
+                let totalRating = 0;
+                reviewsQuery.forEach(doc => {
+                    totalRating += doc.data().rating;
+                });
+
+                const averageRating = totalRating / reviewsQuery.size;
+                const roundedRating = Math.round(averageRating * 10) / 10;
+
+                await db.collection('restaurants').doc(restaurantId).update({
+                    averageRating: roundedRating,
+                    reviewCount: reviewsQuery.size
+                });
+
+            } catch (error) {
+                console.error("Error updating restaurant rating:", error);
+            }
+        }
+
+        function editReview(restaurantId, reviewId, restaurantName) {
+            // For now, just show an alert - you can implement a proper edit modal
+            alert(`Editing review for ${restaurantName}. This would open an edit form in a real implementation.`);
+            
+            // In a full implementation, you would:
+            // 1. Open a modal with the review form
+            // 2. Pre-fill it with the existing review data
+            // 3. Update the review in Firestore when submitted
+        }
+        
+        function changeRestaurantPage(change) {
+            currentRestaurantPage += change;
+            displayRestaurantsPage(currentRestaurantPage);
+        }
+        
+        function changeReviewPage(change) {
+            currentReviewPage += change;
+            displayReviewsPage(currentReviewPage);
+        }
          
          function showToast(message, isError = false) {
              const toast = document.createElement('div');
