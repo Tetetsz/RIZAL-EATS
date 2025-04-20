@@ -21,7 +21,6 @@ body {
 header {
   background: #2c3e50;
   color: white;
-  padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -501,4 +500,9 @@ header {
   color: var(--primary);
   text-align: center;
   padding: 1rem;
+}
+
+.header-logo {
+  height: 100px; /* or any value you like */
+  width: auto;  /* maintain proportions */
 }
