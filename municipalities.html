@@ -7,6 +7,147 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/municipal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Add these styles to your municipal.css or in this style tag */
+        .search-container {
+            background-color: #f8f9fa;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ced4da;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+        }
+        
+        .municipality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .municipality-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .municipality-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .municipality-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        
+        .card-content h3 {
+            margin: 0 0 5px;
+            font-size: 1.25rem;
+        }
+        
+        .card-content p {
+            margin: 0 0 15px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .card-footer {
+            padding: 10px 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #FF5A5F;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e04a50;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 30px 0;
+            color: #2B2D42;
+        }
+        
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px 0;
+            color: #6c757d;
+        }
+        
+        .no-results i {
+            font-size: 2rem;
+            color: #dee2e6;
+            margin-bottom: 15px;
+        }
+        .municipality-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+    gap: 20px;
+    padding: 20px 0;
+}
+
+    /* For responsive behavior on smaller screens */
+    @media (max-width: 1200px) {
+        .municipality-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 900px) {
+        .municipality-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .municipality-grid {
+            grid-template-columns: 1fr;
+        }
+}
+    </style>
 </head>
 <body>
     <header>
@@ -28,7 +169,7 @@
         <div class="container">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search municipalities...">
+                <input type="text" id="municipality-search" placeholder="Search municipalities...">
             </div>
         </div>
     </div>
@@ -37,9 +178,9 @@
         <h2 class="section-title">All Rizal Municipalities</h2>
         <div class="container">
             <!-- 4-column Grid Layout -->
-            <div class="municipality-grid">
+            <div class="municipality-grid" id="municipality-container">
                 <!-- Angono -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="angono" data-tags="art capital of the philippines">
                     <img src="images/angono.jpg" alt="Angono">
                     <div class="card-content">
                         <h3>Angono</h3>
@@ -51,7 +192,7 @@
                 </div>
 
                 <!-- Antipolo -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="antipolo" data-tags="pilgrimage city">
                     <img src="images/antipolo.jpg" alt="Antipolo">
                     <div class="card-content">
                         <h3>Antipolo</h3>
@@ -63,7 +204,7 @@
                 </div>
 
                 <!-- Binangonan -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="binangonan" data-tags="gateway to talim island">
                     <img src="images/binangonan.jpg" alt="Binangonan">
                     <div class="card-content">
                         <h3>Binangonan</h3>
@@ -75,7 +216,7 @@
                 </div>
 
                 <!-- Cainta -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="cainta" data-tags="famous for bibingka">
                     <img src="images/cainta.jpg" alt="Cainta">
                     <div class="card-content">
                         <h3>Cainta</h3>
@@ -87,7 +228,7 @@
                 </div>
 
                 <!-- Cardona -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="cardona" data-tags="lakeside town">
                     <img src="images/cardona.jpg" alt="Cardona">
                     <div class="card-content">
                         <h3>Cardona</h3>
@@ -99,7 +240,7 @@
                 </div>
 
                 <!-- Jala-Jala -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="jala-jala" data-tags="fishing village">
                     <img src="images/jala-jala.jpg" alt="Jala-Jala">
                     <div class="card-content">
                         <h3>Jala-Jala</h3>
@@ -111,7 +252,7 @@
                 </div>
 
                 <!-- Rodriguez -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="rodriguez" data-tags="mountainous area">
                     <img src="images/rodriguez.jpg" alt="Rodriguez">
                     <div class="card-content">
                         <h3>Rodriguez</h3>
@@ -123,7 +264,7 @@
                 </div>
 
                 <!-- Tanay -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="tanay" data-tags="adventure capital">
                     <img src="images/tanay.jpg" alt="Tanay">
                     <div class="card-content">
                         <h3>Tanay</h3>
@@ -135,7 +276,7 @@
                 </div>
 
                 <!-- Taytay -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="taytay" data-tags="garments capital">
                     <img src="images/taytay.jpg" alt="Taytay">
                     <div class="card-content">
                         <h3>Taytay</h3>
@@ -147,7 +288,7 @@
                 </div>
 
                 <!-- Morong -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="morong" data-tags="historical town">
                     <img src="images/morong.jpg" alt="Morong">
                     <div class="card-content">
                         <h3>Morong</h3>
@@ -159,7 +300,7 @@
                 </div>
 
                 <!-- Baras -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="baras" data-tags="eco-tourism destination">
                     <img src="images/baras.jpg" alt="Baras">
                     <div class="card-content">
                         <h3>Baras</h3>
@@ -171,7 +312,7 @@
                 </div>
 
                 <!-- San Mateo -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="san mateo" data-tags="emerging commercial hub">
                     <img src="images/san-mateo.jpg" alt="San Mateo">
                     <div class="card-content">
                         <h3>San Mateo</h3>
@@ -183,7 +324,7 @@
                 </div>
 
                 <!-- Pililla -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="pililla" data-tags="wind farm town">
                     <img src="images/pililla.jpg" alt="Pililla">
                     <div class="card-content">
                         <h3>Pililla</h3>
@@ -195,7 +336,7 @@
                 </div>
 
                 <!-- Teresa -->
-                <div class="municipality-card">
+                <div class="municipality-card" data-name="teresa" data-tags="agricultural town">
                     <img src="images/teresa.jpg" alt="Teresa">
                     <div class="card-content">
                         <h3>Teresa</h3>
@@ -224,5 +365,69 @@
 
     <!-- Auth State Listener -->
     <script src="js/auth-state.js"></script>
+
+    <!-- Search Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('municipality-search');
+            const municipalityContainer = document.getElementById('municipality-container');
+            const municipalityCards = document.querySelectorAll('.municipality-card');
+            
+            // Create a no results element
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.innerHTML = `
+                <i class="fas fa-search"></i>
+                <h3>No municipalities found</h3>
+                <p>Try searching for something else</p>
+            `;
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                let hasResults = false;
+                
+                // Hide all cards initially
+                municipalityCards.forEach(card => {
+                    card.style.display = 'none';
+                });
+                
+                // Show cards that match the search term
+                if (searchTerm === '') {
+                    // If search is empty, show all cards
+                    municipalityCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    // Remove no results message if it exists
+                    if (document.querySelector('.no-results')) {
+                        document.querySelector('.no-results').remove();
+                    }
+                    return;
+                }
+                
+                municipalityCards.forEach(card => {
+                    const name = card.dataset.name.toLowerCase();
+                    const tags = card.dataset.tags.toLowerCase();
+                    
+                    if (name.includes(searchTerm) || tags.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        hasResults = true;
+                    }
+                });
+                
+                // Handle no results
+                if (!hasResults) {
+                    // Check if no results message already exists
+                    if (!document.querySelector('.no-results')) {
+                        municipalityContainer.appendChild(noResults);
+                    }
+                } else {
+                    // Remove no results message if it exists
+                    if (document.querySelector('.no-results')) {
+                        document.querySelector('.no-results').remove();
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
