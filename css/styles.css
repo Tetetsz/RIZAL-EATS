@@ -119,6 +119,7 @@ nav a:hover, nav a.active {
   text-decoration: none;
   font-weight: 600;
   transition: background 0.3s;
+  justify-content: center;
 }
 
 .btn:hover {
@@ -505,4 +506,24 @@ header {
 .header-logo {
   height: 100px; /* or any value you like */
   width: auto;  /* maintain proportions */
+}
+
+.h1 {
+  text-align: center;
+  color: #fff	;
+  font-size: 5em;
+  padding-top: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.subtext {
+  text-align: center;
+  font-size: 1.5em;
+  color: #fff;
+}
+
+@keyframes typingLoop {
+  0% { width: 0; }
+  50% { width: 100%; }
+  100% { width: 0; }
 }
