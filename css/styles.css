@@ -36,6 +36,7 @@ nav ul {
   display: flex;
   list-style: none;
   gap: 1.5rem;
+  align-items: center;
 }
 
 nav a {
@@ -46,7 +47,7 @@ nav a {
 }
 
 nav a:hover, nav a.active {
-  color: #f39c12;
+  color: #ffb80e;
 }
 
 /* Hero Section */
@@ -83,6 +84,8 @@ nav a:hover, nav a.active {
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: transform 0.3s;
+  text-align: center;
+  align-items: center;
 }
 
 .city-card:hover {
@@ -112,7 +115,7 @@ nav a:hover, nav a.active {
 /* Buttons */
 .btn {
   display: inline-block;
-  background: #e74c3c;
+  background: #e32929;
   color: white;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -123,7 +126,7 @@ nav a:hover, nav a.active {
 }
 
 .btn:hover {
-  background: #c0392b;
+  background: #982121;
 }
 
 .btn.small {
@@ -243,7 +246,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: white;
+  color: #fff;
   background: var(--primary);
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -251,7 +254,7 @@ header {
 }
 
 .login-btn:hover {
-  background: #c0392b;
+  background: #982121;
   transform: translateY(-2px);
 }
 .toast {
@@ -526,4 +529,107 @@ header {
   0% { width: 0; }
   50% { width: 100%; }
   100% { width: 0; }
+}
+
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fonts & Colors */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Header */
+header {
+  background-color: #233142;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f24405;
+}
+
+nav a {
+  color: white;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a.active,
+nav a:hover {
+  color: #ffb80e;
+}
+
+nav a.login {
+  color: #ff9900;
+}
+
+/* Main Content */
+.about-container {
+  padding: 2rem 4rem;
+  background-color: white;
+}
+
+.about-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-info p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.contact {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #ccc;
+}
+
+.contact h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact ul {
+  list-style: none;
+}
+
+.contact li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.contact a {
+  color: #f24405;
+  text-decoration: none;
+}
+
+/* Footer */
+footer {
+  background-color: #233142;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.home-title {
+  text-align: center;
+  margin: 30px 0;
+  color: #982121;
 }
