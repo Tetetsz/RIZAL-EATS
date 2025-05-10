@@ -626,7 +626,7 @@
                 await waitForFirebase();
                 firebase.auth().onAuthStateChanged(user => {
                     if (user) {
-                        authBtn.href = 'profile.html';
+                        authBtn.href = 'dashboard.html';
                         authBtn.innerHTML = '<i class="fas fa-user"></i> My Profile';
                         localStorage.setItem('isLoggedIn', 'true');
                         console.log('User logged in:', user.uid);
@@ -639,7 +639,7 @@
                 }, error => {
                     console.error('Firebase auth state error:', error);
                     if (localStorage.getItem('isLoggedIn') === 'true') {
-                        authBtn.href = 'profile.html';
+                        authBtn.href = 'dashboard.html';
                         authBtn.innerHTML = '<i class="fas fa-user"></i> My Profile';
                     } else {
                         authBtn.href = 'login.html';
@@ -649,7 +649,7 @@
             } catch (error) {
                 console.error('Error initializing Firebase:', error);
                 if (localStorage.getItem('isLoggedIn') === 'true') {
-                    authBtn.href = 'profile.html';
+                    authBtn.href = 'dashboard.html';
                     authBtn.innerHTML = '<i class="fas fa-user"></i> My Profile';
                 } else {
                     authBtn.href = 'login.html';
