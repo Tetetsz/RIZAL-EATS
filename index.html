@@ -6,7 +6,360 @@
     <title>RIZAL EATS - Home</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <style>
+        /* Hero section styling for YouTube video background */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: welcomeFade 1s ease-out forwards;
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin: 0 0 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #ff611d;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin: 0 0 1.5rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #e32929;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .hero-content .btn:hover {
+            background-color: #982121;
+            transform: scale(1.05);
+        }
+
+        /* Animation for hero content */
+        @keyframes welcomeFade {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Featured cities section styling */
+        .featured-cities .home-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: #2B2D42;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: welcomeFade 1s ease-out forwards;
+        }
+
+        .featured-cities .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .city-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .city-row {
+            display: flex;
+            align-items: stretch;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            width: 100%;
+        }
+
+        .city-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .city-image {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .city-row.visible .slide.active img {
+            animation: imagePop 0.8s ease-out forwards;
+        }
+
+        .slide img:hover {
+            transform: scale(1.05);
+            filter: brightness(110%);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #ff611d;
+        }
+
+        .city-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex: 1;
+        }
+
+        .city-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .city-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .city-info h4 {
+            margin: 0 0 0.75rem;
+            font-size: 1.25rem;
+            color: #2B2D42;
+        }
+
+        .city-info p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .municipality-details {
+            padding: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        .municipality-details h3 {
+            font-size: 1.5rem;
+            color: #ff611d;
+            margin: 0 0 0.75rem;
+        }
+
+        .municipality-details p {
+            font-size: 0.95rem;
+            color: #6c757d;
+            margin: 0 0 0.75rem;
+        }
+
+        .municipality-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0.75rem;
+        }
+
+        .municipality-details ul li {
+            font-size: 0.9rem;
+            color: #2B2D42;
+            margin-bottom: 0.5rem;
+        }
+
+        .municipality-details .btn {
+            margin: 0.75rem auto 0;
+            background-color: #e32929;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .municipality-details .btn:hover {
+            background-color: #982121;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes imagePop {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 60vh;
+            }
+
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hero-content .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .featured-cities .home-title {
+                font-size: 2rem;
+                margin: 2rem 0 1.5rem;
+            }
+
+            .featured-cities .container {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+
+            .city-grid {
+                gap: 1.5rem;
+            }
+
+            .city-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .city-image {
+                width: 100%;
+            }
+
+            .slide img {
+                height: 200px;
+            }
+
+            .city-card {
+                width: 100%;
+            }
+
+            .city-info {
+                padding: 1rem;
+            }
+
+            .municipality-details {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -25,6 +378,12 @@
 
     <main>
         <section class="hero">
+            <iframe id="hero-video-player" class="hero-video" 
+                    src="https://www.youtube.com/embed/MS9LlhjNvN4?autoplay=1&loop=1&playlist=MS9LlhjNvN4&controls=0&showinfo=0&rel=0&enablejsapi=1" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen
+                    loading="lazy"></iframe>
             <div class="hero-content">
                 <h2>Discover Rizal's Best Eats</h2>
                 <p>Explore Rizal on a plate with top-rated restaurants across the province's municipalities!</p>
@@ -36,35 +395,181 @@
             <h2 class="home-title">Featured Municipalities</h2>
             <div class="container">
                 <div class="city-grid">
-                    <!-- Static City Cards -->
-                    <div class="city-card">
-                        <img src="images/angono.jpg" alt="Angono">
-                        <div class="city-info">
-                            <h4>Angono</h4>
-                            <p>Art Capital of the Philippines</p>
-                            <a href="municipalities.html?city=angono" class="btn small">View Restaurants</a>
+                    <!-- Angono -->
+                    <div class="city-row">
+                        <div class="city-image">
+                            <div class="slideshow-container" data-city="angono">
+                                <div class="slide active">
+                                    <img src="images/higantes.jpg" alt="Angono 1">
+                                </div>
+                                <div class="slide">
+                                    <img src="images/ang.jpg" alt="Angono 2">
+                                </div>
+                                <div class="slide">
+                                    <img src="images/ang3.jpg" alt="Angono 3">
+                                </div>
+                                <div class="dots-container">
+                                    <span class="dot active" onclick="setSlide('angono', 0)"></span>
+                                    <span class="dot" onclick="setSlide('angono', 1)"></span>
+                                    <span class="dot" onclick="setSlide('angono', 2)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <div class="city-info">
+                                <h4>Angono</h4>
+                                <p>Art Capital of the Philippines</p>
+                            </div>
+                            <div class="municipality-details">
+                                <p>Angono, Rizal—hailed as the Art Capital of the Philippines—is just as rich in flavor as it is in creativity, offering a culinary scene that’s a masterpiece in itself. Known for its hearty and homegrown dishes like sinigang na kanduli sa miso (catfish in tamarind-miso soup), adobong itik (native duck stew), and fried itik, Angono blends tradition with bold, local flair. The town is also famous for unique delicacies like balaw-balaw—a fermented shrimp condiment often served with grilled or fried fish—and the quirky yet beloved ensaladang pako (fern salad). From roadside eateries to art-inspired cafés near the Balaw-Balaw Restaurant and Art Gallery, every bite in Angono feels like tasting history and heritage on a plate.</p>
+                                <ul>
+                                    <li>Famous for The Higantes Festival</li>
+                                    <li>Top Dish: Balaw-Balaw</li>
+                                    <li>Attraction: Angono Petroglyphs</li>
+                                </ul>
+                                <a href="angono.html" class="btn">View Restaurants</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="city-card">
-                        <img src="images/antipolo.jpg" alt="Antipolo">
-                        <div class="city-info">
-                            <h4>Antipolo</h4>
-                            <p>Pilgrimage City with Mountain Views</p>
-                            <a href="municipalities.html?city=antipolo" class="btn small">View Restaurants</a>
+                    <!-- Antipolo -->
+                    <div class="city-row">
+                        <div class="city-image">
+                            <div class="slideshow-container" data-city="antipolo">
+                                <div class="slide active">
+                                    <img src="images/antcat.jpg" alt="Antipolo 1">
+                                </div>
+                                <div class="slide">
+                                    <img src="images/ant.jpg" alt="Antipolo 2">
+                                </div>
+                                <div class="slide">
+                                    <img src="images/ht.jpg" alt="Antipolo 3">
+                                </div>
+                                <div class="dots-container">
+                                    <span class="dot active" onclick="setSlide('antipolo', 0)"></span>
+                                    <span class="dot" onclick="setSlide('antipolo', 1)"></span>
+                                    <span class="dot" onclick="setSlide('antipolo', 2)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <div class="city-info">
+                                <h4>Antipolo</h4>
+                                <p>Pilgrimage City with Mountain Views</p>
+                            </div>
+                            <div class="municipality-details">
+                                <p>Antipolo, Rizal is a food lover’s haven where tradition meets taste—from the famous suman sa ibos served with sweet mangoes to the creamy kesong puti and flavorful alagao wraps, each bite tells a story of local pride and heritage. Whether you're strolling by the Antipolo Cathedral or enjoying the city’s scenic overlooks, you'll find stalls and restaurants brimming with Filipino favorites like crispy pata, kakanin, and smoky inihaw. Don’t miss the pasalubong centers for sweet treats and cashew nuts, or dine with a view at places like Cloud 9 or Pinto Art Café—because in Antipolo, food is more than a meal, it’s an experience wrapped in warmth, view, and vibrant culture.</p>
+                                <ul>
+                                    <li>Famous for Antipolo Cathedral</li>
+                                    <li>Top Dish: Suman</li>
+                                    <li>Attraction: Hinulugang Taktak</li>
+                                </ul>
+                                <a href="antipolo.html" class="btn">View Restaurants</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 RIZAL EATS. All rights reserved.</p>
+            <p>© 2025 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+
+        // Initialize YouTube player when API is ready
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hero-video-player', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        // When player is ready, seek to stored time if available
+        function onPlayerReady(event) {
+            const storedTime = localStorage.getItem('heroVideoTime');
+            if (storedTime && parseFloat(storedTime) > 0) {
+                player.seekTo(parseFloat(storedTime), true);
+                player.playVideo();
+            }
+        }
+
+        // Save current time to localStorage before leaving the page
+        window.addEventListener('beforeunload', function() {
+            if (player && player.getCurrentTime) {
+                localStorage.setItem('heroVideoTime', player.getCurrentTime());
+            }
+        });
+
+        // Slideshow functionality
+        const slideshows = {};
+
+        function initSlideshows() {
+            document.querySelectorAll('.slideshow-container').forEach(container => {
+                const city = container.dataset.city;
+                slideshows[city] = {
+                    container: container,
+                    slides: container.querySelectorAll('.slide'),
+                    dots: container.querySelectorAll('.dot'),
+                    currentIndex: 0,
+                    interval: null
+                };
+                startSlideshow(city);
+            });
+        }
+
+        function startSlideshow(city) {
+            const slideshow = slideshows[city];
+            slideshow.interval = setInterval(() => {
+                slideshow.currentIndex = (slideshow.currentIndex + 1) % slideshow.slides.length;
+                updateSlideshow(city);
+            }, 3000);
+        }
+
+        function setSlide(city, index) {
+            const slideshow = slideshows[city];
+            clearInterval(slideshow.interval);
+            slideshow.currentIndex = index;
+            updateSlideshow(city);
+            startSlideshow(city);
+        }
+
+        function updateSlideshow(city) {
+            const slideshow = slideshows[city];
+            slideshow.slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === slideshow.currentIndex);
+            });
+            slideshow.dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === slideshow.currentIndex);
+            });
+        }
+
+        // Scroll-triggered animations for city rows
+        document.addEventListener('DOMContentLoaded', function() {
+            initSlideshows();
+            const cityRows = document.querySelectorAll('.city-row');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            cityRows.forEach(row => {
+                observer.observe(row);
+            });
+        });
+    </script>
 </body>
 </html>

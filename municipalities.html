@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/municipal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Add these styles to your municipal.css or in this style tag */
+        /* Existing styles */
         .search-container {
-            background-color: #ffb80e	;
+            background-color: #ec9a1f;
             padding: 15px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -35,18 +35,19 @@
             border: 1px solid #ced4da;
             border-radius: 25px;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.3s, transform 0.2s ease;
         }
         
         .search-box input:focus {
             outline: none;
             border-color: #80bdff;
             box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+            transform: scale(1.02);
         }
         
         .municipality-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             padding: 20px 0;
         }
@@ -56,17 +57,31 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .municipality-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 0.5s ease-out;
         }
         
         .municipality-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         
         .municipality-card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .municipality-card:hover img {
+            transform: scale(1.05);
         }
         
         .card-content {
@@ -76,7 +91,7 @@
         .card-content h3 {
             margin: 0 0 5px;
             font-size: 1.25rem;
-            color: #982121;
+            color: #2B2D42;
         }
         
         .card-content p {
@@ -98,17 +113,21 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 0.9rem;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s ease;
         }
         
         .btn:hover {
-            background-color: #982121	;
+            background-color: #982121;
+            transform: scale(1.05);
         }
         
         .section-title {
             text-align: center;
             margin: 30px 0;
             color: #2B2D42;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: welcomeFade 1s ease-out forwards;
         }
         
         .no-results {
@@ -123,31 +142,109 @@
             color: #dee2e6;
             margin-bottom: 15px;
         }
-        .municipality-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
-    gap: 20px;
-    padding: 20px 0;
-}
 
-    /* For responsive behavior on smaller screens */
-    @media (max-width: 1200px) {
-        .municipality-grid {
-            grid-template-columns: repeat(3, 1fr);
+        .nav-links li a {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
-    }
 
-    @media (max-width: 900px) {
-        .municipality-grid {
-            grid-template-columns: repeat(2, 1fr);
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffb80e;
+            transition: width 0.3s ease;
         }
-    }
 
-    @media (max-width: 600px) {
-        .municipality-grid {
-            grid-template-columns: 1fr;
+        .nav-links li a:hover::after {
+            width: 100%;
         }
-}
+
+        .nav-links li a:hover {
+            color: #ffb80e	;
+        }
+
+        .header-logo {
+            animation: bounceIn 1s ease-out;
+        }
+
+        
+        /* Responsive breakpoints */
+        @media (max-width: 1200px) {
+            .municipality-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .municipality-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .municipality-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* New animations */
+        body {
+            background-image: url('images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: parallax 20s infinite linear;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes welcomeFade {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes parallax {
+            0% { background-position: center 0; }
+            50% { background-position: center 20px; }
+            100% { background-position: center 0; }
+        }
     </style>
 </head>
 <body>
@@ -159,13 +256,12 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="municipalities.html" class="active">Municipalities</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user">Log In</i></a></li>
+                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user">Sign In</i></a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Search Bar at Very Top -->
     <div class="search-container">
         <div class="container">
             <div class="search-box">
@@ -178,9 +274,7 @@
     <main>
         <h2 class="section-title">All Rizal Municipalities</h2>
         <div class="container">
-            <!-- 4-column Grid Layout -->
             <div class="municipality-grid" id="municipality-container">
-                <!-- Angono -->
                 <div class="municipality-card" data-name="angono" data-tags="art capital of the philippines">
                     <img src="images/angono.jpg" alt="Angono">
                     <div class="card-content">
@@ -192,7 +286,6 @@
                     </div>
                 </div>
 
-                <!-- Antipolo -->
                 <div class="municipality-card" data-name="antipolo" data-tags="pilgrimage city">
                     <img src="images/antipolo.jpg" alt="Antipolo">
                     <div class="card-content">
@@ -204,7 +297,6 @@
                     </div>
                 </div>
 
-                <!-- Binangonan -->
                 <div class="municipality-card" data-name="binangonan" data-tags="gateway to talim island">
                     <img src="images/binangonan.jpg" alt="Binangonan">
                     <div class="card-content">
@@ -216,7 +308,6 @@
                     </div>
                 </div>
 
-                <!-- Cainta -->
                 <div class="municipality-card" data-name="cainta" data-tags="famous for bibingka">
                     <img src="images/cainta.jpg" alt="Cainta">
                     <div class="card-content">
@@ -228,7 +319,6 @@
                     </div>
                 </div>
 
-                <!-- Cardona -->
                 <div class="municipality-card" data-name="cardona" data-tags="lakeside town">
                     <img src="images/cardona.jpeg" alt="Cardona">
                     <div class="card-content">
@@ -240,10 +330,8 @@
                     </div>
                 </div>
 
-                <!-- Jala-Jala -->
                 <div class="municipality-card" data-name="jala-jala" data-tags="fishing village">
                     <img src="images/jala-jala.jpeg" alt="Jala-Jala">
-
                     <div class="card-content">
                         <h3>Jala-Jala</h3>
                         <p>Fishing Village</p>
@@ -253,7 +341,6 @@
                     </div>
                 </div>
 
-                <!-- Rodriguez -->
                 <div class="municipality-card" data-name="rodriguez" data-tags="mountainous area">
                     <img src="images/rodriguez.jpg" alt="Rodriguez">
                     <div class="card-content">
@@ -265,10 +352,8 @@
                     </div>
                 </div>
 
-                <!-- Tanay -->
                 <div class="municipality-card" data-name="tanay" data-tags="adventure capital">
                     <img src="images/tanay.jpeg" alt="Tanay">
-
                     <div class="card-content">
                         <h3>Tanay</h3>
                         <p>Adventure Capital</p>
@@ -278,10 +363,8 @@
                     </div>
                 </div>
 
-                <!-- Taytay -->
                 <div class="municipality-card" data-name="taytay" data-tags="garments capital">
                     <img src="images/taytay.jpeg" alt="Taytay">
-                
                     <div class="card-content">
                         <h3>Taytay</h3>
                         <p>Garments Capital</p>
@@ -291,7 +374,6 @@
                     </div>
                 </div>
 
-                <!-- Morong -->
                 <div class="municipality-card" data-name="morong" data-tags="historical town">
                     <img src="images/morong.jpg" alt="Morong">
                     <div class="card-content">
@@ -303,7 +385,6 @@
                     </div>
                 </div>
 
-                <!-- Baras -->
                 <div class="municipality-card" data-name="baras" data-tags="eco-tourism destination">
                     <img src="images/baras.jpg" alt="Baras">
                     <div class="card-content">
@@ -315,10 +396,8 @@
                     </div>
                 </div>
 
-                <!-- San Mateo -->
                 <div class="municipality-card" data-name="san mateo" data-tags="emerging commercial hub">
                     <img src="images/san mateo.jpg" alt="San Mateo">
-
                     <div class="card-content">
                         <h3>San Mateo</h3>
                         <p>Emerging Commercial Hub</p>
@@ -328,7 +407,6 @@
                     </div>
                 </div>
 
-                <!-- Pililla -->
                 <div class="municipality-card" data-name="pililla" data-tags="wind farm town">
                     <img src="images/pililla.jpg" alt="Pililla">
                     <div class="card-content">
@@ -340,7 +418,6 @@
                     </div>
                 </div>
 
-                <!-- Teresa -->
                 <div class="municipality-card" data-name="teresa" data-tags="agricultural town">
                     <img src="images/teresa.jpg" alt="Teresa">
                     <div class="card-content">
@@ -357,21 +434,14 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 RIZAL EATS. All rights reserved.</p>
+            <p>© 2025 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
    
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-
-    <!-- Your Config -->
     <script src="js/firebase-config.js"></script>
-
-    <!-- Auth State Listener -->
     <script src="js/auth-state.js"></script>
-
-    <!-- Search Functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('municipality-search');
@@ -387,22 +457,20 @@
                 <p>Try searching for something else</p>
             `;
             
+            // Search functionality
             searchInput.addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase().trim();
                 let hasResults = false;
                 
-                // Hide all cards initially
                 municipalityCards.forEach(card => {
                     card.style.display = 'none';
                 });
                 
-                // Show cards that match the search term
                 if (searchTerm === '') {
-                    // If search is empty, show all cards
                     municipalityCards.forEach(card => {
                         card.style.display = 'block';
+                        card.classList.add('visible');
                     });
-                    // Remove no results message if it exists
                     if (document.querySelector('.no-results')) {
                         document.querySelector('.no-results').remove();
                     }
@@ -415,22 +483,34 @@
                     
                     if (name.includes(searchTerm) || tags.includes(searchTerm)) {
                         card.style.display = 'block';
+                        card.classList.add('visible');
                         hasResults = true;
                     }
                 });
                 
-                // Handle no results
                 if (!hasResults) {
-                    // Check if no results message already exists
                     if (!document.querySelector('.no-results')) {
                         municipalityContainer.appendChild(noResults);
                     }
                 } else {
-                    // Remove no results message if it exists
                     if (document.querySelector('.no-results')) {
                         document.querySelector('.no-results').remove();
                     }
                 }
+            });
+
+            // Scroll-triggered animations for municipality cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            municipalityCards.forEach(card => {
+                observer.observe(card);
             });
         });
     </script>
