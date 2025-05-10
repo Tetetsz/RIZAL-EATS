@@ -64,16 +64,6 @@
             margin-left: 0.75rem;
         }
         
-        .verified-badge {
-            background-color: rgba(40, 167, 69, 0.1);
-            color: var(--success);
-        }
-        
-        .unverified-badge {
-            background-color: rgba(220, 53, 69, 0.1);
-            color: #dc3545;
-        }
-        
         .dashboard-actions {
             display: flex;
             gap: 1rem;
@@ -336,6 +326,31 @@
             font-size: 0.9rem;
             color: var(--gray);
         }
+
+        .nav-links li a {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffb80e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a:hover {
+            color: #ffb80e	;
+        }
         
         @media (max-width: 768px) {
             .dashboard-sections {
@@ -363,8 +378,7 @@
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li class="login-item"><a href="#" id="profile-btn" class="login-btn"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="about.html">About</a></li>
                 </ul>
             </nav>
         </div>
@@ -374,17 +388,14 @@
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <div class="welcome-message">
-                    <h2>Welcome back, <span id="user-email"></span> 
-                        <span id="verification-status" class="badge unverified-badge">
-                            <i class="fas fa-times-circle"></i> Unverified
-                        </span>
+                    <h2>Welcome, <span id="user-email">.</span> 
                     </h2>
-                    <p>Your Rizal culinary journey continues</p>
+                    <p>Your Rizal food adventure starts here!</p>
                 </div>
                 
                 <div class="dashboard-actions">
                     <button id="logout-btn" class="btn btn-outline">
-                        <i class="fas fa-sign-out-alt"></i> Log Out
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
                     </button>
                 </div>
             </div>
@@ -399,7 +410,7 @@
                     <div id="to-visit-list">
                         <div class="empty-state" id="empty-to-visit">
                             <i class="far fa-bookmark"></i>
-                            <p>Your to-visit list is empty</p>
+                            <p>Your To Visit List is empty.</p>
                             <a href="municipalities.html" class="btn btn-primary">Explore Restaurants</a>
                         </div>
                     </div>
@@ -422,7 +433,7 @@
                     <div id="reviews-list">
                         <div class="empty-state" id="empty-reviews">
                             <i class="far fa-star"></i>
-                            <p>You haven't written any reviews yet</p>
+                            <p>You haven't written any reviews yet.</p>
                         </div>
                     </div>
                     <div class="pagination-controls" id="review-pagination" style="display: none;">

@@ -633,3 +633,29 @@ footer {
   margin: 30px 0;
   color: #982121;
 }
+
+.nav-links li a {
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #ffb80e;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.nav-links li a:hover {
+  color: #ffb80e	;
+}
+

@@ -7,24 +7,28 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Same styles as login.html */
         .login-container {
             max-width: 400px;
-            margin: 3rem auto;
+            margin: 1.5rem auto;
             padding: 2rem;
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
         }
         
         .login-title {
             text-align: center;
             margin-bottom: 1.5rem;
             color: #2c3e50;
+            animation: fadeIn 1s ease-out 0.2s;
+            animation-fill-mode: backwards;
         }
         
         .form-group {
             margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease-out 0.4s;
+            animation-fill-mode: backwards;
         }
         
         .form-group label {
@@ -45,14 +49,20 @@
             box-shadow: none;
             outline: none;
             font-size: 1rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: #e32929;
+            transform: scale(1.02);
         }
         
         .login-btn { 
             font-size: 1rem;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s ease;
             width: 100%;
             background: #0078ff;
-            background: linear-gradient(45deg, #e32929	, #fff172);
+            background: linear-gradient(45deg, #e32929, #fff172);
             border: none;
             cursor: pointer;
             padding: 12px 20px;
@@ -63,11 +73,14 @@
         
         .login-btn:hover {
             background: #2c3e50;
+            transform: scale(1.05);
         }
         
         .login-footer {
             text-align: center;
             margin-top: 1.5rem;
+            animation: fadeIn 1s ease-out 0.6s;
+            animation-fill-mode: backwards;
         }
         
         .error-message {
@@ -76,17 +89,127 @@
             text-align: center;
             display: none;
         }
-        .typewriter-loop {
-            text-align: center;
-            font-size: 2em;
+        
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease;
         }
+        
+        .success-message {
+            color: #2ecc71;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: fadeIn 1s ease-out;
+        }
+        
         body {
-            background-image: url('images/bg.jpg');
-            background-size: cover;         /* fills the screen */
-            background-position: center;    /* keeps it centered */
-            background-repeat: no-repeat;   /* prevents tiling */
+            background-image: url('images/download.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             height: 100vh;
             margin: 0;
+            animation: parallax 20s infinite linear;
+        }
+
+        .header-logo {
+            animation: bounceIn 1s ease-out;
+        }
+
+        .nav-links li a {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffb80e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a:hover {
+            color: #ffb80e	;
+        }
+
+        .h1 {
+            text-align: center;
+            margin: 0.5rem 0;
+            background: linear-gradient(45deg, #ffb80e	, #ff611d	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out;
+        }
+
+        .typewriter-loop {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        @keyframes parallax {
+            0% { background-position: center 0; }
+            50% { background-position: center 20px; }
+            100% { background-position: center 0; }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes welcomeFade {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -106,12 +229,11 @@
 
     <main>
         <h1 class="h1">Welcome to Rizal Eats!</h1>
-        <h1 class="subtext">Taste the Story of Rizal...</h1>
         <div class="login-container">
-            <h2 class="login-title">Create Account</h2>
+            <h2 class="login-title">Create Your Account</h2>
             <form id="registerForm">
                 <div class="form-group">
-                    <input type="email" id="email" required placeholder="Enter an email...">
+                    <input type="email" id="email" required placeholder="Enter a username...">
                 </div>
                 
                 <div class="form-group">
@@ -131,7 +253,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+            <p>© 2023 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
 
@@ -139,8 +261,19 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     
-    <!-- Your Firebase Config -->
-    <script src="js/firebase-config.js"></script>
+    <!-- Firebase Config -->
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyBlueL5pXIARVMbSVlKzglBda_65ap6W8k",
+            authDomain: "rizal-eats.firebaseapp.com",
+            projectId: "rizal-eats",
+            storageBucket: "rizal-eats.firebasestorage.app",
+            messagingSenderId: "408631282807",
+            appId: "1:408631282807:web:ccb009c71fc1796abdca72",
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
     
     <!-- Registration Script -->
     <script>
@@ -153,12 +286,15 @@
             const successMessage = document.getElementById('successMessage');
             
             errorMessage.style.display = 'none';
+            errorMessage.classList.remove('show');
             successMessage.style.display = 'none';
+            successMessage.classList.remove('show');
             
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     successMessage.textContent = 'Registration successful!';
                     successMessage.style.display = 'block';
+                    successMessage.classList.add('show');
                     
                     // Send email verification
                     userCredential.user.sendEmailVerification()
@@ -179,6 +315,7 @@
                     };
                     errorMessage.textContent = errorMessages[error.code] || 'Registration failed. Please try again.';
                     errorMessage.style.display = 'block';
+                    errorMessage.classList.add('show');
                 });
         });
 
