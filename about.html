@@ -22,8 +22,6 @@
             animation: parallax 20s infinite linear;
         }
 
-        
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -33,10 +31,6 @@
             align-items: center;
         }
 
-        
-
-
-       
         .about-container {
             width: 100%;
             padding: 0 1rem;
@@ -261,6 +255,41 @@
             width: 100%;
         }
 
+        /* Navigation hover animation from municipalities.html */
+        .nav-links li a {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffb80e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a:hover {
+            color: #ffb80e;
+        }
+
+        /* Ensure login button is excluded from hover animation */
+        .nav-links li.login-item a.login-btn {
+            position: static;
+        }
+
+        .nav-links li.login-item a.login-btn::after {
+            display: none;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -357,8 +386,6 @@
             .gallery-item img {
                 height: 200px;
             }
-
-            
         }
     </style>
 </head>
@@ -367,11 +394,11 @@
         <div class="container">
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
-                <ul>
+                <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="municipalities.html">Municipalities</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user"></i>Log In</a></li>
+                    <li class="login-item"><a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user"></i> Log In</a></li>
                 </ul>
             </nav>
         </div>
@@ -430,34 +457,94 @@
         </div>
     </footer>
 
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/firebase-config.js"></script>
     <script>
-        // Scroll-triggered animations
-        const sections = document.querySelectorAll('.about-info, .gallery, .contact');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+        // Ensure Firebase is initialized before checking auth state
+        function waitForFirebase() {
+            return new Promise((resolve) => {
+                if (firebase.apps.length > 0) {
+                    resolve();
+                } else {
+                    setTimeout(() => waitForFirebase().then(resolve), 100);
                 }
             });
-        }, { threshold: 0.2 });
+        }
 
-        sections.forEach(section => observer.observe(section));
+        // Login/Profile toggle
+        async function updateAuthButton() {
+            const authBtn = document.getElementById('auth-btn');
+            try {
+                await waitForFirebase();
+                firebase.auth().onAuthStateChanged(user => {
+                    if (user) {
+                        authBtn.href = 'dashboard.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> My Acccount';
+                        localStorage.setItem('isLoggedIn', 'true');
+                        console.log('User logged in:', user.uid);
+                    } else {
+                        authBtn.href = 'login.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                        localStorage.setItem('isLoggedIn', 'false');
+                        console.log('User not logged in');
+                    }
+                }, error => {
+                    console.error('Firebase auth state error:', error);
+                    if (localStorage.getItem('isLoggedIn') === 'true') {
+                        authBtn.href = 'dashboard.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> My Acccount';
+                    } else {
+                        authBtn.href = 'login.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing Firebase:', error);
+                if (localStorage.getItem('isLoggedIn') === 'true') {
+                    authBtn.href = 'dashboard.html';
+                    authBtn.innerHTML = '<i class="fas fa-user"></i> My Acccount';
+                } else {
+                    authBtn.href = 'login.html';
+                    authBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                }
+            }
+        }
 
-        // Back to Top button visibility
-        const backToTopButton = document.querySelector('.back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
+        // Scroll-triggered animations and other initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Firebase auth button
+            updateAuthButton();
+
+            // Scroll-triggered animations for sections
+            const sections = document.querySelectorAll('.about-info, .gallery, .contact');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            sections.forEach(section => observer.observe(section));
+
+            // Back to Top button visibility
+            const backToTopButton = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+
+            // Smooth scroll to top
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
-
-        // Smooth scroll to top
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
     </script>
 </body>
 </html>
