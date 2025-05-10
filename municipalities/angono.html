@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angono Restaurants | RIZAL EATS</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet CSS -->
@@ -607,13 +607,18 @@
 <body>
     <header>
         <div class="container">
-            <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
+            <h1 class="logo">RIZAL EATS</h1>
             <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user"></i>Log In</a></li>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../municipalities.html">Municipalities</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li class="login-item">
+                        <a href="#" id="auth-btn" class="login-btn">
+                            <i class="fas fa-user"></i> 
+                            <span id="auth-text">Login</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -622,8 +627,8 @@
     <main>
         <div class="restaurants-container">
             <div class="breadcrumb">
-                <a href="index.html">Home</a> &gt; 
-                <a href="municipalities.html">Municipalities</a> &gt; 
+                <a href="../index.html">Home</a> > 
+                <a href="../municipalities.html">Municipalities</a> > 
                 <span>Angono</span>
             </div>
             
@@ -680,7 +685,7 @@
     <!-- Review Modal -->
     <div id="reviewModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal">×</span>
             <h2>Reviews for <span id="reviewRestaurantName"></span></h2>
             
             <!-- Average Rating Display -->
@@ -728,7 +733,7 @@
     <!-- Map Modal -->
     <div id="mapModal" class="map-modal">
         <div class="map-modal-content">
-            <span class="map-modal-close">&times;</span>
+            <span class="map-modal-close">×</span>
             <h3 id="mapRestaurantName"></h3>
             <p id="mapRestaurantLocation"></p>
             <div id="fullscreen-map"></div>
@@ -737,7 +742,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+            <p>© 2025 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
 
@@ -961,7 +966,7 @@
                 mapInstance = L.map('fullscreen-map').setView(coordinates, 16);
                 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(mapInstance);
                 
                 // Add marker with custom icon
@@ -1224,6 +1229,20 @@
                         alert('Error submitting review. Please try again.');
                     });
             });
+
+            // Auth State Handler
+            firebase.auth().onAuthStateChanged(function(user) {
+                const authBtn = document.getElementById('auth-btn');
+                const authText = document.getElementById('auth-text');
+                
+                if (user) {
+                    authText.textContent = 'Profile';
+                    authBtn.href = "../dashboard.html";
+                } else {
+                    authText.textContent = 'Login';
+                    authBtn.href = "../login.html";
+                }
+            });
         });
 
         // Weather Configuration for Angono
@@ -1459,20 +1478,6 @@
                 `).join('')}
             `;
         }
-
-        // Auth State Handler
-        firebase.auth().onAuthStateChanged(function(user) {
-            const authBtn = document.getElementById('auth-btn');
-            const authText = document.getElementById('auth-text');
-            
-            if (user) {
-                authText.textContent = 'Profile';
-                authBtn.href = "../dashboard.html";
-            } else {
-                authText.textContent = 'Login';
-                authBtn.href = "../login.html";
-            }
-        });
     </script>
 </body>
 </html>
