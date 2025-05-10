@@ -18,23 +18,42 @@
             justify-content: center;
         }
 
-        .hero-video {
+        /* Semi-transparent overlay covering entire hero section */
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+            z-index: 1; /* Above video, below content */
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%) scale(1.2); /* Increased zoom to fill gaps */
+            z-index: 0; /* Below overlay */
+        }
+
+        /* Ensure iframe fills container */
+        .hero-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Above overlay */
             text-align: center;
             color: white;
             padding: 2rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: transparent; /* No background */
             border-radius: 10px;
             max-width: 600px;
             margin: 0 auto;
@@ -46,25 +65,27 @@
         .hero-content h2 {
             font-size: 2.5rem;
             margin: 0 0 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            color: #ff611d;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7); /* Strong shadow for readability */
+            color: #ffffff; /* Always white */
         }
 
         .hero-content p {
             font-size: 1.2rem;
             margin: 0 0 1.5rem;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Strong shadow */
+            color: #ffffff; /* Always white */
         }
 
         .hero-content .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
             background-color: #e32929;
-            color: white;
+            color: #ffffff; /* Always white */
             text-decoration: none;
             border-radius: 5px;
             font-size: 1rem;
             transition: background-color 0.3s ease, transform 0.2s ease;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7); /* Shadow for button text */
         }
 
         .hero-content .btn:hover {
@@ -301,10 +322,49 @@
             }
         }
 
+        /* Navigation hover animation from municipalities.html */
+        .nav-links li a {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffb80e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a:hover {
+            color: #ffb80e;
+        }
+
+        /* Ensure login button is excluded from hover animation */
+        .nav-links li.login-item a.login-btn {
+            position: static;
+        }
+
+        .nav-links li.login-item a.login-btn::after {
+            display: none;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .hero {
                 min-height: 60vh;
+            }
+
+            .hero-video {
+                height: 60vh;
             }
 
             .hero-content h2 {
@@ -366,11 +426,13 @@
         <div class="container">
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
-                <ul>
+                <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="municipalities.html">Municipalities</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user"></i>Log In</a></li>
+                    <li class="login-item">
+                        <a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user"></i> Log In</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -379,7 +441,7 @@
     <main>
         <section class="hero">
             <iframe id="hero-video-player" class="hero-video" 
-                    src="https://www.youtube.com/embed/MS9LlhjNvN4?autoplay=1&loop=1&playlist=MS9LlhjNvN4&controls=0&showinfo=0&rel=0&enablejsapi=1" 
+                    src="https://www.youtube.com/embed/MS9LlhjNvN4?autoplay=1&mute=1&loop=1&playlist=MS9LlhjNvN4&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1" 
                     frameborder="0" 
                     allow="autoplay; encrypted-media" 
                     allowfullscreen
@@ -427,7 +489,7 @@
                                     <li>Top Dish: Balaw-Balaw</li>
                                     <li>Attraction: Angono Petroglyphs</li>
                                 </ul>
-                                <a href="angono.html" class="btn">View Restaurants</a>
+                                <a href="/municipalities/angono.html" class="btn">View Restaurants</a>
                             </div>
                         </div>
                     </div>
@@ -464,7 +526,7 @@
                                     <li>Top Dish: Suman</li>
                                     <li>Attraction: Hinulugang Taktak</li>
                                 </ul>
-                                <a href="antipolo.html" class="btn">View Restaurants</a>
+                                <a href="municipalities/antipolo.html" class="btn">View Restaurants</a>
                             </div>
                         </div>
                     </div>
@@ -479,6 +541,11 @@
         </div>
     </footer>
 
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth-state.js"></script>
     <!-- YouTube Iframe API -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
@@ -486,28 +553,110 @@
 
         // Initialize YouTube player when API is ready
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('hero-video-player', {
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
+            console.log('YouTube Iframe API loaded');
+            try {
+                player = new YT.Player('hero-video-player', {
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange,
+                        'onError': onPlayerError
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing YouTube player:', error);
+            }
         }
 
-        // When player is ready, seek to stored time if available
+        // When player is ready, start playback
         function onPlayerReady(event) {
-            const storedTime = localStorage.getItem('heroVideoTime');
-            if (storedTime && parseFloat(storedTime) > 0) {
-                player.seekTo(parseFloat(storedTime), true);
+            console.log('YouTube player ready');
+            try {
+                const storedTime = localStorage.getItem('heroVideoTime');
+                if (storedTime && parseFloat(storedTime) > 0) {
+                    player.seekTo(parseFloat(storedTime), true);
+                }
+                player.mute(); // Mute to bypass autoplay restrictions
+                player.playVideo();
+            } catch (error) {
+                console.error('Error in onPlayerReady:', error);
+            }
+        }
+
+        // Handle video state changes
+        function onPlayerStateChange(event) {
+            console.log('Player state:', event.data);
+            if (event.data === YT.PlayerState.ENDED) {
+                player.seekTo(0, true);
                 player.playVideo();
             }
         }
 
-        // Save current time to localStorage before leaving the page
+        // Handle YouTube player errors
+        function onPlayerError(event) {
+            console.error('YouTube player error:', event.data);
+            // Common error codes:
+            // 2: Invalid parameter
+            // 5: HTML5 player error
+            // 100: Video not found
+            // 101/150: Video not allowed to be played in embedded player
+        }
+
+        // Save current time to localStorage before leaving
         window.addEventListener('beforeunload', function() {
             if (player && player.getCurrentTime) {
                 localStorage.setItem('heroVideoTime', player.getCurrentTime());
             }
         });
+
+        // Ensure Firebase is initialized before checking auth state
+        function waitForFirebase() {
+            return new Promise((resolve) => {
+                if (firebase.apps.length > 0) {
+                    resolve();
+                } else {
+                    setTimeout(() => waitForFirebase().then(resolve), 100);
+                }
+            });
+        }
+
+        // Login/Profile toggle
+        async function updateAuthButton() {
+            const authBtn = document.getElementById('auth-btn');
+            try {
+                await waitForFirebase();
+                firebase.auth().onAuthStateChanged(user => {
+                    if (user) {
+                        authBtn.href = 'profile.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> My Profile';
+                        localStorage.setItem('isLoggedIn', 'true');
+                        console.log('User logged in:', user.uid);
+                    } else {
+                        authBtn.href = 'login.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                        localStorage.setItem('isLoggedIn', 'false');
+                        console.log('User not logged in');
+                    }
+                }, error => {
+                    console.error('Firebase auth state error:', error);
+                    if (localStorage.getItem('isLoggedIn') === 'true') {
+                        authBtn.href = 'profile.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> My Profile';
+                    } else {
+                        authBtn.href = 'login.html';
+                        authBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing Firebase:', error);
+                if (localStorage.getItem('isLoggedIn') === 'true') {
+                    authBtn.href = 'profile.html';
+                    authBtn.innerHTML = '<i class="fas fa-user"></i> My Profile';
+                } else {
+                    authBtn.href = 'login.html';
+                    authBtn.innerHTML = '<i class="fas fa-user"></i> Log In';
+                }
+            }
+        }
 
         // Slideshow functionality
         const slideshows = {};
@@ -552,11 +701,12 @@
             });
         }
 
-        // Scroll-triggered animations for city rows
+        // Initialize slideshows, auth button, and animations
         document.addEventListener('DOMContentLoaded', function() {
             initSlideshows();
-            const cityRows = document.querySelectorAll('.city-row');
+            updateAuthButton();
 
+            const cityRows = document.querySelectorAll('.city-row');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
