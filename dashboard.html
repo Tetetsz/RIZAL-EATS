@@ -17,9 +17,12 @@
             --success: #28a745;
             --warning: #ffc107;
         }
+
+        .header-logo {
+            animation: bounceIn 1s ease-out;
+        }
         
         body {
-            font-family: 'Poppins', sans-serif;
             background-color: var(--light);
             color: var(--dark);
             margin: 0;
@@ -45,13 +48,18 @@
         
         .welcome-message h2 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 3rem;
             font-weight: 600;
+            color: #ff611d	;
+
         }
         
         .welcome-message p {
             margin: 0.5rem 0 0;
             color: var(--gray);
+            font-size: 1.3rem;
+            color: #813531	;
+
         }
         
         .badge {
@@ -84,13 +92,14 @@
         }
         
         .btn-primary {
-            background: var(--primary);
+            background: #e32929;
             color: white;
         }
         
         .btn-primary:hover {
-            background: #e04a50;
-            transform: translateY(-2px);
+            background: #ffb80e		;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
         }
         
         .btn-secondary {
@@ -110,8 +119,7 @@
         }
         
         .btn-outline:hover {
-            border-color: var(--dark);
-            transform: translateY(-2px);
+            color: #fff	;
         }
         
         .dashboard-sections {
@@ -142,11 +150,12 @@
             margin: 0;
             font-size: 1.3rem;
             font-weight: 600;
+            color: #ff611d	;
         }
         
         .card-header .view-all {
             font-size: 0.9rem;
-            color: var(--primary);
+            color: #813531	;
             text-decoration: none;
             font-weight: 500;
         }
@@ -165,6 +174,7 @@
         
         .empty-state p {
             margin: 0.5rem 0;
+            color: #813531	;
         }
         
         .restaurant-list {
@@ -202,6 +212,7 @@
         .restaurant-info h4 {
             margin: 0 0 0.25rem;
             font-size: 1rem;
+            color: #813531	;
         }
         
         .restaurant-info p {
@@ -245,7 +256,7 @@
         
         .review-restaurant {
             font-weight: 600;
-            color: var(--dark);
+            color: #813531	;
         }
         
         .review-date {
@@ -349,7 +360,18 @@
         }
 
         .nav-links li a:hover {
-            color: #ffb80e	;
+            color: #ffb80e;
+        }
+
+        .nav-links li a i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
         }
         
         @media (max-width: 768px) {
@@ -368,6 +390,28 @@
                 flex-direction: column;
             }
         }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
+        .toast.error {
+            background-color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -376,9 +420,9 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                 </ul>
             </nav>
         </div>
@@ -452,7 +496,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 RIZAL EATS. All rights reserved.</p>
+            <p>© 2023 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
 
@@ -861,48 +905,23 @@
             displayReviewsPage(currentReviewPage);
         }
          
-         function showToast(message, isError = false) {
-             const toast = document.createElement('div');
-             toast.className = `toast ${isError ? 'error' : ''}`;
-             toast.textContent = message;
-             document.body.appendChild(toast);
-             
-             setTimeout(() => {
-                 toast.classList.add('show');
-             }, 10);
-             
-             setTimeout(() => {
-                 toast.classList.remove('show');
-                 setTimeout(() => {
-                     document.body.removeChild(toast);
-                 }, 300);
-             }, 3000);
-         }
-     </script>
- 
-     <!-- Add this CSS for toast notifications -->
-     <style>
-         .toast {
-             position: fixed;
-             bottom: 20px;
-             left: 50%;
-             transform: translateX(-50%);
-             background-color: var(--primary);
-             color: white;
-             padding: 12px 24px;
-             border-radius: 4px;
-             z-index: 1000;
-             opacity: 0;
-             transition: opacity 0.3s ease;
-         }
-         
-         .toast.show {
-             opacity: 1;
-         }
-         
-         .toast.error {
-             background-color: #dc3545;
-         }
-     </style>
- </body>
- </html>
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${isError ? 'error' : ''}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
