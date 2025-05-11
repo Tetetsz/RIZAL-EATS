@@ -40,7 +40,7 @@ nav a {
 }
 
 nav a:hover, nav a.active {
-  color: #ffb80e;
+  color:#fff;
 }
 
 /* Hero Section */
@@ -166,14 +166,17 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #f39c12;
+  background: rgba(0, 0, 0, 0.02);
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  color: white;
+  color: #e67e22;
   transition: background 0.3s;
 }
 
-
+.login-btn:hover {
+  background: #e67e22;
+  color: white;
+}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
@@ -244,7 +247,10 @@ header {
   transition: all 0.3s;
 }
 
-
+.login-btn:hover {
+  background: #982121;
+  transform: translateY(-2px);
+}
 .toast {
   position: fixed;
   bottom: 20px;
@@ -535,7 +541,7 @@ body {
 
 /* Header */
 header {
-  background-color: #982121	;
+  background-color: #233142;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -609,7 +615,7 @@ nav a.login {
 
 /* Footer */
 footer {
-  background-color: #982121;
+  background-color: #233142;
   color: white;
   text-align: center;
   padding: 1rem;
