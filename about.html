@@ -13,7 +13,6 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
             background-image: url('images/bg.jpg');
             background-size: cover;
             background-position: center;
@@ -23,18 +22,32 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0.75rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .about-container {
             width: 100%;
             padding: 0 1rem;
             animation: fadeIn 1s ease-out;
+        }
+
+        .about-container {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        .about-info, .gallery, .contact {
+            max-width: 100%;
+            padding: 2rem 1.5rem;
+        }
+
+        .about-info-content, .gallery, .contact ul {
+            max-width: 100%;
         }
 
         .about-info, .gallery, .contact {
@@ -250,7 +263,7 @@
         footer {
             text-align: center;
             padding: 1rem 0;
-            background: #2c3e50;
+            background: #982121;
             color: white;
             width: 100%;
         }
@@ -288,6 +301,21 @@
 
         .nav-links li.login-item a.login-btn::after {
             display: none;
+        }
+
+        .nav-links li a i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo {
+            animation: bounceIn 1s ease-out;
         }
 
         @keyframes fadeIn {
@@ -342,6 +370,17 @@
         }
 
         @media (max-width: 768px) {
+            .about-container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .about-info, .gallery, .contact {
+                max-width: 100%;
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+
             .about-info-content {
                 flex-direction: column;
                 gap: 1.5rem;
@@ -364,11 +403,6 @@
 
             .gallery {
                 grid-template-columns: 1fr;
-            }
-
-            .about-info, .gallery, .contact {
-                padding: 1.5rem;
-                margin: 1.5rem 0;
             }
 
             .h1 {
@@ -395,9 +429,9 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                     <li class="login-item"><a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user"></i> Log In</a></li>
                 </ul>
             </nav>
@@ -446,10 +480,6 @@
             </ul>
         </section>
     </main>
-
-    <button class="back-to-top" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
-    </button>
 
     <footer>
         <div class="container">

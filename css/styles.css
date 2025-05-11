@@ -17,14 +17,7 @@ body {
   margin: 0 auto;
 }
 
-/* Header Styles */
-header {
-  background: #2c3e50;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+
 
 .logo {
   font-size: 1.8rem;
@@ -162,6 +155,7 @@ header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
 }
 
 .login-item {
@@ -179,10 +173,7 @@ header {
   transition: background 0.3s;
 }
 
-.login-btn:hover {
-  background: #e67e22;
-  color: white;
-}
+
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
@@ -253,10 +244,7 @@ header {
   transition: all 0.3s;
 }
 
-.login-btn:hover {
-  background: #982121;
-  transform: translateY(-2px);
-}
+
 .toast {
   position: fixed;
   bottom: 20px;
@@ -547,7 +535,7 @@ body {
 
 /* Header */
 header {
-  background-color: #233142;
+  background-color: #982121	;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -621,7 +609,7 @@ nav a.login {
 
 /* Footer */
 footer {
-  background-color: #233142;
+  background-color: #982121;
   color: white;
   text-align: center;
   padding: 1rem;
