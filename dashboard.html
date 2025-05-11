@@ -50,7 +50,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            flex: 1; /* Allow welcome-message to take available space */
+            flex: 1;
         }
 
         .welcome-message .avatar {
@@ -71,7 +71,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            max-width: 500px; /* Increased to accommodate long usernames */
+            max-width: 500px;
         }
 
         .welcome-message h2 {
@@ -82,7 +82,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeIn 1s ease-out;
-            word-wrap: break-word; /* Allow wrapping for very long usernames */
+            word-wrap: break-word;
         }
         
         .welcome-message p {
@@ -523,6 +523,8 @@
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
         }
 
         .star-rating input {
@@ -536,9 +538,10 @@
             transition: color 0.2s;
         }
 
+        .star-rating input:checked + label,
+        .star-rating input:checked + label ~ label,
         .star-rating label:hover,
-        .star-rating label:hover ~ label,
-        .star-rating input:checked ~ label {
+        .star-rating label:hover ~ label {
             color: var(--warning);
         }
 
@@ -599,7 +602,7 @@
 
             .welcome-message h2 {
                 font-size: 2rem;
-                word-wrap: break-word; /* Allow wrapping on mobile */
+                word-wrap: break-word;
             }
 
             .user-stats {
@@ -608,7 +611,7 @@
             }
 
             .welcome-content {
-                max-width: 100%; /* Full width on mobile */
+                max-width: 100%;
             }
         }
 
@@ -790,15 +793,13 @@
     
     <!-- Dashboard Script -->
     <script>
-        // Initialize Firestore
         const db = firebase.firestore();
         let currentUser = null;
         
-        // Pagination variables
         let currentRestaurantPage = 1;
         let currentReviewPage = 1;
-        const restaurantItemsPerPage = 3; // To-visit list: 3 items per page
-        const reviewItemsPerPage = 2; // Reviews: 5 items per page
+        const restaurantItemsPerPage = 3;
+        const reviewItemsPerPage = 5;
         let allRestaurants = [];
         let allReviews = [];
 
@@ -811,7 +812,6 @@
                 const username = email.split('@')[0];
                 document.getElementById('user-email').textContent = username;
                 
-                // Set avatar initials
                 const initials = username
                     .split(' ')
                     .map(word => word[0])
@@ -820,7 +820,6 @@
                     .toUpperCase();
                 document.getElementById('user-avatar').textContent = initials;
                 
-                // Load user data and stats
                 loadSavedRestaurants(user.uid);
                 loadUserReviews(user.uid);
             }
@@ -835,7 +834,6 @@
         
         async function loadSavedRestaurants(userId) {
             try {
-                // Get user document
                 const userDoc = await db.collection('users').doc(userId).get();
                 
                 if (!userDoc.exists || !userDoc.data().savedRestaurants || userDoc.data().savedRestaurants.length === 0) {
