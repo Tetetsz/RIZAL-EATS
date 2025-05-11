@@ -311,7 +311,7 @@
                     // Send email verification
                     userCredential.user.sendEmailVerification()
                         .then(() => {
-                            console.log('Verification email sent');
+                            console.log('Verification email sent.');
                         });
                     
                     // Redirect after 2 seconds
@@ -321,9 +321,9 @@
                 })
                 .catch((error) => {
                     const errorMessages = {
-                        'auth/email-already-in-use': 'Email already registered',
-                        'auth/invalid-email': 'Invalid email address',
-                        'auth/weak-password': 'Password must be at least 6 characters'
+                        'auth/email-already-in-use': 'Email already registered.',
+                        'auth/invalid-email': 'Invalid email address.',
+                        'auth/weak-password': 'Password must be at least 6 characters.'
                     };
                     errorMessage.textContent = errorMessages[error.code] || 'Registration failed. Please try again.';
                     errorMessage.style.display = 'block';
