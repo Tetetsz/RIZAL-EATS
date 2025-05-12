@@ -15,7 +15,7 @@
         body {
             margin: 0;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            background: #f5f5f5; /* Fallback neutral background */
+            background: linear-gradient(135deg, #e32929 0%, #ffb80e 100%); /* Gradient on body */
             color: #813531;
         }
 
@@ -26,23 +26,26 @@
         }
 
         .about-container {
-            background: linear-gradient(135deg, #e32929 0%, #ffb80e 100%), rgba(255, 255, 255, 0.95);
+            background: #ffffff; /* White background for main content */
             padding: 2rem 1rem;
             min-height: 100vh;
         }
 
-        .about-info, .gallery, .contact {
+        .about-info, .contact {
+            background: #ffffff; /* White background for content */
             padding: 2.5rem;
             margin: 4rem 0; /* Increased margin for spacing */
         }
 
-        .about-info, .contact {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .gallery-section {
+            background: linear-gradient(135deg, #e32929 0%, #ffb80e 100%); /* Gradient for gallery and heading */
+            padding: 2.5rem;
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .about-info.visible, .gallery.visible, .contact.visible {
+        .about-info.visible, .gallery-section.visible, .contact.visible {
             opacity: 1;
             transform: translateY(0);
             transition: opacity 0.5s ease, transform 0.5s ease;
@@ -81,10 +84,14 @@
         .h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 2.5rem;
-            color: #e32929;
+            color: #ffffff; /* White for gallery heading, red for others */
             margin: 0 0 0.5rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             text-align: center;
+        }
+
+        .about-info .h1, .contact .h1 {
+            color: #e32929; /* Red for About and Contact headings */
         }
 
         .subtext {
@@ -115,18 +122,12 @@
             transform: scale(1.05);
         }
 
-        .gallery {
-            padding: 1rem; /* Reduced padding, no background */
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 2rem auto 0;
         }
 
         .gallery-item {
@@ -247,6 +248,12 @@
             transform: scale(1.05);
         }
 
+        .section-divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 2rem 0;
+        }
+
         .back-to-top {
             position: fixed;
             bottom: 20px;
@@ -281,13 +288,6 @@
             text-align: center;
             padding: 1.5rem 0;
             width: 100%;
-        }
-
-        hr {
-            border: 0;
-            height: 1px;
-            background: #e0e0e0;
-            margin: 2rem 0;
         }
 
         /* Navigation hover animation */
@@ -376,7 +376,7 @@
                 padding: 1rem;
             }
 
-            .about-info, .gallery, .contact {
+            .about-info, .gallery-section, .contact {
                 padding: 2rem;
                 margin: 3rem 0; /* Reduced margin for mobile */
             }
@@ -412,8 +412,8 @@
                 max-height: 300px;
             }
 
-            .gallery {
-                padding: 0.5rem;
+            .gallery-section {
+                padding: 1.5rem;
             }
 
             .gallery-grid {
@@ -457,7 +457,7 @@
     </header>
 
     <main class="about-container">
-        <section class="about-info" id="about-info">
+        <div class="about-info" id="about-info">
             <div class="about-info-content">
                 <div class="logo-column">
                     <img src="RIZAL EATS LOGO.png" alt="Rizal Eats Logo" class="about-logo">
@@ -470,12 +470,12 @@
                 </div>
             </div>
             <img src="images/cover.jpg" alt="Rizal Culinary Scene: Traditional Filipino Dishes" class="about-image">
-        </section>
+        </div>
 
-        <hr>
+        <div class="section-divider"></div>
 
-        <h2 class="h1">Explore Rizal’s Flavors</h2>
-        <section class="gallery" id="gallery">
+        <div class="gallery-section" id="gallery">
+            <h2 class="h1">Explore Rizal’s Flavors</h2>
             <div class="gallery-grid">
                 <div class="gallery-item" data-caption="Angono’s Balaw-Balaw Dish" aria-label="View larger image of Angono’s Balaw-Balaw Dish">
                     <img src="images/gallery1.jpg" alt="Angono’s Balaw-Balaw Dish">
@@ -487,18 +487,18 @@
                     <img src="images/gallery3.jpg" alt="Rizal’s Hidden Gem Eatery">
                 </div>
             </div>
-        </section>
+        </div>
 
-        <hr>
+        <div class="section-divider"></div>
 
-        <section class="contact" id="contact">
-            <h2>Contact Us</h2>
+        <div class="contact" id="contact">
+            <h2 class="h1">Contact Us</h2>
             <ul>
                 <li><i class="fas fa-envelope"></i> Email: <a href="mailto:info@rizaleats.com">info@rizaleats.com</a></li>
                 <li><i class="fas fa-phone"></i> Phone: <a href="tel:+639508505862">(63) 950-850-5862</a></li>
                 <li><i class="fab fa-telegram"></i> Telegram: <a href="https://t.me/RizalEats">@RizalEats</a></li>
             </ul>
-        </section>
+        </div>
     </main>
 
     <div class="lightbox" id="lightbox">
@@ -603,7 +603,7 @@
             initLightbox();
 
             // Staggered animations for sections
-            const sections = document.querySelectorAll('.about-info, .gallery, .contact');
+            const sections = document.querySelectorAll('.about-info, .gallery-section, .contact');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
