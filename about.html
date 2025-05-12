@@ -277,13 +277,14 @@
             width: 100%;
         }
 
-        /* Navigation hover animation from municipalities.html */
+        /* Navigation hover animation */
         .nav-links li a {
             position: relative;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
+        /* Underline animation for all nav links, including login */
         .nav-links li a::after {
             content: '';
             position: absolute;
@@ -299,19 +300,25 @@
             width: 100%;
         }
 
-        .nav-links li a:hover {
-            color: #ffb80e;
-        }
-
-        /* Ensure login button is excluded from hover animation */
+        /* Ensure login button has no background and uses same hover animation */
         .nav-links li.login-item a.login-btn {
-            position: static;
+            background-color: transparent !important; /* Remove any background */
+            transition: color 0.3s ease; /* Match transition */
         }
 
-        .nav-links li.login-item a.login-btn::after {
-            display: none;
+        .nav-links li.login-item a.login-btn:hover {
+            background-color: transparent !important; /* No yellow background */
+            color: #ffb80e; /* Optional: Change text color on hover to match theme */
         }
 
+        /* Ensure no default browser styles interfere */
+        .nav-links li.login-item a.login-btn:focus,
+        .nav-links li.login-item a.login-btn:active {
+            background-color: transparent !important;
+            outline: none; /* Remove any focus outline if needed */
+        }
+
+        /* Existing styles for icons */
         .nav-links li a i {
             margin-right: 8px;
             font-size: 1rem;
@@ -322,7 +329,6 @@
             display: flex;
             align-items: center;
         }
-
         .header-logo {
             animation: bounceIn 1s ease-out;
         }
@@ -440,7 +446,7 @@
                 <ul class="nav-links">
                     <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
                     <li class="login-item"><a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user"></i> Log In</a></li>
                 </ul>
             </nav>

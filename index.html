@@ -8,10 +8,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Hero section styling for YouTube video background */
+        /* Ensure header-logo animation works */
         .header-logo {
             animation: bounceIn 1s ease-out;
         }
-        
+
+        /* Define bounceIn animation */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
         .hero {
             position: relative;
             width: 100%;
@@ -449,13 +468,14 @@
             }
         }
 
-        /* Navigation hover animation from municipalities.html */
+       /* Navigation hover animation */
         .nav-links li a {
             position: relative;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
+        /* Underline animation for all nav links, including login */
         .nav-links li a::after {
             content: '';
             position: absolute;
@@ -471,27 +491,25 @@
             width: 100%;
         }
 
-        .nav-links li a:hover {
-            color: #ffb80e;
-        }
-
-        /* Ensure login button is excluded from hover animation */
+        /* Ensure login button has no background and uses same hover animation */
         .nav-links li.login-item a.login-btn {
-            position: static;
+            background-color: transparent !important; /* Remove any background */
+            transition: color 0.3s ease; /* Match transition */
         }
 
-        .nav-links li.login-item a.login-btn::after {
-            display: none;
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #ffb80e;
-            transition: width 0.3s ease;
+        .nav-links li.login-item a.login-btn:hover {
+            background-color: transparent !important; /* No yellow background */
+            color: #ffb80e; /* Optional: Change text color on hover to match theme */
         }
 
+        /* Ensure no default browser styles interfere */
+        .nav-links li.login-item a.login-btn:focus,
+        .nav-links li.login-item a.login-btn:active {
+            background-color: transparent !important;
+            outline: none; /* Remove any focus outline if needed */
+        }
+
+        /* Existing styles for icons */
         .nav-links li a i {
             margin-right: 8px;
             font-size: 1rem;
@@ -502,7 +520,6 @@
             display: flex;
             align-items: center;
         }
-
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .hero {
@@ -579,11 +596,11 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
                     <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                     <li class="login-item">
-                        <a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user" color="whitesmoke"></i> Log In</a>
+                        <a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user"></i> Log In</a>
                     </li>
                 </ul>
             </nav>

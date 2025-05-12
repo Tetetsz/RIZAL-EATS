@@ -21,7 +21,25 @@
         .header-logo {
             animation: bounceIn 1s ease-out;
         }
-        
+
+        /* Define bounceIn animation */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
         body {
             background-color: var(--light);
             color: var(--dark);
