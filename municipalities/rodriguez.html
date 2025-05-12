@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rodriguez Restaurants | RIZAL EATS</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet CSS -->
@@ -69,6 +69,7 @@
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             min-width: 200px;
+            color: #813531	;
         }
         
         .restaurants-grid {
@@ -111,6 +112,7 @@
             margin: 0 0 0.5rem;
             font-size: 1.25rem;
             font-weight: 600;
+            color: #982121	;
         }
         
         .restaurant-location {
@@ -124,6 +126,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            color: #813531	;
         }
         
         .cuisine-tag {
@@ -156,7 +159,7 @@
         }
         
         .save-btn {
-            background:	#982121;
+            background:	#ffb80e	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -169,11 +172,10 @@
             font-weight: 500;
             margin-top: 1rem;
             width: 100%;
-            transition: background 0.3s;
         }
         
-       .review-btn {
-            background: #FFB200;
+        .review-btn {
+            background: #e32929	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -189,8 +191,8 @@
             transition: background 0.3s;
         }
         
-       .view-map-btn {
-            background: #F4631E;
+        .view-map-btn {
+            background: #ff611d	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -207,11 +209,11 @@
         }
         
         .save-btn:hover {
-            background: #690B22;
+            background: #E9A319;
         }
         
         .review-btn:hover {
-            background: #E9A319;
+            background: #982121	;
         }
         
         .view-map-btn:hover {
@@ -301,11 +303,11 @@
         .breadcrumb {
             padding: 1rem 0;
             font-size: 0.9rem;
-            color: var(--gray);
+            color: #ff611d	;
         }
         
         .breadcrumb a {
-            color: var(--primary);
+            color: #813531	;
             text-decoration: none;
         }
         
@@ -427,65 +429,131 @@
             color: var(--gray);
             font-size: 0.9em;
         }
-        
-        /* Weather Widget Styles */
+
+        /* Weather Card Styles */
         .weather-card {
             background: white;
             border-radius: 12px;
-            padding: 1rem;
+            padding: 1.5rem;
             margin: 1.5rem 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            
         }
-        
+
         .weather-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .weather-header h3 {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            font-size: 1.5rem;
+            font-weight: 400;
         }
-        
+
         .last-updated {
             font-size: 0.8rem;
             color: var(--gray);
         }
-        
+
         .weather-content {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        
+
         .weather-icon img {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
         }
-        
+
+        .weather-details {
+            flex: 1;
+        }
+
         .weather-temp {
             font-size: 2rem;
             font-weight: bold;
+            color: #ffb80e	;
         }
-        
+
         .weather-meta {
             display: flex;
             gap: 1rem;
             margin-top: 0.5rem;
             font-size: 0.9rem;
         }
-        
+
         .weather-meta i {
-            width: 16px;
-            text-align: center;
+            margin-right: 0.3rem;
         }
-        
+
+        .weather-forecast {
+            margin-top: 1.5rem;
+            color: #ffb80e	;
+        }
+
+        .weather-forecast h4 {
+            margin-bottom: 1rem;
+            color: #813531	;
+        }
+
+        .forecast-day {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .forecast-date {
+            min-width: 100px;
+            font-weight: 500;
+            color: #813531	;
+
+
+        }
+
+        .forecast-icon img {
+            width: 40px;
+            height: 40px;
+            margin: 0 1rem;
+        }
+
+        .forecast-details {
+            flex: 1;
+        }
+
+        .forecast-temp {
+            font-weight: 500;
+        }
+
+        .forecast-high {
+            color: var(--primary);
+        }
+
+        .forecast-low {
+            color: var(--gray);
+        }
+
+        .forecast-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
         .forecast-toggle-btn {
-            background: #A36D6A;
+            background: #e32929	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -497,100 +565,25 @@
             gap: 0.5rem;
             font-weight: 500;
             margin-top: 1rem;
-            width: 100%;
             transition: background 0.3s;
         }
 
         .forecast-toggle-btn:hover {
-            background: #8D4945;
+            background: #ffb80e	;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
         }
-        
-        .weather-forecast {
-            margin-top: 1rem;
+
+        .weather-loading, .forecast-loading {
+            text-align: center;
+            padding: 1rem;
+            color: var(--gray);
         }
-        
-        .forecast-day {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .forecast-date {
-            min-width: 100px;
-        }
-        
-        .forecast-icon img {
-            width: 40px;
-            height: 40px;
-            margin: 0 1rem;
-        }
-        
-        .forecast-details {
-            flex-grow: 1;
-        }
-        
-        .forecast-temp {
-            font-weight: bold;
-        }
-        
-        .forecast-high {
-            color: var(--primary);
-        }
-        
-        .forecast-low {
-            color: var(--secondary);
-        }
-        
-        .forecast-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.8rem;
-            margin-top: 0.25rem;
-        }
-        
+
         .weather-error {
-            color: #dc3545;
-            text-align: center;
-            padding: 1rem;
-        }
-        
-        .weather-loading {
-            text-align: center;
-            padding: 1rem;
-        }
-        
-        .weather-loading i {
-            animation: spin 1s linear infinite;
-        }
-        
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 4px;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .toast.show {
-            opacity: 1;
-        }
-        
-        .toast.error {
-            background-color: #dc3545;
-        }
-        
-        .login-prompt {
-            font-size: 0.8rem;
             color: var(--primary);
-            margin-top: 0.5rem;
             text-align: center;
+            padding: 1rem;
         }
         
         @media (max-width: 768px) {
@@ -616,12 +609,12 @@
                 height: 70vh;
                 margin: 5% auto;
             }
-            
+
             .weather-content {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .weather-meta {
                 justify-content: center;
             }
@@ -648,6 +641,24 @@
                 transform: scale(1);
             }
         }
+        .h2 {
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+        .p {
+            color: #813531	;
+            font-size: 1.2rem;
+        }
+        
     </style>
 </head>
 <body>
@@ -655,21 +666,20 @@
         <div class="container">
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../municipalities.html">Municipalities</a></li>
-                    <li><a href="../about.html">About</a></li>
-                    <li class="login-item">
-                        <a href="#" id="auth-btn" class="login-btn">
-                            <i class="fas fa-user"></i> 
-                            <span id="auth-text">Login</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="nav-links">
+                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li class="login-item">
+                    <a href="#" id="auth-btn" class="login-btn">
+                        <i class="fas fa-user"></i> 
+                        <span id="auth-text">Log In</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         </div>
     </header>
-
     <main>
         <div class="restaurants-container">
             <div class="breadcrumb">
@@ -678,8 +688,8 @@
                 <span>Rodriguez</span>
             </div>
             
-            <h2>Rodriguez Restaurants</h2>
-            <p>Discover the best dining experiences in Rodriguez</p>
+            <h2 class="h2">Rodriguez Restaurants</h2>
+            <p class="p">Discover the best dining experiences in Rodriguez.</p>
             
             <!-- Weather Widget -->
             <div class="weather-card">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morong Restaurants | RIZAL EATS</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet CSS -->
@@ -69,6 +69,7 @@
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             min-width: 200px;
+            color: #813531	;
         }
         
         .restaurants-grid {
@@ -111,6 +112,7 @@
             margin: 0 0 0.5rem;
             font-size: 1.25rem;
             font-weight: 600;
+            color: #982121	;
         }
         
         .restaurant-location {
@@ -124,6 +126,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            color: #813531	;
         }
         
         .cuisine-tag {
@@ -156,7 +159,7 @@
         }
         
         .save-btn {
-            background:	#982121;
+            background:	#ffb80e	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -169,11 +172,10 @@
             font-weight: 500;
             margin-top: 1rem;
             width: 100%;
-            transition: background 0.3s;
         }
         
-       .review-btn {
-            background: #FFB200;
+        .review-btn {
+            background: #e32929	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -190,7 +192,7 @@
         }
         
         .view-map-btn {
-            background: #F4631E;
+            background: #ff611d	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -206,12 +208,12 @@
             transition: background 0.3s;
         }
         
-       .save-btn:hover {
-            background: #690B22;
+        .save-btn:hover {
+            background: #E9A319;
         }
         
         .review-btn:hover {
-            background: #E9A319;
+            background: #982121	;
         }
         
         .view-map-btn:hover {
@@ -301,11 +303,11 @@
         .breadcrumb {
             padding: 1rem 0;
             font-size: 0.9rem;
-            color: var(--gray);
+            color: #ff611d	;
         }
         
         .breadcrumb a {
-            color: var(--primary);
+            color: #813531	;
             text-decoration: none;
         }
         
@@ -435,6 +437,7 @@
             padding: 1.5rem;
             margin: 1.5rem 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            
         }
 
         .weather-header {
@@ -445,10 +448,17 @@
         }
 
         .weather-header h3 {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            font-size: 1.5rem;
+            font-weight: 400;
         }
 
         .last-updated {
@@ -474,6 +484,7 @@
         .weather-temp {
             font-size: 2rem;
             font-weight: bold;
+            color: #ffb80e	;
         }
 
         .weather-meta {
@@ -489,10 +500,12 @@
 
         .weather-forecast {
             margin-top: 1.5rem;
+            color: #ffb80e	;
         }
 
         .weather-forecast h4 {
             margin-bottom: 1rem;
+            color: #813531	;
         }
 
         .forecast-day {
@@ -505,6 +518,9 @@
         .forecast-date {
             min-width: 100px;
             font-weight: 500;
+            color: #813531	;
+
+
         }
 
         .forecast-icon img {
@@ -536,8 +552,8 @@
             margin-top: 0.25rem;
         }
 
-       .forecast-toggle-btn {
-            background: #A36D6A;
+        .forecast-toggle-btn {
+            background: #e32929	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -549,12 +565,13 @@
             gap: 0.5rem;
             font-weight: 500;
             margin-top: 1rem;
-            width: 100%;
             transition: background 0.3s;
         }
 
         .forecast-toggle-btn:hover {
-            background: #8D4945;
+            background: #ffb80e	;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
         }
 
         .weather-loading, .forecast-loading {
@@ -624,6 +641,24 @@
                 transform: scale(1);
             }
         }
+        .h2 {
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+        .p {
+            color: #813531	;
+            font-size: 1.2rem;
+        }
+        
     </style>
 </head>
 <body>
@@ -631,18 +666,18 @@
         <div class="container">
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="login-item">
-                        <a href="#" id="auth-btn" class="login-btn">
-                            <i class="fas fa-user"></i> 
-                            <span id="auth-text">Login</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="nav-links">
+                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li class="login-item">
+                    <a href="#" id="auth-btn" class="login-btn">
+                        <i class="fas fa-user"></i> 
+                        <span id="auth-text">Log In</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         </div>
     </header>
 
@@ -654,8 +689,8 @@
                 <span>Morong</span>
             </div>
             
-            <h2>Morong Restaurants</h2>
-            <p>Discover the best dining experiences in historic Morong</p>
+            <h2 class="h2">Morong Restaurants</h2>
+            <p class="p">Discover the best dining experiences in historic Morong.</p>
             
             <div class="weather-card">
                 <div class="weather-header">

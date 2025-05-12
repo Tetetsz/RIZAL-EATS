@@ -500,8 +500,8 @@
 
         .weather-forecast {
             margin-top: 1.5rem;
-            #ffb80e	
-        
+            color: #ffb80e	;
+        }
 
         .weather-forecast h4 {
             margin-bottom: 1rem;
@@ -651,11 +651,12 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             animation: welcomeFade 1.5s ease-out 0.2s;
             animation-fill-mode: backwards;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             font-weight: 400;
         }
         .p {
             color: #813531	;
+            font-size: 1.2rem;
         }
         
     </style>
@@ -665,18 +666,18 @@
         <div class="container">
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../municipalities.html">Municipalities</a></li>
-                    <li><a href="../about.html">About</a></li>
-                    <li class="login-item">
-                        <a href="#" id="auth-btn" class="login-btn">
-                            <i class="fas fa-user"></i> 
-                            <span id="auth-text">Log In</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="nav-links">
+                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li class="login-item">
+                    <a href="#" id="auth-btn" class="login-btn">
+                        <i class="fas fa-user"></i> 
+                        <span id="auth-text">Log In</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         </div>
     </header>
 
@@ -765,10 +766,10 @@
                 <!-- Review Options -->
                 <div class="review-options">
                     <label class="review-option-label">
-                        <input type="radio" name="reviewVisibility" value="anonymous" checked> Post as Anonymous
+                        <input type="radio" name="reviewVisibility" value="anonymous" checked> Post as Anonymous.
                     </label>
                     <label class="review-option-label">
-                        <input type="radio" name="reviewVisibility" value="public"> Show my name
+                        <input type="radio" name="reviewVisibility" value="public"> Show my name.
                     </label>
                 </div>
                 
@@ -778,7 +779,7 @@
             
             <!-- Login Prompt -->
             <div id="loginPrompt" class="hidden">
-                <p>Please <a href="../login.html" style="color: var(--primary);">login</a> to leave a review.</p>
+                <p>Please <a href="../login.html" style="color: var(--primary);">sign in</a> to leave a review.</p>
             </div>
             
             <!-- Reviews List -->

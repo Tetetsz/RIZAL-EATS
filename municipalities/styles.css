@@ -167,7 +167,6 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #e67e22;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   color: whitesmoke;
@@ -175,7 +174,6 @@ header {
 }
 
 .login-btn:hover {
-  background: #E9A319;
   color:#fff;
 }
 
@@ -222,7 +220,7 @@ header {
 
 .search-box input:focus {
   outline: none;
-  border-color: #ffb80e	;
+  border-color: #ffb80e;
 }
 
 .search-box i {
@@ -674,3 +672,8 @@ footer {
                 transform: scale(1);
             }
         }
+
+.nav-links i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
