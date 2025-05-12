@@ -41,35 +41,106 @@
             align-items: center;
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background: white;
+            background: linear-gradient(45deg, #fff, #f9f9f9);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
         
+        .welcome-message {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .welcome-message .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff611d, #ffb80e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .welcome-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 500px;
+        }
+
         .welcome-message h2 {
             margin: 0;
-            font-size: 3rem;
-            font-weight: 600;
-            color: #ff611d	;
-
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff611d, #ffb80e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease-out;
+            word-wrap: break-word;
         }
         
         .welcome-message p {
-            margin: 0.5rem 0 0;
-            color: var(--gray);
-            font-size: 1.3rem;
-            color: #813531	;
-
+            margin: 0;
+            color: #813531;
+            font-size: 1.2rem;
+            font-style: italic;
         }
-        
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.35rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+
+        .welcome-message .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: 500;
-            margin-left: 0.75rem;
+            background: #ff611d;
+            color: white;
+            animation: pulse 2s infinite;
+            width: fit-content;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #813531;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .user-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .user-stats i {
+            color: #ff611d;
+        }
+
+        .discover-btn {
+            background: #ff611d;
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s;
+            animation: fadeIn 2s ease-out;
+            width: fit-content;
+        }
+
+        .discover-btn:hover {
+            background: #ffb80e;
+            transform: scale(1.05);
         }
         
         .dashboard-actions {
@@ -97,9 +168,9 @@
         }
         
         .btn-primary:hover {
-            background: #ffb80e		;
+            background: #ffb80e;
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7);
         }
         
         .btn-secondary {
@@ -119,7 +190,8 @@
         }
         
         .btn-outline:hover {
-            color: #fff	;
+            color: #fff;
+            background: var(--gray);
         }
         
         .dashboard-sections {
@@ -150,14 +222,19 @@
             margin: 0;
             font-size: 1.3rem;
             font-weight: 600;
-            color: #ff611d	;
+            color: #ff611d;
         }
         
         .card-header .view-all {
             font-size: 0.9rem;
-            color: #813531	;
+            color: #813531;
             text-decoration: none;
             font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .card-header .view-all:hover {
+            color: #ffb80e;
         }
         
         .empty-state {
@@ -174,7 +251,7 @@
         
         .empty-state p {
             margin: 0.5rem 0;
-            color: #813531	;
+            color: #813531;
         }
         
         .restaurant-list {
@@ -190,6 +267,7 @@
             border-radius: 8px;
             transition: all 0.2s;
             border: 1px solid rgba(0,0,0,0.05);
+            background: linear-gradient(to right, #fff, #f9f9f9);
         }
         
         .restaurant-item:hover {
@@ -212,7 +290,7 @@
         .restaurant-info h4 {
             margin: 0 0 0.25rem;
             font-size: 1rem;
-            color: #813531	;
+            color: #813531;
         }
         
         .restaurant-info p {
@@ -237,15 +315,21 @@
         
         .action-btn:hover {
             color: var(--primary);
+            transform: scale(1.1);
         }
         
         .review-item {
-            padding: 1rem 0;
+            padding: 1rem;
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: background 0.2s;
         }
         
         .review-item:last-child {
             border-bottom: none;
+        }
+        
+        .review-item:hover {
+            background: rgba(255, 97, 29, 0.05);
         }
         
         .review-header {
@@ -256,7 +340,7 @@
         
         .review-restaurant {
             font-weight: 600;
-            color: #813531	;
+            color: #813531;
         }
         
         .review-date {
@@ -292,7 +376,7 @@
         }
 
         .review-action-btn:hover {
-            background: rgba(0,0,0,0.05);
+            background: rgba(0,0,0,0.1);
         }
 
         .edit-btn {
@@ -373,6 +457,122 @@
             display: flex;
             align-items: center;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #ff611d;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-body label {
+            font-weight: 500;
+            color: #813531;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 1.5rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating input:checked + label,
+        .star-rating input:checked + label ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: var(--warning);
+        }
+
+        .modal-body textarea {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+            padding: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-footer .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
         
         @media (max-width: 768px) {
             .dashboard-sections {
@@ -388,6 +588,30 @@
             .dashboard-actions {
                 width: 100%;
                 flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .welcome-message {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .welcome-message h2 {
+                font-size: 2rem;
+                word-wrap: break-word;
+            }
+
+            .user-stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .welcome-content {
+                max-width: 100%;
             }
         }
 
@@ -412,6 +636,23 @@
         .toast.error {
             background-color: #dc3545;
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -432,9 +673,17 @@
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <div class="welcome-message">
-                    <h2>Welcome, <span id="user-email">.</span> 
-                    </h2>
-                    <p>Your Rizal food adventure starts here!</p>
+                    <div class="avatar" id="user-avatar"></div>
+                    <div class="welcome-content">
+                        <h2>Welcome, <span id="user-email"></span></h2>
+                        <p>Explore the best eats in Rizal!</p>
+                        <span class="badge">Foodie Explorer</span>
+                        <div class="user-stats">
+                            <span><i class="fas fa-bookmark"></i> <span id="saved-count">0</span> Saved</span>
+                            <span><i class="fas fa-star"></i> <span id="review-count">0</span> Reviews</span>
+                        </div>
+                        <a href="municipalities.html" class="discover-btn">Discover More</a>
+                    </div>
                 </div>
                 
                 <div class="dashboard-actions">
@@ -494,215 +743,242 @@
         </div>
     </main>
 
+    <!-- Review Edit Modal -->
+    <div id="edit-review-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Review</h3>
+                <button class="close-btn" onclick="closeEditModal()">×</button>
+            </div>
+            <form id="edit-review-form">
+                <div class="modal-body">
+                    <label>Rating</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating" id="star5" value="5" required>
+                        <label for="star5" class="fas fa-star"></label>
+                        <input type="radio" name="rating" id="star4" value="4">
+                        <label for="star4" class="fas fa-star"></label>
+                        <input type="radio" name="rating" id="star3" value="3">
+                        <label for="star3" class="fas fa-star"></label>
+                        <input type="radio" name="rating" id="star2" value="2">
+                        <label for="star2" class="fas fa-star"></label>
+                        <input type="radio" name="rating" id="star1" value="1">
+                        <label for="star1" class="fas fa-star"></label>
+                    </div>
+                    <label for="comment">Comment</label>
+                    <textarea id="comment" name="comment" required></textarea>
+                    <div id="edit-error" class="error-message"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>© 2023 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
 
-     <!-- Firebase SDKs -->
-     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-     
-     <!-- Your Firebase Config -->
-     <script src="js/firebase-config.js"></script>
-     
-     <!-- Dashboard Script -->
-     <script>
-         // Initialize Firestore
-         const db = firebase.firestore();
-         let currentUser = null;
-         
-         // Pagination variables
-         let currentRestaurantPage = 1;
-         let currentReviewPage = 1;
-         const itemsPerPage = 10;
-         let allRestaurants = [];
-         let allReviews = [];
- 
-         firebase.auth().onAuthStateChanged(function(user) {
-             if (!user) {
-                 window.location.href = 'login.html';
-             } else {
-                 currentUser = user;
-                 document.getElementById('user-email').textContent = user.email;
-                 
-                 if (user.emailVerified) {
-                     document.getElementById('verification-status').className = 'badge verified-badge';
-                     document.getElementById('verification-status').innerHTML = '<i class="fas fa-check-circle"></i> Verified';
-                 }
-                 
-                 // Load the user's saved restaurants
-                 loadSavedRestaurants(user.uid);
-                 // Load the user's reviews
-                 loadUserReviews(user.uid);
-             }
-         });
- 
-         document.getElementById('logout-btn').addEventListener('click', function() {
-             firebase.auth().signOut()
-                 .then(() => {
-                     window.location.href = 'index.html';
-                 });
-         });
-         
-         async function loadSavedRestaurants(userId) {
-             try {
-                 // Get user document
-                 const userDoc = await db.collection('users').doc(userId).get();
-                 
-                 if (!userDoc.exists || !userDoc.data().savedRestaurants || userDoc.data().savedRestaurants.length === 0) {
-                     // Show empty state if no saved restaurants
-                     document.getElementById('empty-to-visit').style.display = 'block';
-                     document.getElementById('restaurant-pagination').style.display = 'none';
-                     return;
-                 }
-                 
-                 // Hide empty state
-                 document.getElementById('empty-to-visit').style.display = 'none';
-                 
-                 // Get all saved restaurant IDs
-                 const savedRestaurantIds = userDoc.data().savedRestaurants;
-                 
-                 // Fetch details for each saved restaurant
-                 const restaurantPromises = savedRestaurantIds.map(restaurantId => 
-                     db.collection('restaurants').doc(restaurantId).get()
-                 );
-                 
-                 const restaurantSnapshots = await Promise.all(restaurantPromises);
-                 
-                 // Store all restaurants
-                 allRestaurants = restaurantSnapshots
-                     .filter(snapshot => snapshot.exists)
-                     .map(snapshot => ({
-                         id: snapshot.id,
-                         ...snapshot.data()
-                     }));
-                 
-                 // Display first page
-                 displayRestaurantsPage(currentRestaurantPage);
-                 
-             } catch (error) {
-                 console.error("Error loading saved restaurants:", error);
-                 document.getElementById('empty-to-visit').style.display = 'block';
-                 document.getElementById('restaurant-pagination').style.display = 'none';
-             }
-         }
-         
-         function displayRestaurantsPage(page) {
-             const startIndex = (page - 1) * itemsPerPage;
-             const endIndex = startIndex + itemsPerPage;
-             const pageRestaurants = allRestaurants.slice(startIndex, endIndex);
-             
-             // Clear existing items
-             document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
-             
-             // Add restaurants for current page
-             pageRestaurants.forEach(restaurant => {
-                 addRestaurantToVisitList(restaurant.id, restaurant);
-             });
-             
-             // Update pagination controls
-             updateRestaurantPagination();
-         }
-         
-         function updateRestaurantPagination() {
-             const totalPages = Math.ceil(allRestaurants.length / itemsPerPage);
-             const paginationDiv = document.getElementById('restaurant-pagination');
-             
-             if (allRestaurants.length <= itemsPerPage) {
-                 paginationDiv.style.display = 'none';
-                 return;
-             }
-             
-             paginationDiv.style.display = 'flex';
-             document.getElementById('restaurant-page-info').textContent = 
-                 `Page ${currentRestaurantPage} of ${totalPages}`;
-                 
-             document.getElementById('restaurant-prev-btn').disabled = currentRestaurantPage === 1;
-             document.getElementById('restaurant-next-btn').disabled = currentRestaurantPage === totalPages;
-         }
-         
-         function addRestaurantToVisitList(restaurantId, restaurant) {
-             const restaurantItem = document.createElement('div');
-             restaurantItem.className = 'restaurant-item';
-             restaurantItem.dataset.id = restaurantId;
-             
-             restaurantItem.innerHTML = `
-                 <img src="${restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}" 
-                      alt="${restaurant.name}" 
-                      class="restaurant-image">
-                 <div class="restaurant-info">
-                     <h4>${restaurant.name}</h4>
-                     <p>${restaurant.city} • ${restaurant.cuisine?.join(', ') || 'Various Cuisine'}</p>
-                 </div>
-                 <div class="restaurant-actions">
-                     <button class="action-btn remove-btn" title="Remove"><i class="fas fa-trash"></i></button>
-                     <button class="action-btn visited-btn" title="Visited"><i class="fas fa-check"></i></button>
-                 </div>
-             `;
-             
-             document.getElementById('to-visit-list').prepend(restaurantItem);
-             
-             // Add event listeners to the new buttons
-             restaurantItem.querySelector('.remove-btn').addEventListener('click', () => {
-                 removeFromSavedList(restaurantId, restaurantItem);
-             });
-             
-             restaurantItem.querySelector('.visited-btn').addEventListener('click', () => {
-                 markAsVisited(restaurantId, restaurantItem);
-             });
-         }
-         
-         async function removeFromSavedList(restaurantId, element) {
-             try {
-                 await db.collection('users').doc(currentUser.uid).update({
-                     savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
-                 });
-                 
-                 // Remove from local array
-                 allRestaurants = allRestaurants.filter(r => r.id !== restaurantId);
-                 
-                 // Re-render the current page
-                 displayRestaurantsPage(currentRestaurantPage);
-                 
-                 showToast('Restaurant removed from your list');
-             } catch (error) {
-                 console.error("Error removing restaurant:", error);
-                 showToast('Error removing restaurant', true);
-             }
-         }
-         
-         async function markAsVisited(restaurantId, element) {
-             try {
-                 // Remove from saved list
-                 await db.collection('users').doc(currentUser.uid).update({
-                     savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
-                 });
-                 
-                 // Remove from local array
-                 allRestaurants = allRestaurants.filter(r => r.id !== restaurantId);
-                 
-                 // Re-render the current page
-                 displayRestaurantsPage(currentRestaurantPage);
-                 
-                 showToast('Restaurant marked as visited');
-             } catch (error) {
-                 console.error("Error marking as visited:", error);
-                 showToast('Error marking as visited', true);
-             }
-         }
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Your Firebase Config -->
+    <script src="js/firebase-config.js"></script>
+    
+    <!-- Dashboard Script -->
+    <script>
+        const db = firebase.firestore();
+        let currentUser = null;
+        
+        let currentRestaurantPage = 1;
+        let currentReviewPage = 1;
+        const restaurantItemsPerPage = 3;
+        const reviewItemsPerPage = 5;
+        let allRestaurants = [];
+        let allReviews = [];
 
-         async function loadUserReviews(userId) {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                window.location.href = 'login.html';
+            } else {
+                currentUser = user;
+                const email = user.email;
+                const username = email.split('@')[0];
+                document.getElementById('user-email').textContent = username;
+                
+                const initials = username
+                    .split(' ')
+                    .map(word => word[0])
+                    .join('')
+                    .slice(0, 2)
+                    .toUpperCase();
+                document.getElementById('user-avatar').textContent = initials;
+                
+                loadSavedRestaurants(user.uid);
+                loadUserReviews(user.uid);
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            firebase.auth().signOut()
+                .then(() => {
+                    window.location.href = 'index.html';
+                });
+        });
+        
+        async function loadSavedRestaurants(userId) {
             try {
-                // First get all restaurants that have reviews from this user
+                const userDoc = await db.collection('users').doc(userId).get();
+                
+                if (!userDoc.exists || !userDoc.data().savedRestaurants || userDoc.data().savedRestaurants.length === 0) {
+                    document.getElementById('empty-to-visit').style.display = 'block';
+                    document.getElementById('restaurant-pagination').style.display = 'none';
+                    document.getElementById('saved-count').textContent = '0';
+                    return;
+                }
+                
+                document.getElementById('empty-to-visit').style.display = 'none';
+                
+                const savedCount = userDoc.data().savedRestaurants.length;
+                document.getElementById('saved-count').textContent = savedCount;
+                
+                const savedRestaurantIds = userDoc.data().savedRestaurants;
+                
+                const restaurantPromises = savedRestaurantIds.map(restaurantId => 
+                    db.collection('restaurants').doc(restaurantId).get()
+                );
+                
+                const restaurantSnapshots = await Promise.all(restaurantPromises);
+                
+                allRestaurants = restaurantSnapshots
+                    .filter(snapshot => snapshot.exists)
+                    .map(snapshot => ({
+                        id: snapshot.id,
+                        ...snapshot.data()
+                    }));
+                
+                displayRestaurantsPage(currentRestaurantPage);
+                
+            } catch (error) {
+                console.error("Error loading saved restaurants:", error);
+                document.getElementById('empty-to-visit').style.display = 'block';
+                document.getElementById('restaurant-pagination').style.display = 'none';
+                document.getElementById('saved-count').textContent = '0';
+            }
+        }
+        
+        function displayRestaurantsPage(page) {
+            const startIndex = (page - 1) * restaurantItemsPerPage;
+            const endIndex = startIndex + restaurantItemsPerPage;
+            const pageRestaurants = allRestaurants.slice(startIndex, endIndex);
+            
+            document.getElementById('to-visit-list').querySelectorAll('.restaurant-item').forEach(el => el.remove());
+            
+            pageRestaurants.forEach(restaurant => {
+                addRestaurantToVisitList(restaurant.id, restaurant);
+            });
+            
+            updateRestaurantPagination();
+        }
+        
+        function updateRestaurantPagination() {
+            const totalPages = Math.ceil(allRestaurants.length / restaurantItemsPerPage);
+            const paginationDiv = document.getElementById('restaurant-pagination');
+            
+            if (allRestaurants.length <= restaurantItemsPerPage) {
+                paginationDiv.style.display = 'none';
+                return;
+            }
+            
+            paginationDiv.style.display = 'flex';
+            document.getElementById('restaurant-page-info').textContent = 
+                `Page ${currentRestaurantPage} of ${totalPages}`;
+                
+            document.getElementById('restaurant-prev-btn').disabled = currentRestaurantPage === 1;
+            document.getElementById('restaurant-next-btn').disabled = currentRestaurantPage === totalPages;
+        }
+        
+        function addRestaurantToVisitList(restaurantId, restaurant) {
+            const restaurantItem = document.createElement('div');
+            restaurantItem.className = 'restaurant-item';
+            restaurantItem.dataset.id = restaurantId;
+            
+            restaurantItem.innerHTML = `
+                <img src="${restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}" 
+                     alt="${restaurant.name}" 
+                     class="restaurant-image">
+                <div class="restaurant-info">
+                    <h4>${restaurant.name}</h4>
+                    <p>${restaurant.city} • ${restaurant.cuisine?.join(', ') || 'Various Cuisine'}</p>
+                </div>
+                <div class="restaurant-actions">
+                    <button class="action-btn remove-btn" title="Remove"><i class="fas fa-trash"></i></button>
+                    <button class="action-btn visited-btn" title="Visited"><i class="fas fa-check"></i></button>
+                </div>
+            `;
+            
+            document.getElementById('to-visit-list').prepend(restaurantItem);
+            
+            restaurantItem.querySelector('.remove-btn').addEventListener('click', () => {
+                removeFromSavedList(restaurantId, restaurantItem);
+            });
+            
+            restaurantItem.querySelector('.visited-btn').addEventListener('click', () => {
+                markAsVisited(restaurantId, restaurantItem);
+            });
+        }
+        
+        async function removeFromSavedList(restaurantId, element) {
+            try {
+                await db.collection('users').doc(currentUser.uid).update({
+                    savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
+                });
+                
+                allRestaurants = allRestaurants.filter(r => r.id !== restaurantId);
+                
+                document.getElementById('saved-count').textContent = allRestaurants.length;
+                
+                displayRestaurantsPage(currentRestaurantPage);
+                
+                showToast('Restaurant removed from your list');
+            } catch (error) {
+                console.error("Error removing restaurant:", error);
+                showToast('Error removing restaurant', true);
+            }
+        }
+        
+        async function markAsVisited(restaurantId, element) {
+            try {
+                await db.collection('users').doc(currentUser.uid).update({
+                    savedRestaurants: firebase.firestore.FieldValue.arrayRemove(restaurantId)
+                });
+                
+                allRestaurants = allRestaurants.filter(r => r.id !== restaurantId);
+                
+                document.getElementById('saved-count').textContent = allRestaurants.length;
+                
+                displayRestaurantsPage(currentRestaurantPage);
+                
+                showToast('Restaurant marked as visited');
+            } catch (error) {
+                console.error("Error marking as visited:", error);
+                showToast('Error marking as visited', true);
+            }
+        }
+
+        async function loadUserReviews(userId) {
+            try {
                 const restaurantsRef = db.collection('restaurants');
                 const restaurantsSnapshot = await restaurantsRef.get();
 
                 allReviews = [];
 
-                // For each restaurant, check if it has reviews from this user
                 for (const restaurantDoc of restaurantsSnapshot.docs) {
                     const reviewsQuery = await restaurantsRef.doc(restaurantDoc.id)
                         .collection('reviews')
@@ -720,8 +996,9 @@
                     });
                 }
 
-                // Sort reviews by date (newest first)
                 allReviews.sort((a, b) => b.createdAt - a.createdAt);
+
+                document.getElementById('review-count').textContent = allReviews.length;
 
                 if (allReviews.length === 0) {
                     document.getElementById('empty-reviews').style.display = 'block';
@@ -729,39 +1006,36 @@
                     return;
                 }
 
-                // Display first page
                 displayReviewsPage(currentReviewPage);
 
             } catch (error) {
                 console.error("Error loading user reviews:", error);
                 document.getElementById('empty-reviews').style.display = 'block';
                 document.getElementById('review-pagination').style.display = 'none';
+                document.getElementById('review-count').textContent = '0';
             }
         }
         
         function displayReviewsPage(page) {
-            const startIndex = (page - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
+            const startIndex = (page - 1) * reviewItemsPerPage;
+            const endIndex = startIndex + reviewItemsPerPage;
             const pageReviews = allReviews.slice(startIndex, endIndex);
             
-            // Clear existing reviews
             document.getElementById('reviews-list').querySelectorAll('.review-item').forEach(el => el.remove());
             document.getElementById('empty-reviews').style.display = 'none';
             
-            // Add reviews for current page
             pageReviews.forEach(review => {
                 addUserReview(review);
             });
             
-            // Update pagination controls
             updateReviewPagination();
         }
         
         function updateReviewPagination() {
-            const totalPages = Math.ceil(allReviews.length / itemsPerPage);
+            const totalPages = Math.ceil(allReviews.length / reviewItemsPerPage);
             const paginationDiv = document.getElementById('review-pagination');
             
-            if (allReviews.length <= itemsPerPage) {
+            if (allReviews.length <= reviewItemsPerPage) {
                 paginationDiv.style.display = 'none';
                 return;
             }
@@ -780,14 +1054,12 @@
             reviewItem.dataset.id = review.id;
             reviewItem.dataset.restaurantId = review.restaurantId;
 
-            // Format date as "Month Day, Year"
             const formattedDate = review.createdAt.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             });
 
-            // Create star rating HTML
             let starsHtml = '';
             for (let i = 1; i <= 5; i++) {
                 if (i <= Math.floor(review.rating)) {
@@ -818,9 +1090,8 @@
 
             document.getElementById('reviews-list').prepend(reviewItem);
 
-            // Add event listeners to the action buttons
             reviewItem.querySelector('.edit-btn').addEventListener('click', () => {
-                editReview(review.restaurantId, review.id, review.restaurantName);
+                editReview(review.restaurantId, review.id, review.restaurantName, review.rating, review.comment);
             });
 
             reviewItem.querySelector('.delete-btn').addEventListener('click', () => {
@@ -837,21 +1108,105 @@
                 await db.collection('restaurants').doc(restaurantId)
                     .collection('reviews').doc(reviewId).delete();
 
-                // Remove from local array
                 allReviews = allReviews.filter(r => r.id !== reviewId);
-                
-                // Re-render the current page
+
+                document.getElementById('review-count').textContent = allReviews.length;
+
+                element.remove();
+
                 displayReviewsPage(currentReviewPage);
 
                 showToast('Review deleted successfully');
 
-                // Update the restaurant's average rating
                 await updateRestaurantRating(restaurantId);
 
             } catch (error) {
                 console.error("Error deleting review:", error);
-                showToast('Error deleting review', true);
+                if (error.code === 'permission-denied') {
+                    showToast('You do not have permission to delete this review', true);
+                } else {
+                    showToast('Error deleting review: ' + error.message, true);
+                }
             }
+        }
+
+        function editReview(restaurantId, reviewId, restaurantName, currentRating, currentComment) {
+            const modal = document.getElementById('edit-review-modal');
+            const form = document.getElementById('edit-review-form');
+            const errorDiv = document.getElementById('edit-error');
+            const modalHeader = modal.querySelector('.modal-header h3');
+
+            modalHeader.textContent = `Edit Review for ${restaurantName}`;
+
+            form.querySelector(`input[name="rating"][value="${Math.round(currentRating)}"]`).checked = true;
+            form.querySelector('#comment').value = currentComment;
+
+            modal.style.display = 'flex';
+
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+
+                const rating = parseFloat(form.querySelector('input[name="rating"]:checked')?.value);
+                const comment = form.querySelector('#comment').value.trim();
+
+                if (!rating || rating < 1 || rating > 5) {
+                    errorDiv.textContent = 'Please select a rating between 1 and 5 stars.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                if (!comment) {
+                    errorDiv.textContent = 'Please enter a comment.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+
+                try {
+                    await db.collection('restaurants').doc(restaurantId)
+                        .collection('reviews').doc(reviewId).update({
+                            rating: rating,
+                            comment: comment,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
+                    const reviewIndex = allReviews.findIndex(r => r.id === reviewId);
+                    if (reviewIndex !== -1) {
+                        allReviews[reviewIndex] = {
+                            ...allReviews[reviewIndex],
+                            rating: rating,
+                            comment: comment,
+                            updatedAt: new Date()
+                        };
+                    }
+
+                    displayReviewsPage(currentReviewPage);
+
+                    closeEditModal();
+
+                    showToast('Review updated successfully');
+
+                    await updateRestaurantRating(restaurantId);
+
+                } catch (error) {
+                    console.error("Error updating review:", error);
+                    if (error.code === 'permission-denied') {
+                        errorDiv.textContent = 'You do not have permission to edit this review.';
+                    } else {
+                        errorDiv.textContent = 'Error updating review: ' + error.message;
+                    }
+                    errorDiv.style.display = 'block';
+                }
+            };
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-review-modal');
+            const form = document.getElementById('edit-review-form');
+            const errorDiv = document.getElementById('edit-error');
+
+            modal.style.display = 'none';
+            form.reset();
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
         }
 
         async function updateRestaurantRating(restaurantId) {
@@ -883,16 +1238,6 @@
             } catch (error) {
                 console.error("Error updating restaurant rating:", error);
             }
-        }
-
-        function editReview(restaurantId, reviewId, restaurantName) {
-            // For now, just show an alert - you can implement a proper edit modal
-            alert(`Editing review for ${restaurantName}. This would open an edit form in a real implementation.`);
-            
-            // In a full implementation, you would:
-            // 1. Open a modal with the review form
-            // 2. Pre-fill it with the existing review data
-            // 3. Update the review in Firestore when submitted
         }
         
         function changeRestaurantPage(change) {
