@@ -172,16 +172,16 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.02);
+  background: #e67e22;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  color: #e67e22;
+  color: whitesmoke;
   transition: background 0.3s;
 }
 
 .login-btn:hover {
-  background: #e67e22;
-  color:#e67e22;;
+  background: #E9A319;
+  color:#fff;
 ;
 }
 
@@ -247,8 +247,8 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fff;
-  background: var(--primary);
+  color: #e67e22;
+  background:  rgba(0, 0, 0, 0.02);
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: all 0.3s;
@@ -256,6 +256,7 @@ header {
 
 .login-btn:hover {
   background: #ffa600;
+  /* color: white; */
   transform: translateY(-2px);
 }
 .toast {
@@ -293,7 +294,7 @@ header {
 }
 
 .save-btn:hover:not(:disabled) {
-  background: #a81a28;
+  background: darkred;
 }
 /* REVIEW MODAL STYLES */
 .modal {
