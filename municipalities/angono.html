@@ -69,6 +69,7 @@
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
             min-width: 200px;
+            color: #813531	;
         }
         
         .restaurants-grid {
@@ -302,7 +303,7 @@
         .breadcrumb {
             padding: 1rem 0;
             font-size: 0.9rem;
-            color: #ffb80e;
+            color: #ff611d	;
         }
         
         .breadcrumb a {
@@ -436,6 +437,7 @@
             padding: 1.5rem;
             margin: 1.5rem 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            
         }
 
         .weather-header {
@@ -446,10 +448,17 @@
         }
 
         .weather-header h3 {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            font-size: 1.5rem;
+            font-weight: 400;
         }
 
         .last-updated {
@@ -550,7 +559,6 @@
             gap: 0.5rem;
             font-weight: 500;
             margin-top: 1rem;
-            width: 100%;
             transition: background 0.3s;
         }
 
@@ -627,6 +635,23 @@
                 transform: scale(1);
             }
         }
+        .h2 {
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        .p {
+            color: #813531	;
+        }
+        
     </style>
 </head>
 <body>
@@ -657,8 +682,8 @@
                 <span>Angono</span>
             </div>
             
-            <h2>Angono Restaurants</h2>
-            <p>Discover the best dining experiences in Angono.</p>
+            <h2 class="h2">Angono Restaurants</h2>
+            <p class="p">Discover the best dining experiences in Angono.</p>
             <div class="weather-card">
                 <div class="weather-header">
                   <h3><i class="fas fa-cloud-sun"></i> Angono Weather</h3>
