@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Hero section styling for YouTube video background */
+        .header-logo {
+            animation: bounceIn 1s ease-out;
+        }
+        
         .hero {
             position: relative;
             width: 100%;
@@ -38,6 +42,7 @@
             height: 100vh;
             transform: translate(-50%, -50%) scale(1.2); /* Increased zoom to fill gaps */
             z-index: 0; /* Below overlay */
+            transition: transform 0.3s ease; /* For parallax effect */
         }
 
         /* Ensure iframe fills container */
@@ -58,51 +63,54 @@
             max-width: 600px;
             margin: 0 auto;
             opacity: 0;
-            transform: translateY(-10px);
-            animation: welcomeFade 1s ease-out forwards;
+            transform: translateY(20px) scale(0.95);
+            animation: heroPop 1.2s ease-out forwards;
         }
 
         .hero-content h2 {
-            font-size: 4.5rem;
+            font-size: 2.8rem;
             margin: 0 0 1rem;
             text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7); /* Strong shadow for readability */
             color: #ffffff; /* Always white */
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
 
         .hero-content p {
             font-size: 1.2rem;
             margin: 0 0 1.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Strong shadow */
+            text-shadow:0 2px 4px rgba(0, 0, 0, 0.7); /* Strong shadow */
             color: #ffffff; /* Always white */
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
         }
 
         .hero-content .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #ffffff; /* Always white */
+            background-color: #e32929	;
             text-decoration: none;
             border-radius: 25px;
             border: 2px solid whitesmoke;
             font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7); /* Shadow for button text */
         }
 
         .hero-content .btn:hover {
-            background-color: rgba(0, 0, 0, 0.9);;
+            background-color: #ffb80e;
             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
         }
 
         /* Animation for hero content */
-        @keyframes welcomeFade {
+        @keyframes heroPop {
             0% {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(20px) scale(0.95);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -111,16 +119,15 @@
             font-size: 2.5rem;
             text-align: center;
             margin: 3rem 0 2rem;
-            color: #2B2D42;
+            color: #813531;
             opacity: 0;
             transform: translateY(-10px);
             animation: welcomeFade 1s ease-out forwards;
         }
 
         .featured-cities .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+            max-width: 100%;
+            padding: 0;
         }
 
         .city-grid {
@@ -138,12 +145,13 @@
             opacity: 0;
             transform: translateY(20px);
             width: 100%;
+            animation: none; /* Will be triggered by JS for stagger */
         }
 
         .city-row.visible {
             opacity: 1;
             transform: translateY(0);
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .city-image {
@@ -151,12 +159,18 @@
             position: relative;
             overflow: hidden;
             border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .city-image:hover {
+            transform: translateY(-5px) rotate(2deg); /* Lift and slight rotate */
         }
 
         .slideshow-container {
             position: relative;
             width: 100%;
             height: 100%;
+            cursor: pointer; /* Indicate interactivity */
         }
 
         .slide {
@@ -237,7 +251,7 @@
 
         .city-info p {
             margin: 0;
-            color: #4d5359;
+            color: #ff611d;
             font-size: 0.9rem;
         }
 
@@ -257,8 +271,8 @@
         }
 
         .municipality-details p {
-            font-size: 0.95rem;
-            color: #4d5359;
+            font-size: 1rem;
+            color: #813531;
             margin: 0 0 0.75rem;
         }
 
@@ -270,23 +284,113 @@
 
         .municipality-details ul li {
             font-size: 0.9rem;
-            color: #ff611d	;
+            color: #ff611d;
             margin-bottom: 0.5rem;
         }
 
         .municipality-details .btn {
-            margin: 0.75rem auto 0;
+            margin: 0.75rem 0.5rem 0;
             background-color: #e32929;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-size: 0.85rem;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
         }
 
         .municipality-details .btn:hover {
-            background-color: #982121;
+            background-color: #ffb80e;
             transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 184, 14, 0.7);
+        }
+
+        .municipality-details .quick-view-btn {
+            background-color: #ff611d;
+        }
+
+        .municipality-details .quick-view-btn:hover {
+            background-color: #e32929;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            animation: modalPop 0.4s ease-out;
+        }
+
+        .modal-content h3 {
+            color: #ff611d;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: #813531;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #813531;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-content .close-btn:hover {
+            color: #ff611d;
+        }
+
+        /* Scroll-to-top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #e32929;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            background-color: #ffb80e;
+            transform: scale(1.1);
         }
 
         /* Animations */
@@ -323,6 +427,28 @@
             }
         }
 
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes welcomeFade {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Navigation hover animation from municipalities.html */
         .nav-links li a {
             position: relative;
@@ -356,6 +482,25 @@
 
         .nav-links li.login-item a.login-btn::after {
             display: none;
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffb80e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
         }
 
         /* Responsive adjustments */
@@ -419,6 +564,12 @@
             .municipality-details {
                 padding: 1rem;
             }
+
+            .scroll-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -428,9 +579,9 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                     <li class="login-item">
                         <a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user" color="whitesmoke"></i> Log In</a>
                     </li>
@@ -536,6 +687,21 @@
         </section>
     </main>
 
+    <!-- Modal -->
+    <div class="modal" id="quick-view-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-subtitle"></p>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <!-- Scroll-to-top button -->
+    <div class="scroll-to-top" id="scroll-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
     <footer>
         <div class="container">
             <p>© 2025 RIZAL EATS. All rights reserved.</p>
@@ -609,6 +775,13 @@
             }
         });
 
+        // Parallax effect for hero video
+        window.addEventListener('scroll', function() {
+            const heroVideo = document.querySelector('.hero-video');
+            const scrollPosition = window.scrollY;
+            heroVideo.style.transform = `translate(-50%, -50%) scale(1.2) translateY(${scrollPosition * 0.1}px)`;
+        });
+
         // Ensure Firebase is initialized before checking auth state
         function waitForFirebase() {
             return new Promise((resolve) => {
@@ -670,18 +843,33 @@
                     slides: container.querySelectorAll('.slide'),
                     dots: container.querySelectorAll('.dot'),
                     currentIndex: 0,
-                    interval: null
+                    interval: null,
+                    isPaused: false
                 };
                 startSlideshow(city);
+                // Add click-to-pause/resume
+                container.addEventListener('click', () => toggleSlideshow(city));
             });
         }
 
         function startSlideshow(city) {
             const slideshow = slideshows[city];
-            slideshow.interval = setInterval(() => {
-                slideshow.currentIndex = (slideshow.currentIndex + 1) % slideshow.slides.length;
-                updateSlideshow(city);
-            }, 3000);
+            if (!slideshow.isPaused) {
+                slideshow.interval = setInterval(() => {
+                    slideshow.currentIndex = (slideshow.currentIndex + 1) % slideshow.slides.length;
+                    updateSlideshow(city);
+                }, 3000);
+            }
+        }
+
+        function toggleSlideshow(city) {
+            const slideshow = slideshows[city];
+            slideshow.isPaused = !slideshow.isPaused;
+            if (slideshow.isPaused) {
+                clearInterval(slideshow.interval);
+            } else {
+                startSlideshow(city);
+            }
         }
 
         function setSlide(city, index) {
@@ -702,16 +890,41 @@
             });
         }
 
-        // Initialize slideshows, auth button, and animations
+        // Modal functionality
+        function openModal(title, subtitle, description) {
+            const modal = document.getElementById('quick-view-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-subtitle').textContent = subtitle;
+            document.getElementById('modal-description').textContent = description;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('quick-view-modal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('quick-view-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Initialize slideshows, auth button, animations, and scroll-to-top
         document.addEventListener('DOMContentLoaded', function() {
             initSlideshows();
             updateAuthButton();
 
+            // Staggered animation for city rows
             const cityRows = document.querySelectorAll('.city-row');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 300); // Stagger by 300ms
                         observer.unobserve(entry.target);
                     }
                 });
@@ -719,6 +932,20 @@
 
             cityRows.forEach(row => {
                 observer.observe(row);
+            });
+
+            // Scroll-to-top functionality
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
     </script>

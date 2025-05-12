@@ -13,7 +13,6 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
             background-image: url('images/bg.jpg');
             background-size: cover;
             background-position: center;
@@ -23,18 +22,32 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0.75rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .about-container {
             width: 100%;
             padding: 0 1rem;
             animation: fadeIn 1s ease-out;
+        }
+
+        .about-container {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        .about-info, .gallery, .contact {
+            max-width: 100%;
+            padding: 2rem 1.5rem;
+        }
+
+        .about-info-content, .gallery, .contact ul {
+            max-width: 100%;
         }
 
         .about-info, .gallery, .contact {
@@ -88,40 +101,49 @@
         .h1 {
             text-align: left;
             margin: 0.5rem 0;
-            background: linear-gradient(45deg, #e32929, #fff172);
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             animation: welcomeFade 1.5s ease-out;
-            font-size: 2.5rem;
+            font-size: larger;
             font-weight: 600;
         }
 
         .subtext {
             text-align: left;
             margin: 0.25rem 0;
-            background: linear-gradient(45deg, #e32929, #fff172);
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             animation: welcomeFade 1.5s ease-out 0.2s;
             animation-fill-mode: backwards;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 400;
         }
 
         .about-info p {
             margin: 1rem 0;
-            color: #2c3e50;
+            color: #813531	;
             line-height: 1.6;
+            text-align: justify;
+            font-size: 1.4rem;
         }
 
+        .info-text {
+            margin: 1rem 0;
+            color: #813531	;
+            line-height: 1.6;
+            text-align: center;
+            font-size: 2.4rem;
+        }
+        
         .about-image {
             width: 100%;
             max-height: 400px;
-            object-fit: cover;
             border-radius: 10px;
             margin: 1.5rem 0;
             transition: transform 0.3s ease;
@@ -184,7 +206,7 @@
         }
 
         .contact h2 {
-            color: #2c3e50;
+            color: #813531	;
             margin-bottom: 1rem;
             max-width: 800px;
             margin-left: auto;
@@ -193,7 +215,7 @@
 
         .contact p {
             margin: 1rem 0;
-            color: #2c3e50;
+            color: #813531	;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -209,7 +231,7 @@
 
         .contact ul li {
             margin: 0.75rem 0;
-            color: #2c3e50;
+            color: #813531	;
         }
 
         .contact ul li a {
@@ -250,7 +272,7 @@
         footer {
             text-align: center;
             padding: 1rem 0;
-            background: #2c3e50;
+            background: #982121;
             color: white;
             width: 100%;
         }
@@ -288,6 +310,21 @@
 
         .nav-links li.login-item a.login-btn::after {
             display: none;
+        }
+
+        .nav-links li a i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo {
+            animation: bounceIn 1s ease-out;
         }
 
         @keyframes fadeIn {
@@ -342,6 +379,17 @@
         }
 
         @media (max-width: 768px) {
+            .about-container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .about-info, .gallery, .contact {
+                max-width: 100%;
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+
             .about-info-content {
                 flex-direction: column;
                 gap: 1.5rem;
@@ -364,11 +412,6 @@
 
             .gallery {
                 grid-template-columns: 1fr;
-            }
-
-            .about-info, .gallery, .contact {
-                padding: 1.5rem;
-                margin: 1.5rem 0;
             }
 
             .h1 {
@@ -395,9 +438,9 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                     <li class="login-item"><a href="login.html" class="login-btn" id="auth-btn"><i class="fas fa-user"></i> Log In</a></li>
                 </ul>
             </nav>
@@ -407,49 +450,52 @@
     <main class="about-container">
         <section class="about-info" id="about-info">
             <div class="about-info-content">
+                <div class="info-text">
+                    <h1 class="h1">About Rizal Eats</h1>
+                    <h1 class="subtext">Taste the Story of the Cradle of Philippine Art</h1>
+                    <p>Rizal Eats is your go-to digital food guide showcasing top-rated restaurants and must-try delicacies across the beautiful municipalities of Rizal province. From the art-rich streets of Angono to the scenic hills of Antipolo, we bring you closer to the flavors that define Rizal’s culinary scene.</p>
+                </div>
                 <div class="logo-column">
                     <img src="RIZAL EATS LOGO.png" alt="Rizal Eats Logo" class="about-logo">
                 </div>
-                <div class="info-text">
-                    <h1 class="h1">About Rizal Eats</h1>
-                    <h1 class="subtext">Discover the Culinary Heart of Rizal</h1>
-                    <p>Rizal Eats is your go-to digital food guide showcasing top-rated restaurants and must-try delicacies across the beautiful municipalities of Rizal province. From the art-rich streets of Angono to the scenic hills of Antipolo, we bring you closer to the flavors that define Rizal’s culinary scene.</p>
-                    <p>Whether you're a tourist or a local foodie, our platform helps you explore local favorites, hidden gems, and traditional treats from each municipality — all on one plate!</p>
-                </div>
+                
             </div>
             <!-- Placeholder image for Rizal's culinary culture -->
             <!-- Replace with actual image, e.g., RIZAL_DISH_1.jpg -->
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="Rizal Culinary Scene" class="about-image">
+            <img src="images/cover.jpg" alt="Rizal Culinary Scene" class="about-image">
         </section>
+
+        <div class="info-text">
+            <p>Whether you're a tourist or a local foodie, our platform helps you explore local favorites, hidden gems, and traditional treats from each municipality — all on one plate!</p>
+        </div>
 
         <section class="gallery" id="gallery">
             <!-- Gallery with placeholder images -->
             <!-- Replace with actual images, e.g., ANGONO_DISH.jpg, ANTIPOLO_RESTAURANT.jpg -->
             <div class="gallery-item" data-caption="Angono Delicacy">
-                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Angono Delicacy">
+                <img src="images/gallery1.jpg" alt="Angono Delicacy">
             </div>
             <div class="gallery-item" data-caption="Antipolo Restaurant">
-                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Antipolo Restaurant">
+                <img src="images/gallery2.jpg" alt="Antipolo Restaurant">
             </div>
             <div class="gallery-item" data-caption="Rizal Hidden Gem">
-                <img src="https://images.unsplash.com/photo-1504672281656-e3e7b6b26f92?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Rizal Hidden Gem">
+                <img src="images/gallery3.jpg" alt="Rizal Hidden Gem">
             </div>
         </section>
+
+        
+
 
         <section class="contact" id="contact">
             <h2>Contact Us</h2>
             <p>Have suggestions or inquiries? We'd love to hear from you!</p>
             <ul>
                 <li>Email: <a href="mailto:info@rizaleats.com">info@rizaleats.com</a></li>
-                <li>Phone: (02) 1234-5678</li>
-                <li>Address: Brgy. Dela Paz, Pasig City, Rizal Eats HQ</li>
+                <li>Phone: (63) 950-850-5862</li>
+                <li>Telegram: @RizalEats</li>
             </ul>
         </section>
     </main>
-
-    <button class="back-to-top" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
-    </button>
 
     <footer>
         <div class="container">

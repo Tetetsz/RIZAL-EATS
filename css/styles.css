@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 body {
@@ -17,14 +18,7 @@ body {
   margin: 0 auto;
 }
 
-/* Header Styles */
-header {
-  background:#020817;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+
 
 .logo {
   font-size: 1.8rem;
@@ -126,7 +120,7 @@ nav a:hover, nav a.active {
 }
 
 .btn:hover {
-  background: #982121;
+  background: #e32929	;
 }
 
 .btn.small {
@@ -136,7 +130,7 @@ nav a:hover, nav a.active {
 
 /* Footer */
 footer {
-  background: #34495e;
+  background: #982121	;
   color: white;
   text-align: center;
   padding: 2rem 0;
@@ -162,6 +156,7 @@ header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
 }
 
 .login-item {
@@ -182,7 +177,6 @@ header {
 .login-btn:hover {
   background: #E9A319;
   color:#fff;
-;
 }
 
 /* Mobile responsiveness */
@@ -549,7 +543,7 @@ body {
 
 /* Header */
 header {
-  background-color: #020817;
+  background-color: #982121	;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -623,7 +617,7 @@ nav a.login {
 
 /* Footer */
 footer {
-  background-color: #020817;
+  background-color: #982121	;
   color: white;
   text-align: center;
   padding: 1rem;

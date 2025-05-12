@@ -10,7 +10,7 @@
     <style>
         /* Existing styles */
         .search-container {
-            background-color: #ec9a1f;
+            background-color: #ffb80e;
             padding: 15px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -91,12 +91,12 @@
         .card-content h3 {
             margin: 0 0 5px;
             font-size: 1.25rem;
-            color: #2B2D42;
+            color: #ff611d;
         }
         
         .card-content p {
             margin: 0 0 15px;
-            color: #6c757d;
+            color: #813531	;
             font-size: 0.9rem;
         }
         
@@ -117,14 +117,15 @@
         }
         
         .btn:hover {
-            background-color: #982121;
+            background-color: #ffb80e;
             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
         }
         
         .section-title {
             text-align: center;
             margin: 30px 0;
-            color: #2B2D42;
+            color: #813531;
             opacity: 0;
             transform: translateY(-10px);
             animation: welcomeFade 1s ease-out forwards;
@@ -134,7 +135,9 @@
             text-align: center;
             grid-column: 1 / -1;
             padding: 40px 0;
-            color: #6c757d;
+            color: #813531;
+            align-items: center;
+            align-content: center;
         }
         
         .no-results i {
@@ -165,13 +168,23 @@
         }
 
         .nav-links li a:hover {
-            color: #ffb80e	;
+            color: #ffb80e;
+        }
+
+        .nav-links li a i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
         }
 
         .header-logo {
             animation: bounceIn 1s ease-out;
         }
-
         
         /* Responsive breakpoints */
         @media (max-width: 1200px) {
@@ -253,10 +266,10 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html" class="active">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user">Sign In</i></a></li>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="municipalities.html" class="active"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li class="login-item"><a href="login.html" class="login-btn"><i class="fas fa-user"></i> Sign In</a></li>
                 </ul>
             </nav>
         </div>
@@ -453,8 +466,8 @@
             noResults.className = 'no-results';
             noResults.innerHTML = `
                 <i class="fas fa-search"></i>
-                <h3>No municipalities found</h3>
-                <p>Try searching for something else</p>
+                <h3>No municipalities found.</h3>
+                <p>Try searching for something else.</p>
             `;
             
             // Search functionality

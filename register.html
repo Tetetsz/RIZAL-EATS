@@ -20,7 +20,7 @@
         .login-title {
             text-align: center;
             margin-bottom: 1.5rem;
-            color: #2c3e50;
+            color: #813531;
             animation: fadeIn 1s ease-out 0.2s;
             animation-fill-mode: backwards;
         }
@@ -42,7 +42,7 @@
             width: 100%;
             padding: 12px 20px;
             background: transparent;
-            border: 2px solid #2c3e50;
+            border: 2px solid #813531;
             border-radius: 40px;
             font-size: 1.2em;
             color: #111;
@@ -53,8 +53,9 @@
         }
         
         .form-group input:focus {
-            border-color: #e32929;
             transform: scale(1.02);
+            border-color: #e32929;
+            border: linear-gradient(90deg, rgba(200, 0, 4, 1) 0%, rgba(252, 161, 2, 1) 100%);
         }
         
         .login-btn { 
@@ -62,7 +63,7 @@
             transition: background 0.3s, transform 0.3s ease;
             width: 100%;
             background: #0078ff;
-            background: linear-gradient(45deg, #e32929, #fff172);
+            background: linear-gradient(45deg, #e32929, #ffb80e);
             border: none;
             cursor: pointer;
             padding: 12px 20px;
@@ -72,7 +73,7 @@
         }
         
         .login-btn:hover {
-            background: #2c3e50;
+            background: #e32929;
             transform: scale(1.05);
         }
         
@@ -143,13 +144,24 @@
         }
 
         .nav-links li a:hover {
-            color: #ffb80e	;
+            color: #ffb80e;
+        }
+
+        .nav-links li a i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
         }
 
         .h1 {
             text-align: center;
             margin: 0.5rem 0;
-            background: linear-gradient(45deg, #ffb80e	, #ff611d	);
+            background: linear-gradient(45deg, #ffb80e, #ff611d);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -219,9 +231,9 @@
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="municipalities.html">Municipalities</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                 </ul>
             </nav>
         </div>
@@ -299,7 +311,7 @@
                     // Send email verification
                     userCredential.user.sendEmailVerification()
                         .then(() => {
-                            console.log('Verification email sent');
+                            console.log('Verification email sent.');
                         });
                     
                     // Redirect after 2 seconds
@@ -309,9 +321,9 @@
                 })
                 .catch((error) => {
                     const errorMessages = {
-                        'auth/email-already-in-use': 'Email already registered',
-                        'auth/invalid-email': 'Invalid email address',
-                        'auth/weak-password': 'Password must be at least 6 characters'
+                        'auth/email-already-in-use': 'Email already registered.',
+                        'auth/invalid-email': 'Invalid email address.',
+                        'auth/weak-password': 'Password must be at least 6 characters.'
                     };
                     errorMessage.textContent = errorMessages[error.code] || 'Registration failed. Please try again.';
                     errorMessage.style.display = 'block';
