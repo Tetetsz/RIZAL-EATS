@@ -111,6 +111,7 @@
             margin: 0 0 0.5rem;
             font-size: 1.25rem;
             font-weight: 600;
+            color: #982121	;
         }
         
         .restaurant-location {
@@ -124,6 +125,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            color: #813531	;
         }
         
         .cuisine-tag {
@@ -156,7 +158,7 @@
         }
         
         .save-btn {
-            background:	#982121;
+            background:	#ffb80e	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -169,11 +171,10 @@
             font-weight: 500;
             margin-top: 1rem;
             width: 100%;
-            transition: background 0.3s;
         }
         
         .review-btn {
-            background: #FFB200;
+            background: #e32929	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -190,7 +191,7 @@
         }
         
         .view-map-btn {
-            background: #F4631E;
+            background: #ff611d	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -207,11 +208,11 @@
         }
         
         .save-btn:hover {
-            background: #690B22;
+            background: #E9A319;
         }
         
         .review-btn:hover {
-            background: #E9A319;
+            background: #982121	;
         }
         
         .view-map-btn:hover {
@@ -537,7 +538,7 @@
         }
 
         .forecast-toggle-btn {
-            background: #A36D6A;
+            background: #e32929	;
             color: white;
             border: none;
             padding: 0.75rem;
@@ -554,7 +555,9 @@
         }
 
         .forecast-toggle-btn:hover {
-            background: #8D4945;
+            background: #ffb80e	;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7); /* Glow effect */
         }
 
         .weather-loading, .forecast-loading {
@@ -638,7 +641,7 @@
                     <li class="login-item">
                         <a href="#" id="auth-btn" class="login-btn">
                             <i class="fas fa-user"></i> 
-                            <span id="auth-text">Login</span>
+                            <span id="auth-text">Log In</span>
                         </a>
                     </li>
                 </ul>
@@ -655,7 +658,7 @@
             </div>
             
             <h2>Angono Restaurants</h2>
-            <p>Discover the best dining experiences in Angono</p>
+            <p>Discover the best dining experiences in Angono.</p>
             <div class="weather-card">
                 <div class="weather-header">
                   <h3><i class="fas fa-cloud-sun"></i> Angono Weather</h3>
@@ -682,7 +685,7 @@
             <div class="filter-controls">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Search restaurants...">
+                    <input type="text" id="search-input" placeholder="Search...">
                 </div>
                 <select id="cuisine-filter">
                     <option value="">All Cuisines</option>
@@ -931,7 +934,7 @@
                         <button class="review-btn" data-id="${restaurant.id}">
                             <i class="fas fa-comment"></i> Reviews
                         </button>
-                        ${!currentUser ? '<p class="login-prompt">Login to save restaurants</p>' : ''}
+                        ${!currentUser ? '<p class="login-prompt">Sign in to save restaurants.</p>' : ''}
                     </div>
                 `;
                 

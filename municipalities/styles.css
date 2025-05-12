@@ -277,15 +277,12 @@ header {
 
 .login-prompt {
   font-size: 0.8rem;
-  color: var(--primary);
+  color: #813531	;
   margin-top: 0.5rem;
   text-align: center;
 }
 
-.save-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+
 
 .save-btn:hover:not(:disabled) {
   background: darkred;
