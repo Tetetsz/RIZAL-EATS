@@ -106,7 +106,7 @@
         .hero-content .btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
-            background-color: #e32929	;
+            background-color: #e32929;
             text-decoration: none;
             border-radius: 25px;
             border: 2px solid whitesmoke;
@@ -412,6 +412,63 @@
             transform: scale(1.1);
         }
 
+        /* New Discover Rizal’s Food Culture section styling */
+        .why-rizal-eats-unique {
+            background: linear-gradient(135deg, #e32929 0%, #ffb80e 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 3rem; /* Added top margin for spacing */
+            margin-bottom: -35px;
+        }
+
+        .why-rizal-eats-unique-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .why-rizal-eats-unique-content h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin: 0;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: welcomeFade 1s ease-out forwards;
+        }
+
+        .why-rizal-eats-unique-content p {
+            font-size: 1.2rem;
+            color: white;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            max-width: 600px;
+        }
+
+        .why-rizal-eats-unique-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #ffffff;
+            color: #e32929;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .why-rizal-eats-unique-btn:hover {
+            background-color: #ffb80e;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 184, 14, 0.7);
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from {
@@ -468,7 +525,7 @@
             }
         }
 
-       /* Navigation hover animation */
+        /* Navigation hover animation */
         .nav-links li a {
             position: relative;
             text-decoration: none;
@@ -520,6 +577,7 @@
             display: flex;
             align-items: center;
         }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .hero {
@@ -586,6 +644,24 @@
                 width: 40px;
                 height: 40px;
                 font-size: 1.2rem;
+            }
+
+            .why-rizal-eats-unique {
+                padding: 2rem 1rem;
+                margin-top: 2rem; /* Reduced top margin for smaller screens */
+            }
+
+            .why-rizal-eats-unique-content h2 {
+                font-size: 2rem;
+            }
+
+            .why-rizal-eats-unique-content p {
+                font-size: 1rem;
+            }
+
+            .why-rizal-eats-unique-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -700,6 +776,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="why-rizal-eats-unique">
+            <div class="why-rizal-eats-unique-content">
+                <h2>Discover Rizal’s Food Culture</h2>
+                <p>Embark on a culinary journey through Rizal with Rizal Eats. Uncover authentic dishes, explore local eateries, and savor the flavors that define the province’s vibrant heritage. Your next favorite meal is just a click away!</p>
+                <a href="municipalities.html" class="why-rizal-eats-unique-btn">Explore Now</a>
             </div>
         </section>
     </main>
