@@ -222,7 +222,7 @@ header {
 
 .search-box input:focus {
   outline: none;
-  border-color: #e74c3c;
+  border-color: #ffb80e	;
 }
 
 .search-box i {
