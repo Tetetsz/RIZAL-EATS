@@ -71,7 +71,7 @@
         }
 
         .about-logo {
-            max-width: 200px;
+            max-width: 300px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
@@ -83,7 +83,7 @@
 
         .h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ffffff; /* White for gallery heading, red for others */
             margin: 0 0 0.5rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -96,23 +96,29 @@
 
         .subtext {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            color: #813531;
-            margin: 0 0 1rem;
+            font-size: 2.3rem;
+            text-align: left;
+            margin: 0.25rem 0;
+            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            animation: welcomeFade 1.5s ease-out 0.2s;
+            animation-fill-mode: backwards;
             font-weight: 400;
         }
 
         .about-info p {
             margin: 1rem 0;
             line-height: 1.6;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             text-align: justify;
         }
 
         .about-image {
             width: 100%;
             max-height: 400px;
-            object-fit: cover;
             border-radius: 10px;
             margin: 1.5rem 0;
             transition: transform 0.3s ease;
@@ -231,6 +237,8 @@
             align-items: center;
             gap: 0.75rem;
             font-size: 1.1rem;
+            text-align: center;
+            align-self: center;
         }
 
         .contact ul li a {
@@ -242,6 +250,40 @@
             border-radius: 25px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
+        .contact ul li i {
+            transition: transform 0.3s ease;
+        }
+        .contact ul li:hover i {
+            animation: pulse 0.5s ease infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: bounce 0.5s ease;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.about-logo {
+    animation: scaleIn 1s ease-out;
+}
+.about-image {
+    animation: scaleIn 1s ease-out 0.3s;
+    animation-fill-mode: backwards;
+}
+@keyframes scaleIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
 
         .contact ul li a:hover {
             background: #ffb80e;
@@ -283,7 +325,7 @@
         }
 
         footer {
-            background: #813531;
+            background: #982121	;
             color: white;
             text-align: center;
             padding: 1.5rem 0;
@@ -398,10 +440,12 @@
 
             .h1 {
                 font-size: 2rem;
+                text-align: left;
             }
 
             .subtext {
                 font-size: 1.5rem;
+                text-align: justify;
             }
 
             .about-info p {
@@ -459,14 +503,14 @@
     <main class="about-container">
         <div class="about-info" id="about-info">
             <div class="about-info-content">
-                <div class="logo-column">
-                    <img src="RIZAL EATS LOGO.png" alt="Rizal Eats Logo" class="about-logo">
-                </div>
+                
                 <div class="info-text">
                     <h1 class="h1">About Rizal Eats</h1>
                     <h2 class="subtext">Taste the Story of Rizal’s Culinary Heritage</h2>
                     <p>Rizal Eats is your ultimate digital guide to the vibrant culinary scene of Rizal province. From the art-infused eateries of Angono to the scenic dining spots in Antipolo, we showcase top-rated restaurants, must-try delicacies, and hidden gems that define Rizal’s rich food culture.</p>
-                    <p>Whether you’re a local foodie or a curious traveler, our platform makes it easy to explore authentic flavors and traditional dishes, connecting you to the heart of Rizal’s communities—one plate at a time.</p>
+                </div>
+                <div class="logo-column">
+                    <img src="RIZAL EATS LOGO.png" alt="Rizal Eats Logo" class="about-logo">
                 </div>
             </div>
             <img src="images/cover.jpg" alt="Rizal Culinary Scene: Traditional Filipino Dishes" class="about-image">
@@ -475,7 +519,7 @@
         <div class="section-divider"></div>
 
         <div class="gallery-section" id="gallery">
-            <h2 class="h1">Explore Rizal’s Flavors</h2>
+            <h2 class="h1">Whether you’re a local foodie or a traveler, our platform makes it easy to explore authentic flavors and traditional dishes, connecting you to the heart of Rizal’s communities—one plate at a time.</h2>
             <div class="gallery-grid">
                 <div class="gallery-item" data-caption="Angono’s Balaw-Balaw Dish" aria-label="View larger image of Angono’s Balaw-Balaw Dish">
                     <img src="images/gallery1.jpg" alt="Angono’s Balaw-Balaw Dish">
