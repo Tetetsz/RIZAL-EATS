@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Antipolo Restaurants | RIZAL EATS</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
+      <style>
         :root {
             --primary: #FF5A5F;
             --secondary: #00A699;
@@ -658,28 +658,34 @@
             color: #813531	;
             font-size: 1.2rem;
         }
-        
+        .login-btn:hover, #auth-btn:hover {
+            background: none !important;
+            outline: none !important;
+            border: none !important;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <img src="RIZAL EATS LOGO.png" alt="Rizal Eats" class="header-logo">
+
             <nav>
-            <ul class="nav-links">
-                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="../municipalities.html"><i class="fas fa-map-marked-alt"></i> Municipalities</a></li>
-                <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                <li class="login-item">
-                    <a href="#" id="auth-btn" class="login-btn">
-                        <i class="fas fa-user"></i> 
-                        <span id="auth-text">Log In</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../municipalities.html">Municipalities</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li class="login-item">
+                        <a href="#" id="auth-btn" class="login-btn">
+                            <i class="fas fa-user"></i> 
+                            <span id="auth-text">Log In</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </header>
+
     <main>
         <div class="restaurants-container">
             <div class="breadcrumb">
@@ -688,8 +694,8 @@
                 <span>Antipolo</span>
             </div>
             
-            <h2 class="h2">Antipolo Restaurants</h2>
-            <p class="p">Discover the best dining experiences in Antipolo.</p>
+            <h2>Antipolo Restaurants</h2>
+            <p>Discover the best dining experiences in Antipolo</p>
             <div class="weather-card">
                 <div class="weather-header">
                   <h3><i class="fas fa-cloud-sun"></i> Antipolo Weather</h3>
