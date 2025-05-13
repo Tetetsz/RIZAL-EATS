@@ -658,6 +658,11 @@
             color: #813531	;
             font-size: 1.2rem;
         }
+        .login-btn:hover, #auth-btn:hover {
+            background: none !important;
+            outline: none !important;
+            border: none !important;
+        }
         
     </style>
 </head>
@@ -743,7 +748,7 @@
     <div id="reviewModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">×</span>
-            <h2>Reviews for <span id="reviewRestaurantName"></span></h2>
+            <h2 class="reviewnila">Reviews for <span id="reviewRestaurantName"></span></h2>
             
             <!-- Average Rating Display -->
             <div class="average-rating">
@@ -1293,10 +1298,10 @@
                 const authText = document.getElementById('auth-text');
                 
                 if (user) {
-                    authText.textContent = 'Profile';
+                    authText.textContent = 'My Account';
                     authBtn.href = "../dashboard.html";
                 } else {
-                    authText.textContent = 'Login';
+                    authText.textContent = 'Log In';
                     authBtn.href = "../login.html";
                 }
             });
