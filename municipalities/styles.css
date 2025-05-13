@@ -281,9 +281,7 @@ header {
 
 
 
-.save-btn:hover:not(:disabled) {
-  background: darkred;
-}
+
 /* REVIEW MODAL STYLES */
 .modal {
   display: none;
