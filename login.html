@@ -6,13 +6,12 @@
     <title>RIZAL EATS - Login</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Add Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <style>
         .login-container {
             max-width: 400px;
-            margin: 1.5rem auto; /* Reduced margin to trim space */
+            margin: 1.5rem auto;
             padding: 2rem;
             background: white;
             border-radius: 10px;
@@ -23,7 +22,7 @@
         .login-title {
             text-align: center;
             margin-bottom: 1.5rem;
-            color: #813531	;
+            color: #813531;
             animation: fadeIn 1s ease-out 0.2s;
             animation-fill-mode: backwards;
         }
@@ -45,7 +44,7 @@
             width: 100%;
             padding: 12px 20px;
             background: transparent;
-            border: 2px solid #813531	;
+            border: 2px solid #813531;
             border-radius: 40px;
             font-size: 1.2em;
             color: #111;
@@ -57,17 +56,15 @@
         
         .form-group input:focus {
             transform: scale(1.02);
-            border-color: #e32929	;
+            border-color: #e32929;
             border: linear-gradient(90deg, rgba(200, 0, 4, 1) 0%, rgba(252, 161, 2, 1) 100%);
-
         }
         
         .login-btn { 
             font-size: 1rem;
             transition: background 0.3s, transform 0.3s ease;
             width: 100%;
-            background: #0078ff;
-            background: linear-gradient(45deg, #e32929, #ffb80e	);
+            background: linear-gradient(45deg, #e32929, #ffb80e);
             border: none;
             cursor: pointer;
             padding: 12px 20px;
@@ -78,8 +75,13 @@
         }
         
         .login-btn:hover {
-            background: #e32929	;
+            background: #e32929;
             transform: scale(1.05);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         
         .login-footer {
@@ -87,6 +89,28 @@
             margin-top: 1.5rem;
             animation: fadeIn 1s ease-out 0.6s;
             animation-fill-mode: backwards;
+        }
+        
+        .login-footer .signup-link-container {
+            text-align: center !important;
+            padding: 0.5rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .login-footer .signup-link-container:hover {
+            background: #f1f1f1;
+        }
+        
+        .login-footer .signup-link-container a {
+            color: #e32929;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-footer .signup-link-container a:hover {
+            text-decoration: underline;
         }
         
         .error-message {
@@ -151,11 +175,10 @@
             align-items: center;
         }
 
-        /* Styling for Welcome back! text */
         .h1 {
             text-align: center;
-            margin: 0.5rem 0; /* Trimmed spacing */
-            background: linear-gradient(45deg, #ffb80e, #ff611d); /* Gradient text */
+            margin: 0.5rem 0;
+            background: linear-gradient(45deg, #ffb80e, #ff611d);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -163,7 +186,6 @@
             animation: welcomeFade 1.5s ease-out;
         }
 
-        /* Keyframes for animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -238,17 +260,14 @@
                 <div class="form-group">
                     <input type="email" id="email" required placeholder="Username">
                 </div>
-                
                 <div class="form-group">
                     <input type="password" id="password" required placeholder="Password">
                 </div>
-                
-                <button type="submit" class="login-btn">Sign In</button>
+                <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
                 <p class="error-message" id="errorMessage"></p>
             </form>
-            
             <div class="login-footer">
-                <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+                <p class="signup-link-container">Don't have an account? <a href="register.html">Sign Up</a></p>
             </div>
         </div>
     </main>
@@ -258,10 +277,6 @@
             <p>© 2023 RIZAL EATS. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
     <script>
         // Initialize Firebase
@@ -274,29 +289,48 @@
             appId: "1:408631282807:web:ccb009c71fc1796abdca72",
         };
         firebase.initializeApp(firebaseConfig);
-    </script>
-    
-    <!-- Login Script -->
-    <script>
+
+        // Login Script
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
-            
+            const loginBtn = document.getElementById('loginBtn');
+
+            // Reset error message and disable button
             errorMessage.style.display = 'none';
             errorMessage.classList.remove('show');
-            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing In...';
+
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(() => {
                     window.location.href = 'dashboard.html';
                 })
                 .catch((error) => {
                     console.error(error);
-                    errorMessage.textContent = error.message;
+                    let message = 'An error occurred. Please try again.';
+                    switch (error.code) {
+                        case 'auth/invalid-email':
+                            message = 'Invalid email format. Please check your email.';
+                            break;
+                        case 'auth/user-not-found':
+                            message = 'Email not recognized. Please check your email or sign up.';
+                            break;
+                        case 'auth/wrong-password':
+                            message = 'Incorrect password. Please try again.';
+                            break;
+                        case 'auth/too-many-requests':
+                            message = 'Too many attempts. Please try again later.';
+                            break;
+                    }
+                    errorMessage.textContent = message;
                     errorMessage.style.display = 'block';
                     errorMessage.classList.add('show');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Sign In';
                 });
         });
     </script>
